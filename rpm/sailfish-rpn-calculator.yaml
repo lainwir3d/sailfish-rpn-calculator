@@ -1,0 +1,30 @@
+Name: sailfish-rpn-calculator
+Summary: A RPN Calculator for sailfish
+Version: 0.2
+Release: 1
+Group: Qt/Qt
+URL: http://example.org/
+License: GPL
+Sources:
+- '%{name}-%{version}.tar.bz2'
+Description: |-
+  Read http://en.wikipedia.org/wiki/Reverse_Polish_notation if you want to know more about RPN calculators.
+Configure: none
+Builder: qtc5
+PkgConfigBR:
+- sailfishapp >= 0.0.10
+- Qt5Core
+- Qt5Qml
+- Qt5Quick
+Requires:
+- sailfishsilica-qt5 >= 0.10.9
+Files:
+- /usr/share/icons/hicolor/86x86/apps
+- /usr/share/applications
+- /usr/share/sailfish-rpn-calculator
+- /usr/bin
+- '%{_datadir}/icons/hicolor/86x86/apps/%{name}.png'
+- '%{_datadir}/applications/%{name}.desktop'
+- '%{_datadir}/%{name}/qml'
+- '%{_bindir}'
+PkgBR: []
