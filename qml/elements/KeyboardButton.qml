@@ -55,9 +55,14 @@ Rectangle{
 MouseArea {
     id: buttonRect
     property string text;
+    property variant actions: [{text: ' ', visual:'', engine:'', type:''},
+        {text: ' ', visual:'', engine:'', type:''},
+        {text: ' ', visual:'', engine:'', type:''}];
     width: buttonWidth
     height: buttonHeigth
     property string rectColor: "transparent"
+    property variant rectBorderColor: Theme.secondaryColor
+    property int rectBorderWidth: 1
     property real rectOpacity: 1
 
     Label{
@@ -68,7 +73,7 @@ MouseArea {
         horizontalAlignment: Text.AlignLeft
         font.pixelSize: Theme.fontSizeTiny - 3
         color: "orange"
-        text:"item1"
+        text: actions[1].text
     }
 
     Label{
@@ -79,7 +84,7 @@ MouseArea {
         horizontalAlignment: Text.AlignRight
         font.pixelSize: Theme.fontSizeTiny - 3
         color: "lightblue"
-        text:"item2"
+        text:actions[2].text
     }
 
     Rectangle {
@@ -89,8 +94,8 @@ MouseArea {
         height: parent.height - 20
         anchors.bottom: parent.bottom
         color: parent.rectColor
-        border.width: 1
-        border.color: Theme.secondaryColor
+        border.width: rectBorderWidth
+        border.color: rectBorderColor
         radius: 10
         opacity: parent.rectOpacity
     }
@@ -98,6 +103,6 @@ MouseArea {
         //anchors.fill: parent
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.verticalCenter: rect.verticalCenter
-        text:parent.text
+        text: actions[0].text
     }
 }

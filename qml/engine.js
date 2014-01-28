@@ -29,9 +29,11 @@ var MAX_DECIMAL = 13; // Number of maximum decimal positions
 var RAD = 0, DEG = 1, GRAD = 2; //Trigonometric functions
 
 var main_stack = Array();
+var undo_stack = Array();
 
 for(var i=0;i<20;i++){
     main_stack[i] = '';
+    undo_stack[i] = '';
 }
 
 // ----------------------------------------
@@ -300,6 +302,16 @@ function processInput(prev, visual, engine, type, formula_text, formula_text_for
         main_stack = new Stack;
     }
 
+    /*
+    if(type !== 'stack'){
+        if(engine !== 'undo'){
+            console.log("saving stack...");
+            undo_stack = main_stack;
+            console.log("undo stack : " + undo_stack)
+        }
+    }
+    */
+
     switch(angularUnit_str){
         case "RAD":
             angularUnit = 0;
@@ -361,6 +373,8 @@ function processInput(prev, visual, engine, type, formula_text, formula_text_for
                     args[i] = Number(main_stack[i]);
                 }
             }
+
+            saveStack();
 
             switch(engine){
                 case '+':
@@ -436,12 +450,22 @@ function processInput(prev, visual, engine, type, formula_text, formula_text_for
                 }
             }
 
+            saveStack();
+
             switch(engine){
                 case 'cos':
                     args_needed = 1;
                     if(nb_args >= args_needed){
 
                         answer = Math.cos(args[0], angularUnit);
+                        ok = 1;
+                    }
+                    break;
+                case 'acos':
+                    args_needed = 1;
+                    if(nb_args >= args_needed){
+
+                        answer = Math.acos(args[0], angularUnit);
                         ok = 1;
                     }
                     break;
@@ -453,11 +477,27 @@ function processInput(prev, visual, engine, type, formula_text, formula_text_for
                         ok = 1;
                     }
                     break;
+                case 'asin':
+                    args_needed = 1;
+                    if(nb_args >= args_needed){
+
+                        answer = Math.asin(args[0], angularUnit);
+                        ok = 1;
+                    }
+                    break;
                 case 'tan':
                     args_needed = 1;
                     if(nb_args >= args_needed){
 
                         answer = Math.tan(args[0], angularUnit);
+                        ok = 1;
+                    }
+                    break;
+                case 'atan':
+                    args_needed = 1;
+                    if(nb_args >= args_needed){
+
+                        answer = Math.atan(args[0], angularUnit);
                         ok = 1;
                     }
                     break;
@@ -493,6 +533,8 @@ function processInput(prev, visual, engine, type, formula_text, formula_text_for
         case 'stack': {
                 switch(engine){
                     case 'enter':
+                        saveStack();
+
                         if(formula_text_for_engine !== ''){
                             console.log("pushing ", formula_text_for_engine ," to stack");
                             stackPush(formula_text_for_engine);
@@ -505,7 +547,24 @@ function processInput(prev, visual, engine, type, formula_text, formula_text_for
                         formula_text = '';
                         break;
                     case 'swap':
-                        stackSwap(0,1)
+                        saveStack();
+
+                        stackSwap(0,1);
+                        break;
+                    case 'drop':
+                        saveStack();
+
+                        stackPop(1);
+                        break;
+                    case 'clr':
+                        saveStack();
+
+                        stackPop(20);
+                        break;
+                    case 'undo':
+                        console.log("restoring undo stack : " + undo_stack)
+                        restoreStack();
+                        break;
             }
             break;
     }
@@ -529,8 +588,8 @@ function processInput(prev, visual, engine, type, formula_text, formula_text_for
     }
 
 
-
-    console.log(main_stack);
+    console.log("undo stack : " + undo_stack);
+    console.log("main stack : " + main_stack);
 
     return [visual_text, engine_text, fixed_type, formula_text, formula_text_for_engine];
 }
@@ -563,6 +622,23 @@ function stackLength(){
     var count = 0;
     for(var i=0;i<20;i++){
         if(main_stack[i] !== '') count++;
+    }
+    return count;
+}
+
+function saveStack(){
+    var count = 0;
+    for(var i=0;i<20;i++){
+        undo_stack[i] = main_stack[i];
+    }
+    return count;
+}
+
+
+function restoreStack(){
+    var count = 0;
+    for(var i=0;i<20;i++){
+        main_stack[i] = undo_stack[i];
     }
     return count;
 }
