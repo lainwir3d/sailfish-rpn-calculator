@@ -15,7 +15,10 @@
    id="svg3004"
    version="1.1"
    inkscape:version="0.48.4 r9939"
-   sodipodi:docname="sailfish-rpn-calculator.svg">
+   sodipodi:docname="sailfish-rpn-calculator.svg"
+   inkscape:export-filename="/home/lainwir3d/projects/sailfish-rpn-calc/sailfish-rpn-calculator.png"
+   inkscape:export-xdpi="45.18"
+   inkscape:export-ydpi="45.18">
   <defs
      id="defs3006">
     <linearGradient
@@ -114,7 +117,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -173,15 +176,27 @@
         <text
            xml:space="preserve"
            style="font-size:72px;font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Grand Hotel;-inkscape-font-specification:Grand Hotel Italic"
-           x="-128.44582"
-           y="642.77643"
+           x="-135.01181"
+           y="617.01752"
            id="text3021"
            sodipodi:linespacing="125%"><tspan
              sodipodi:role="line"
              id="tspan3023"
-             x="-128.44582"
-             y="642.77643"
+             x="-135.01181"
+             y="617.01752"
              style="fill:#ffffff">RPN</tspan></text>
+        <text
+           xml:space="preserve"
+           style="font-size:72px;font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Grand Hotel;-inkscape-font-specification:Grand Hotel Italic"
+           x="-97.412453"
+           y="681.0022"
+           id="text3021-6"
+           sodipodi:linespacing="125%"><tspan
+             sodipodi:role="line"
+             id="tspan3023-7"
+             x="-97.412453"
+             y="681.0022"
+             style="fill:#ffffff">Calc</tspan></text>
       </g>
     </g>
   </g>

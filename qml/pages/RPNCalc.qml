@@ -18,9 +18,6 @@
 ** MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 ** GNU General Public License for more details.
 **
-** You should have received a copy of the GNU General Public License
-** along with ScientificCalc Calculator.  If not, see <http://www.gnu.org/licenses/>.
-**
 ****************************************************************************************/
 
 import QtQuick 2.0
@@ -63,20 +60,15 @@ Page {
             formula_text_for_engine += engine_text;
             formula.push({'visual': visual_text, 'engine': engine_text, 'type': fixed_type});
 
-            //answer = calculate()
         }
 
-        /*
-        for(var i=0; i<memory.count;i++){
-            memory[i].isLastItem = false;
-        }*/
+
         console.log("length : " + CALC.stackLength());
         memory.clear();
         for(var i=CALC.stackLength()-1; i>4;i--){
             if(i == CALC.stackLength()-1) console.log("last item :" + i);
             console.log("heyhey !! " + i + "/" + CALC.stackLength());
             memory.append({isLastItem: i == CALC.stackLength() ? true : false, index: String(i), value: main_stack[i]})
-            //formulaView.positionViewAtIndex(memory.count-1, ListView.Beginning);
             formulaView.positionViewAtEnd();
         }
 
@@ -92,7 +84,6 @@ Page {
             if(i == CALC.stackLength()-1) console.log("last item :" + i);
             console.log("heyhey !! " + i + "/" + CALC.stackLength());
             memory.append({isLastItem: i == CALC.stackLength() ? true : false, index: String(i), value: main_stack[i]})
-            //formulaView.positionViewAtIndex(memory.count-1, ListView.Beginning);
             formulaView.positionViewAtEnd();
         }
     }
@@ -107,7 +98,6 @@ Page {
             if(i == CALC.stackLength()-1) console.log("last item :" + i);
             console.log("heyhey !! " + i + "/" + CALC.stackLength());
             memory.append({isLastItem: i == CALC.stackLength() ? true : false, index: String(i), value: main_stack[i]})
-            //formulaView.positionViewAtIndex(memory.count-1, ListView.Beginning);
             formulaView.positionViewAtEnd();
         }
     }
@@ -123,7 +113,6 @@ Page {
                 brackets_added += " )"
             formula.pop();
 
-            //answer = calculate()
         }
     }
 
@@ -135,57 +124,6 @@ Page {
         brackets_added = '';
     }
 
-    function calculate() {
-
-        var result = 0;
-        try {
-            result = CALC.parse(angularUnit + formula_text_for_engine + brackets_added);
-            if (result === Number.POSITIVE_INFINITY)
-                result = '∞';
-            else if (result === Number.NEGATIVE_INFINITY)
-                result = '-∞';
-        } catch(exception) {
-            if(exception instanceof CALC.DivisionByZeroError){
-                result = "division by zero error";
-            } else if(exception instanceof SyntaxError){
-                result = "";
-            } else if(exception instanceof CALC.ParenthesisError){
-                if(exception.missing === '(')
-                    brackets_added = brackets_added.substr(0, brackets_added.length-2);
-                else
-                    brackets_added+=(' '+exception.missing);
-                result = calculate();
-            }
-        }
-        return result;
-    }
-
-    function addFromMemory(answerToAdd, formulaData) {
-        if (answerToAdd !== '' && answerToAdd.indexOf('error') === -1 && answerToAdd.indexOf('∞') === -1) {
-            for (var i = 0; i < answerToAdd.length; i++)
-                formulaPush(answerToAdd[i], answerToAdd[i], answerToAdd[i] === '.' ? 'real' : 'number')
-        }
-        else {
-            var fd = JSON.parse(formulaData);
-
-            var prev = null;
-            if (formula.length > 0)
-                prev = formula[formula.length-1];
-
-            var result = CALC.processInput(prev, fd[0].engine, fd[0].engine, fd[0].type, brackets_added.length/2)
-
-            if (result[0] !== null && result[1] !== null) {
-                for (var idx = 0; idx < fd.length; idx++) {
-                    formula_text += fd[idx].visual;
-                    formula_text_for_engine += fd[idx].engine;
-                    formula.push({'visual': fd[idx].visual, 'engine': fd[idx].engine, 'type': fd[idx].type});
-                }
-                answer = calculate()
-            }
-        }
-    }
-
-    // To enable PullDownMenu, place our content in a SilicaFlickable
     SilicaListView {
         id: formulaView
         anchors.fill: parent
@@ -193,14 +131,6 @@ Page {
         property string currentFormula: '%1<font color="lightgray">%2</font>'.arg(formula_text).arg(brackets_added)
         property string currentAnswer: answer
         property int screenHeight: 0
-
-        function addCurrentToMemory() {
-            if(formula_text === '') return;
-            //memory.get(memory.count-1).isLastItem = false
-            //memory.get(memory.count-1).formula_data = JSON.stringify(formula)
-            //memory.append({'formula': memory.get(memory.count-1).formula, 'answer': memory.get(count-1).answer, 'formula_data': '', 'isLastItem': true})
-            //positionViewAtIndex(memory.count-1, ListView.Beginning);
-        }
 
         function showError() {
             animateError.start()
@@ -213,10 +143,6 @@ Page {
             width: formulaView.width
             stack: main_stack
 
-
-            //onUseAnswer: addFromMemory(answerToUse, formulaData)
-            //onUseAnswer: initStack()
-
             Component.onCompleted: {
                 if (formulaView.screenHeight == 0)
                     formulaView.screenHeight = height
@@ -225,57 +151,15 @@ Page {
 
 
         }
-/*
-        footer : Item {
-                    anchors.bottom: parent.bottom
-                    width: parent.width
-                    height: kbd.height + calcScreen.height
-                    CalcScreen{
-                        id: calcScreen
-                        width: formulaView.width
-                        stack: main_stack
-                        //anchors.bottom: kbd.top
-                        //horizontalCenter: parent.horizontalCenter
-
-                        //onUseAnswer: addFromMemory(answerToUse, formulaData)
-                        //onUseAnswer: initStack()
-
-                        /*Component.onCompleted: {
-                            if (formulaView.screenHeight == 0)
-                                formulaView.screenHeight = height
-
-                        }
-                    }
-                    StdKeyboard{
-                        id: kbd
-                        anchors.bottom: parent.bottom
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        width: parent.width
-                        //height: page.height - formulaView.screenHeight
-                    }
-                }
-*/
 
         footer : StdKeyboard {
             width: parent.width
             height: page.height
         }
 
-
-
-
         model: Memory {
             id: memory
             stack: main_stack
-        }
-
-        onCurrentFormulaChanged: {
-            //memory.get(memory.count-1).formula = currentFormula
-            //positionViewAtIndex(memory.count-1, ListView.Beginning);
-        }
-
-        onCurrentAnswerChanged: {
-            //memory.get(memory.count-1).answer = currentAnswer
         }
 
         PushUpMenu {
@@ -284,7 +168,6 @@ Page {
                 text: "Change mode to %1".arg(_modes[(_modes.indexOf(angularUnit)+1)%3])
                 onClicked: {
                     angularUnit = _modes[(_modes.indexOf(angularUnit)+1)%3];
-                    //answer = calculate();
                 }
             }
         }

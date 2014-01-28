@@ -18,9 +18,6 @@
 ** MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 ** GNU General Public License for more details.
 **
-** You should have received a copy of the GNU General Public License
-** along with ScientificCalc Calculator.  If not, see <http://www.gnu.org/licenses/>.
-**
 ****************************************************************************************/
 
 import QtQuick 2.0
@@ -29,20 +26,4 @@ ListModel {
     id: memory
 
     property var stack
-
-    /*
-    ListElement {
-        isLastItem: true
-        index: ''
-        value: ''
-    }
-    */
-/*
-    Component.onCompleted: {
-        for(var i=2;i<20;i++){
-            memory.append({index: i, value: stack[i]})
-        }
-    }
-*/
-
 }

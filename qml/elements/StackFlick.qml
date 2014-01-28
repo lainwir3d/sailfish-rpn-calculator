@@ -18,9 +18,6 @@
 ** MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 ** GNU General Public License for more details.
 **
-** You should have received a copy of the GNU General Public License
-** along with ScientificCalc Calculator.  If not, see <http://www.gnu.org/licenses/>.
-**
 ****************************************************************************************/
 
 import QtQuick 2.0
@@ -34,8 +31,6 @@ Item{
 
     property var stack;
 
-//    signal useAnswer(string answerToUse, string formulaData)
-
     Column {
         id: columnA
         spacing: 10
@@ -45,18 +40,6 @@ Item{
             left: parent.left
             leftMargin: 4
         }
-
-        /*
-        Label{
-            id: drg
-            visible: isLastItem
-            font.family: Theme.fontFamily
-            font.pixelSize: Theme.fontSizeExtraSmall
-            color: Theme.secondaryColor
-            height: lineHeight + 10
-            text: angularUnit[0]
-        }
-        */
 
         Row{
             width: parent.width
@@ -82,57 +65,4 @@ Item{
         }
 
     }
-
-    /*
-    GlassItem {
-        id: divider
-        anchors.top: parent.top
-        anchors.topMargin: (height/2)*-1
-        anchors.horizontalCenter: parent.horizontalCenter
-        objectName: "menuitem"
-        height: Theme.paddingLarge
-        width: parent.width
-        color: Theme.highlightColor
-        cache: false
-    }
-    */
-/*
-    MouseArea {
-        id: screenMA
-        anchors.fill: parent
-        visible: !isLastItem
-        onClicked: {
-            if (answer.indexOf('error') == -1)
-                root.useAnswer(answer, formula_data)
-        }
-    }
-*/
-    /*
-    states: [
-        State {
-            name: "one"
-            when: memory.count == 1
-            PropertyChanges {
-                target: divider
-                visible: false
-            }
-        },
-        State {
-            name: "more"
-            when: memory.count > 1
-            PropertyChanges {
-                target: divider
-                visible: true
-            }
-        }
-    ]
-
-    transitions: [
-        Transition {
-            from: "one"
-            to: "more"
-            NumberAnimation { target: divider; property: "opacity"; from: 0; to: 1; duration: 500 }
-        }
-    ]
-    */
 }

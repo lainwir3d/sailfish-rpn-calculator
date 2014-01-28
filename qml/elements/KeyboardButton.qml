@@ -18,16 +18,86 @@
 ** MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 ** GNU General Public License for more details.
 **
-** You should have received a copy of the GNU General Public License
-** along with ScientificCalc Calculator.  If not, see <http://www.gnu.org/licenses/>.
-**
 ****************************************************************************************/
 
 import QtQuick 2.0
 import Sailfish.Silica 1.0
 
-Button {
+/*
+IconButton {
     id: buttonRect
     width: buttonWidth
     height: buttonHeigth
+    property string text
+    Label{
+        text: parent.text
+    }
+}
+*/
+
+/*
+Rectangle{
+    id: buttonRect
+    property string text;
+    width: buttonWidth
+    height: buttonHeigth
+
+    MouseArea {
+        anchors.fill: parent
+        onClicked: console.log("button clicked")
+    }
+    Label{
+        text:parent.text
+    }
+}
+*/
+
+MouseArea {
+    id: buttonRect
+    property string text;
+    width: buttonWidth
+    height: buttonHeigth
+    property string rectColor: "transparent"
+    property real rectOpacity: 1
+
+    Label{
+        anchors.top: parent.top
+        anchors.left: parent.left
+        width: parent.width / 2
+        height: Theme.fontSizeTiny.height
+        horizontalAlignment: Text.AlignLeft
+        font.pixelSize: Theme.fontSizeTiny - 3
+        color: "orange"
+        text:"item1"
+    }
+
+    Label{
+        anchors.top: parent.top
+        anchors.right: parent.right
+        width: parent.width / 2
+        height: Theme.fontSizeTiny.height
+        horizontalAlignment: Text.AlignRight
+        font.pixelSize: Theme.fontSizeTiny - 3
+        color: "lightblue"
+        text:"item2"
+    }
+
+    Rectangle {
+        //anchors.fill: parent
+        id: rect
+        width: parent.width
+        height: parent.height - 20
+        anchors.bottom: parent.bottom
+        color: parent.rectColor
+        border.width: 1
+        border.color: Theme.secondaryColor
+        radius: 10
+        opacity: parent.rectOpacity
+    }
+    Label{
+        //anchors.fill: parent
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.verticalCenter: rect.verticalCenter
+        text:parent.text
+    }
 }

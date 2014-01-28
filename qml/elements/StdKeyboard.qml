@@ -18,9 +18,6 @@
 ** MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 ** GNU General Public License for more details.
 **
-** You should have received a copy of the GNU General Public License
-** along with ScientificCalc Calculator.  If not, see <http://www.gnu.org/licenses/>.
-**
 ****************************************************************************************/
 
 import QtQuick 2.0
@@ -30,44 +27,28 @@ Item {
     width: parent.width
     height: keyboard.height + 24
 
-    property int buttonWidth: 100
-    property int buttonHeigth: 65
+    property int buttonWidth: 85
+    property int buttonHeigth: 80
 
     CalcScreen{
         id: calcScreen
         width: formulaView.width - 8
         stack: main_stack
-        //anchors.bottom: kbd.top
         anchors.top: parent.top
         anchors.horizontalCenter: parent.horizontalCenter
-
-        //onUseAnswer: addFromMemory(answerToUse, formulaData)
-        //onUseAnswer: initStack()
-
-        /*Component.onCompleted: {
-            if (formulaView.screenHeight == 0)
-                formulaView.screenHeight = height
-
-        }*/
-
 
     }
 
 
     Column{
         id: keyboard
-       // spacing : (parent.width - (buttonWidth * 6)) / 6
-
         anchors.horizontalCenter: parent.horizontalCenter
-        //anchors.verticalCenter: parent.verticalCenter
         anchors.bottom: parent.bottom
         anchors.bottomMargin: 30
-        //anchors.fill: parent.top
-
-
-
+        spacing: 5
 
         Row{
+            spacing: 20
             anchors.horizontalCenter: parent.horizontalCenter
             KeyboardButton {
                 text: "√x"
@@ -103,6 +84,7 @@ Item {
         }
 
         Row{
+            spacing: 20
             anchors.horizontalCenter: parent.horizontalCenter
 
             KeyboardButton {
@@ -131,11 +113,12 @@ Item {
         }
 
         Row{
+            spacing: 20
             anchors.horizontalCenter: parent.horizontalCenter
 
             KeyboardButton {
                 text: "ENTER"
-                width: buttonWidth*2
+                width: buttonWidth*2 + 20
                 onClicked: formulaPush('', 'enter', 'stack')
             }
 
@@ -163,6 +146,7 @@ Item {
 
 
         Row{
+            spacing: 20
             anchors.horizontalCenter: parent.horizontalCenter
 
             KeyboardButton {
@@ -193,10 +177,13 @@ Item {
         }
 
         Row{
+            spacing: 20
             anchors.horizontalCenter: parent.horizontalCenter
 
             KeyboardButton {
                 text: " "
+                rectColor: "orange"
+                rectOpacity: 0.4
             }
 
             KeyboardButton {
@@ -208,8 +195,6 @@ Item {
                 text: "5"
                 onClicked: formulaPush('5', '5', 'number')
             }
-
-
 
             KeyboardButton {
                 text: "6"
@@ -225,10 +210,13 @@ Item {
         }
 
         Row{
+            spacing: 20
             anchors.horizontalCenter: parent.horizontalCenter
 
             KeyboardButton {
                 text: " "
+                rectColor: "lightblue"
+                rectOpacity: 0.4
             }
 
             KeyboardButton {
@@ -254,6 +242,7 @@ Item {
         }
 
         Row{
+            spacing: 20
             anchors.horizontalCenter: parent.horizontalCenter
 
             KeyboardButton {

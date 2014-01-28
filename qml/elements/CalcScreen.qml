@@ -18,9 +18,6 @@
 ** MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 ** GNU General Public License for more details.
 **
-** You should have received a copy of the GNU General Public License
-** along with ScientificCalc Calculator.  If not, see <http://www.gnu.org/licenses/>.
-**
 ****************************************************************************************/
 
 import QtQuick 2.0
@@ -167,7 +164,6 @@ Item{
             }
             IconButton{
                 id: dropBtn
-                //visible: isLastItem
                 width: height
                 height: Theme.fontSizeExtraLarge + 10
                 icon.source: "image://Theme/icon-l-backspace"
@@ -192,7 +188,6 @@ Item{
             }
             IconButton{
                 id: backBtn
-                //visible: isLastItem
                 width: height
                 height: Theme.fontSizeExtraLarge + 10
                 icon.source: "image://Theme/icon-l-backspace"
