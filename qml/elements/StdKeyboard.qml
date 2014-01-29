@@ -53,9 +53,8 @@ Item {
             spacing: 20
             anchors.horizontalCenter: parent.horizontalCenter
             KeyboardButton {
-                text: "√x"
                 actions: [{text: '√x', visual:'', engine:'sqrt', type:'function'},
-                {text: ' ', visual:'', engine:'', type:''},
+                {text: 'x²', visual:'', engine:'x^2', type:'operation'},
                 {text: ' ', visual:'', engine:'', type:''}]
 
                 onClicked: {
@@ -67,12 +66,21 @@ Item {
             }
 
             KeyboardButton {
+                actions: [{text: 'eˣ', visual:'', engine:'e^x', type:'function'},
+                {text: '10ˣ', visual:'', engine:'10^x', type:'operation'},
+                {text: ' ', visual:'', engine:'', type:''}]
 
+                onClicked: {
+                    formulaPush(actions[keyboard.action].visual,
+                                actions[keyboard.action].engine,
+                                actions[keyboard.action].type);
+                    keyboard.action = 0;
+                }
             }
 
             KeyboardButton {
                 actions: [{text: 'ln', visual:'', engine:'ln', type:'function'},
-                {text: ' ', visual:'', engine:'', type:''},
+                {text: 'log', visual:'', engine:'log', type:'function'},
                 {text: ' ', visual:'', engine:'', type:''}]
 
                 onClicked: {
@@ -84,7 +92,7 @@ Item {
             }
 
             KeyboardButton {
-                actions: [{text: "^", visual:'', engine:'^', type:'operation'},
+                actions: [{text: "yˣ", visual:'', engine:'^', type:'operation'},
                 {text: ' ', visual:'', engine:'', type:''},
                 {text: ' ', visual:'', engine:'', type:''}]
 
@@ -109,12 +117,6 @@ Item {
                 }
             }
 
-            /*
-            KeyboardButton {
-                text: "Σ"
-                onClicked: formulaPush('Σ', 'Σ', 'operation')
-            }
-            */
         }
 
         Row{
@@ -122,11 +124,29 @@ Item {
             anchors.horizontalCenter: parent.horizontalCenter
 
             KeyboardButton {
+                actions: [{text: 'Σ+', visual:'', engine:'Σ+', type:'operation'},
+                {text: 'Σ-', visual:'', engine:'Σ-', type:'operation'},
+                {text: ' ', visual:'', engine:'', type:''}]
 
+                onClicked: {
+                    formulaPush(actions[keyboard.action].visual,
+                                actions[keyboard.action].engine,
+                                actions[keyboard.action].type);
+                    keyboard.action = 0;
+                }
             }
 
             KeyboardButton {
+              actions: [{text: 'R↓', visual:'', engine:'R-', type:'stack'},
+                    {text: 'R↑', visual:'', engine:'R+', type:'stack'},
+                    {text: ' ', visual:'', engine:'', type:''}]
 
+                    onClicked: {
+                        formulaPush(actions[keyboard.action].visual,
+                                    actions[keyboard.action].engine,
+                                    actions[keyboard.action].type);
+                        keyboard.action = 0;
+                    }
             }
 
             KeyboardButton {

@@ -420,6 +420,44 @@ function processInput(prev, visual, engine, type, formula_text, formula_text_for
                         ok = 1;
                     }
                     break;
+                case 'x^2':
+                    args_needed = 1;
+                    if(nb_args >= args_needed){
+                        answer = Math.pow(args[0], 2);
+                        ok = 1;
+                    }
+                    break;
+                case '10^x':
+                    args_needed = 1;
+                    if(nb_args >= args_needed){
+                        answer = Math.pow(10, args[0]);
+                        ok = 1;
+                    }
+                    break;
+                case 'Σ+':
+                    args_needed = nb_args;
+                    console.log("arg needed : " + args_needed)
+                    if(nb_args >= 2){
+                        answer = args[nb_args-1];
+                        for(var j=nb_args-2;j>=0;j--){
+                            console.log("answer (" + answer + ") += "+args[j] + " + "+args[j-1]);
+                            answer += args[j];
+                        }
+                        ok = 1;
+                    }
+                    break;
+                case 'Σ-':
+                    args_needed = nb_args;
+                    console.log("arg needed : " + args_needed)
+                    if(nb_args >= 2){
+                        answer = args[nb_args-1];
+                        for(var j=nb_args-2;j>=0;j--){
+                            console.log("answer (" + answer + ") += "+args[j] + " - "+args[j-1]);
+                            answer -= args[j];
+                        }
+                        ok = 1;
+                    }
+                    break;
 
             }
 
@@ -517,11 +555,26 @@ function processInput(prev, visual, engine, type, formula_text, formula_text_for
                         ok = 1;
                     }
                     break;
+                case 'log':
+                    args_needed = 1;
+                    if(nb_args >= args_needed){
+
+                        answer = Math.log10(args[0]);
+                        ok = 1;
+                    }
+                    break;
                 case 'inv':
                     args_needed = 1;
                     if(nb_args >= args_needed){
 
                         answer = 1 / args[0];
+                        ok = 1;
+                    }
+                    break;
+                case 'e^x':
+                    args_needed = 1;
+                    if(nb_args >= args_needed){
+                        answer = Math.pow(Math.E, args[0]);
                         ok = 1;
                     }
                     break;
@@ -531,6 +584,33 @@ function processInput(prev, visual, engine, type, formula_text, formula_text_for
         }
             break;
         case 'stack': {
+
+
+                var args = [];
+                var ok = 0;
+                var answer;
+                var nb_args;
+                var args_needed;
+
+                for(nb_args=0;nb_args<20;nb_args++){
+                    if(main_stack[nb_args] === '') break;
+                }
+
+                console.log("nb_args :", nb_args)
+
+                if(formula_text_for_engine !== '') {
+                    nb_args++;
+                    args[0] = Number(formula_text_for_engine);
+                    for(var i=0;i<nb_args;i++){
+                        args[i+1] = Number(main_stack[i]);
+                    }
+                }else{
+                    for(var i=0;i<nb_args;i++){
+                        args[i] = Number(main_stack[i]);
+                    }
+                }
+
+
                 switch(engine){
                     case 'enter':
                         saveStack();
@@ -565,6 +645,22 @@ function processInput(prev, visual, engine, type, formula_text, formula_text_for
                         console.log("restoring undo stack : " + undo_stack)
                         restoreStack();
                         break;
+                    case 'R-':
+                        saveStack();
+                        var tmp = main_stack[0];
+                        for(var j=0;j<nb_args-1;j++){
+                            main_stack[j] = main_stack[j+1];
+                        }
+                        main_stack[nb_args-1] = tmp;
+                        break;
+                    case 'R+':
+                        saveStack();
+                        var tmp = main_stack[nb_args-1];
+                        for(var j=nb_args-1;j>0;j--){
+                            main_stack[j] = main_stack[j-1];
+                        }
+                        main_stack[0] = tmp;
+                        break;
             }
             break;
     }
@@ -573,7 +669,11 @@ function processInput(prev, visual, engine, type, formula_text, formula_text_for
 
     if(ok == 1){
         if(formula_text_for_engine !== ''){
-            stackPop(args_needed-2);
+            if(args_needed === 1){
+                stackPush(String(answer));
+            }else{
+                stackPop(args_needed-2);
+            }
         }else{
             stackPop(args_needed-1);
         }
