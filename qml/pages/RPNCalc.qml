@@ -62,12 +62,8 @@ Page {
 
         }
 
-
-        console.log("length : " + CALC.stackLength());
         memory.clear();
         for(var i=CALC.stackLength()-1; i>4;i--){
-            if(i == CALC.stackLength()-1) console.log("last item :" + i);
-            console.log("heyhey !! " + i + "/" + CALC.stackLength());
             memory.append({isLastItem: i == CALC.stackLength() ? true : false, index: String(i), value: main_stack[i]})
             formulaView.positionViewAtEnd();
         }
@@ -81,8 +77,6 @@ Page {
 
         memory.clear();
         for(var i=CALC.stackLength()-1; i>4;i--){
-            if(i == CALC.stackLength()-1) console.log("last item :" + i);
-            console.log("heyhey !! " + i + "/" + CALC.stackLength());
             memory.append({isLastItem: i == CALC.stackLength() ? true : false, index: String(i), value: main_stack[i]})
             formulaView.positionViewAtEnd();
         }
@@ -95,8 +89,6 @@ Page {
 
         memory.clear();
         for(var i=CALC.stackLength()-1; i>4;i--){
-            if(i == CALC.stackLength()-1) console.log("last item :" + i);
-            console.log("heyhey !! " + i + "/" + CALC.stackLength());
             memory.append({isLastItem: i == CALC.stackLength() ? true : false, index: String(i), value: main_stack[i]})
             formulaView.positionViewAtEnd();
         }
@@ -122,6 +114,24 @@ Page {
         formula = [];
         answer = "";
         brackets_added = '';
+    }
+
+    function formatNumber(n, maxsize){
+        var str = String(n);
+        var l = str.length;
+
+        if(l > maxsize){
+            var tmp = str.split('.');
+            var int_length = tmp[0].length;
+            var real_length = tmp[1].length;
+
+            var precision = Math.pow(10, real_length - (l - maxsize));
+
+            var round_n = Math.round(n * precision) / precision;
+            str = String(round_n);
+        }
+
+        return str;
     }
 
     SilicaListView {

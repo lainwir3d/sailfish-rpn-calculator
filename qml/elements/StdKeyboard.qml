@@ -320,9 +320,6 @@ Item {
             KeyboardButton {
                 rectColor: "orange"
                 rectOpacity: keyboard.action == 1 ? 0.7 : 0.3
-                //rectOpacity: 0.3
-                //rectBorderColor: keyboard.action == 1 ? Theme.highlightColor : Theme.secondaryColor
-                //rectBorderWidth: keyboard.action == 1 ? 4 : 1
 
                 onClicked: {
                     if(keyboard.action == 0){
@@ -330,8 +327,6 @@ Item {
                     }else if(keyboard.action == 1){
                         keyboard.action = 0;
                     }
-
-                    console.log("action is now " + keyboard.action)
                 }
             }
 
@@ -397,9 +392,7 @@ Item {
             KeyboardButton {
                 rectColor: "lightblue"
                 rectOpacity: keyboard.action == 2 ? 0.7 : 0.3
-                //rectOpacity: 0.3
-                //rectBorderColor: keyboard.action == 2 ? Theme.highlightColor : Theme.secondaryColor
-                //rectBorderWidth: keyboard.action == 2 ? 4 : 1
+
 
                 onClicked: {
                     if(keyboard.action == 0){
@@ -407,8 +400,6 @@ Item {
                     }else if(keyboard.action == 2){
                         keyboard.action = 0;
                     }
-
-                    console.log("action is now " + keyboard.action);
                 }
             }
 

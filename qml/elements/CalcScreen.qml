@@ -68,7 +68,8 @@ Item{
                 horizontalAlignment: Text.AlignRight
                 font.family: Theme.fontFamily
                 font.pixelSize: Theme.fontSizeExtraLarge
-                text: stack[4]
+                //text: stack[4]
+                text: formatNumber(stack[4],20)
             }
         }
 
@@ -91,7 +92,7 @@ Item{
                 horizontalAlignment: Text.AlignRight
                 font.family: Theme.fontFamily
                 font.pixelSize: Theme.fontSizeExtraLarge
-                text: stack[3]
+                text: formatNumber(stack[3],20)
             }
         }
 
@@ -114,7 +115,7 @@ Item{
                 horizontalAlignment: Text.AlignRight
                 font.family: Theme.fontFamily
                 font.pixelSize: Theme.fontSizeExtraLarge
-                text: stack[2]
+                text: formatNumber(stack[2],20)
             }
         }
 
@@ -137,7 +138,7 @@ Item{
                 horizontalAlignment: Text.AlignRight
                 font.family: Theme.fontFamily
                 font.pixelSize: Theme.fontSizeExtraLarge
-                text: stack[1]
+                text: formatNumber(stack[1],20)
             }
         }
 
@@ -160,7 +161,7 @@ Item{
                 horizontalAlignment: Text.AlignRight
                 font.family: Theme.fontFamily
                 font.pixelSize: Theme.fontSizeExtraLarge
-                text: stack[0]
+                text: formatNumber(stack[0],17)
             }
             IconButton{
                 id: dropBtn
@@ -208,17 +209,6 @@ Item{
         color: Theme.highlightColor
         cache: false
     }
-/*
-    MouseArea {
-        id: screenMA
-        anchors.fill: parent
-        //visible: !isLastItem
-        onClicked: {
-            if (answer.indexOf('error') == -1)
-                root.useAnswer(answer, formula_data)
-        }
-    }
-    */
 
     states: [
         State {

@@ -23,35 +23,6 @@
 import QtQuick 2.0
 import Sailfish.Silica 1.0
 
-/*
-IconButton {
-    id: buttonRect
-    width: buttonWidth
-    height: buttonHeigth
-    property string text
-    Label{
-        text: parent.text
-    }
-}
-*/
-
-/*
-Rectangle{
-    id: buttonRect
-    property string text;
-    width: buttonWidth
-    height: buttonHeigth
-
-    MouseArea {
-        anchors.fill: parent
-        onClicked: console.log("button clicked")
-    }
-    Label{
-        text:parent.text
-    }
-}
-*/
-
 MouseArea {
     id: buttonRect
     property string text;
@@ -99,6 +70,7 @@ MouseArea {
         radius: 10
         opacity: parent.rectOpacity
     }
+
     Label{
         //anchors.fill: parent
         anchors.horizontalCenter: parent.horizontalCenter

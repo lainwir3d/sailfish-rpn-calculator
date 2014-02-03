@@ -60,7 +60,8 @@ Item{
                 horizontalAlignment: Text.AlignRight
                 font.family: Theme.fontFamily
                 font.pixelSize: Theme.fontSizeExtraLarge
-                text: String(value)
+                //text: String(value).length > 20 ? String(Math.round(value*1000000)/1000000) : String(value)
+                text: formatNumber(value, 20)
             }
         }
 

@@ -50,14 +50,6 @@ function DivisionByZeroError(message){
 
 DivisionByZeroError.prototype = new Error();
 
-function ParenthesisError(message, missing){
-    this.message = message;
-    this.missing = missing;
-}
-
-ParenthesisError.prototype = new Error();
-
-
 String.prototype.trunc = String.prototype.trunc ||
       function(n){
           return this.length>n ? this.substr(0,n-1) : this;
@@ -199,93 +191,6 @@ Math.factorial = function(x){
     return d1 * d2 * d3 * d4;
 }
 
-// ----------------------------------------
-// tokens
-var T_UNMATCHED = 0,
-        T_NUMBER      = 1,  // number
-        T_IDENT       = 2,  // ident (constant)
-        T_FUNCTION    = 4,  // function
-        T_POPEN       = 8,  // (
-        T_PCLOSE      = 16, // )
-        T_COMMA       = 32, // ,
-        T_OPERATOR    = 64, // operator
-        T_PLUS        = 65, // +
-        T_MINUS       = 66, // -
-        T_TIMES       = 67, // *
-        T_DIV         = 68, // /
-        T_MOD         = 69, // %
-        T_POW         = 70, // ^
-        T_UNARY_PLUS  = 71, // unary +
-        T_UNARY_MINUS = 72, // unary -
-        T_FACTORIAL   = 73, // ! factorial function
-        T_MODE        = 128;// DEG, RAD or GRAD
-
-
-
-// ----------------------------------------
-// stack
-function Stack() {
-    this.index = -1;
-}
-
-Stack.prototype = {
-    constructor: Stack,
-
-    length: 0,
-
-    push:    Array.prototype.push,
-    pop:     Array.prototype.pop,
-    shift:   Array.prototype.shift,
-    unshift: Array.prototype.unshift,
-
-    first: function first() {
-        // this is actualy faster than checking "this.length" everytime.
-        // is looks like common jitter are able to optimize
-        // array out-of-bounds checks very very well :-)
-        return this[0];
-    },
-
-    last: function last() {
-        // yada yada yada see comment in .first() :-)
-        return this[this.length - 1];
-    },
-
-    peek: function peek() {
-        // yada yada yada see comment in .first() :-)
-        return this[this.index + 1];
-    },
-
-    next: function next() {
-        // yada yada yada see comment in .first() :-)
-        return this[++this.index];
-    },
-
-    prev: function prev() {
-        // yada yada yada see comment in .first() :-)
-        return this[--this.index];
-    }
-}
-
-// ----------------------------------------
-// context
-function Context() { //function names cannot contain numbers
-    this.fnt = {
-        '√': Math.sqrt,
-        "ln": Math.log,
-        "log": Math.log10,
-        "sin": Math.sin,
-        "cos": Math.cos,
-        "tan": Math.tan,
-        "asin": Math.asin,
-        "acos": Math.acos,
-        "atan": Math.atan
-    };
-    this.cst = {
-        'π': Math.PI,
-        'E': Math.E
-    };
-}
-
 
 // ----------------------------------------
 // Get formula texts for visual output
@@ -298,19 +203,8 @@ function processInput(prev, visual, engine, type, formula_text, formula_text_for
     var angularUnit;
 
     if(!main_stack){
-        console.log("main_stack undefined : defining")
         main_stack = new Stack;
     }
-
-    /*
-    if(type !== 'stack'){
-        if(engine !== 'undo'){
-            console.log("saving stack...");
-            undo_stack = main_stack;
-            console.log("undo stack : " + undo_stack)
-        }
-    }
-    */
 
     switch(angularUnit_str){
         case "RAD":
@@ -334,12 +228,6 @@ function processInput(prev, visual, engine, type, formula_text, formula_text_for
             }
             break;
         case 'real': {
-            /*
-            if (prev == null || prev.type != 'real') {
-                visual_text = visual;
-                engine_text = engine;
-            }
-            */
             visual_text = visual;
             engine_text = engine;
             }
@@ -360,8 +248,6 @@ function processInput(prev, visual, engine, type, formula_text, formula_text_for
                 if(main_stack[nb_args] === '') break;
             }
 
-            console.log("nb_args :", nb_args)
-
             if(formula_text_for_engine !== '') {
                 nb_args++;
                 args[0] = Number(formula_text_for_engine);
@@ -380,7 +266,6 @@ function processInput(prev, visual, engine, type, formula_text, formula_text_for
                 case '+':
                     args_needed = 2;
                     if(nb_args >= args_needed){
-                        console.log(args[0], " + ", args[1])
                         answer = args[1] + args[0];
                         ok = 1;
                     }
@@ -436,11 +321,9 @@ function processInput(prev, visual, engine, type, formula_text, formula_text_for
                     break;
                 case 'Σ+':
                     args_needed = nb_args;
-                    console.log("arg needed : " + args_needed)
                     if(nb_args >= 2){
                         answer = args[nb_args-1];
                         for(var j=nb_args-2;j>=0;j--){
-                            console.log("answer (" + answer + ") += "+args[j] + " + "+args[j-1]);
                             answer += args[j];
                         }
                         ok = 1;
@@ -448,11 +331,9 @@ function processInput(prev, visual, engine, type, formula_text, formula_text_for
                     break;
                 case 'Σ-':
                     args_needed = nb_args;
-                    console.log("arg needed : " + args_needed)
                     if(nb_args >= 2){
                         answer = args[nb_args-1];
                         for(var j=nb_args-2;j>=0;j--){
-                            console.log("answer (" + answer + ") += "+args[j] + " - "+args[j-1]);
                             answer -= args[j];
                         }
                         ok = 1;
@@ -473,8 +354,6 @@ function processInput(prev, visual, engine, type, formula_text, formula_text_for
             for(nb_args=0;nb_args<20;nb_args++){
                 if(main_stack[nb_args] === '') break;
             }
-
-            console.log("nb_args :", nb_args)
 
             if(formula_text_for_engine !== '') {
                 nb_args++;
@@ -596,8 +475,6 @@ function processInput(prev, visual, engine, type, formula_text, formula_text_for
                     if(main_stack[nb_args] === '') break;
                 }
 
-                console.log("nb_args :", nb_args)
-
                 if(formula_text_for_engine !== '') {
                     nb_args++;
                     args[0] = Number(formula_text_for_engine);
@@ -616,10 +493,8 @@ function processInput(prev, visual, engine, type, formula_text, formula_text_for
                         saveStack();
 
                         if(formula_text_for_engine !== ''){
-                            console.log("pushing ", formula_text_for_engine ," to stack");
                             stackPush(formula_text_for_engine);
                         }else if(main_stack[0] !== ''){
-                            console.log("pushing ", main_stack[0] ," to stack");
                             stackPush(main_stack[0]);
                         }
 
@@ -642,7 +517,6 @@ function processInput(prev, visual, engine, type, formula_text, formula_text_for
                         stackPop(20);
                         break;
                     case 'undo':
-                        console.log("restoring undo stack : " + undo_stack)
                         restoreStack();
                         break;
                     case 'R-':
@@ -680,16 +554,10 @@ function processInput(prev, visual, engine, type, formula_text, formula_text_for
 
         formula_text_for_engine = '';
         formula_text = '';
-        //main_stack[0] = String(answer.toFixed(4));
         main_stack[0] = String(answer);
-        //main_stack[0] = main_stack[0].truncate(5);
         console.log(main_stack[0]);
 
     }
-
-
-    console.log("undo stack : " + undo_stack);
-    console.log("main stack : " + main_stack);
 
     return [visual_text, engine_text, fixed_type, formula_text, formula_text_for_engine];
 }
