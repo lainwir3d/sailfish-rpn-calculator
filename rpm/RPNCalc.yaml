@@ -1,4 +1,4 @@
-Name: RPNCalc
+Name: rpncalc
 Summary: A RPN Calculator for sailfish
 Version: 0.8
 Release: 1
@@ -21,6 +21,7 @@ Requires:
 Files:
 - '%{_datadir}/icons/hicolor/86x86/apps/%{name}.png'
 - '%{_datadir}/applications/%{name}.desktop'
+- '%{_datadir}/%{name}'
 - '%{_datadir}/%{name}/qml'
 - '%{_bindir}'
 PkgBR: []
