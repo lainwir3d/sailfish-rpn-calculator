@@ -28,5 +28,7 @@ OTHER_FILES += \
     sailfish-rpn-calculator.desktop \
     qml/sailfish-rpn-calculator.qml \
     qml/elements/StackFlick.qml \
-    TODO.txt
+    TODO.txt \
+    LICENSE.md \
+    README.md
 
