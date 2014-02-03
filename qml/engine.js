@@ -555,7 +555,6 @@ function processInput(prev, visual, engine, type, formula_text, formula_text_for
         formula_text_for_engine = '';
         formula_text = '';
         main_stack[0] = String(answer);
-        console.log(main_stack[0]);
 
     }
 

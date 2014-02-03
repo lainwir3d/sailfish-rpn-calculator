@@ -80,7 +80,7 @@ CoverBackground {
             horizontalCenter: parent.horizontalCenter
             bottomMargin: 10
         }
-        source: "sailfish-rpn-calculator.png"
+        source: "RPNCalc.png"
     }
 }
 

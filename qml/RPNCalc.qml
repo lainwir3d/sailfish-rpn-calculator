@@ -34,7 +34,7 @@ import "pages"
 
 ApplicationWindow
 {
-    initialPage: RPNCalc { id:calculator }
+    initialPage: MainPage { id:calculator }
     cover: Qt.resolvedUrl("cover/CoverPage.qml")
 }
 
