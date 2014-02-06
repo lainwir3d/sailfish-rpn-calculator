@@ -1,5 +1,5 @@
-Name: rpncalc
-Summary: A RPN Calculator for sailfish
+Name: harbour-rpncalc
+Summary: A RPN Calculator for Sailfish
 Version: 0.8
 Release: 1
 Group: Qt/Qt
@@ -7,8 +7,8 @@ URL: http://example.org/
 License: GPL
 Sources:
 - '%{name}-%{version}.tar.bz2'
-Description: |-
-  Read http://en.wikipedia.org/wiki/Reverse_Polish_notation if you want to know more about RPN calculators.
+Description: "Read http://en.wikipedia.org/wiki/Reverse_Polish_notation if you want
+  to know more about RPN calculators."
 Configure: none
 Builder: qtc5
 PkgConfigBR:
@@ -22,6 +22,5 @@ Files:
 - '%{_datadir}/icons/hicolor/86x86/apps/%{name}.png'
 - '%{_datadir}/applications/%{name}.desktop'
 - '%{_datadir}/%{name}'
-- '%{_datadir}/%{name}/qml'
 - '%{_bindir}'
 PkgBR: []

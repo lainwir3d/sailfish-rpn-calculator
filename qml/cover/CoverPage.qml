@@ -80,7 +80,7 @@ CoverBackground {
             horizontalCenter: parent.horizontalCenter
             bottomMargin: 10
         }
-        source: "rpncalc.png"
+        source: "harbour-rpncalc.png"
     }
 }
 

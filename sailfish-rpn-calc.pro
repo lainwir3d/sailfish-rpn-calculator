@@ -6,12 +6,12 @@
 #         - desktop icon filename must be changed
 #         - desktop filename must be changed
 #         - icon definition filename in desktop file must be changed
-TARGET = rpncalc
+TARGET = harbour-rpncalc
 
 CONFIG += sailfishapp
 
 SOURCES += \
-    src/rpncalc.cpp
+    src/harbour-rpncalc.cpp
 
 OTHER_FILES += \
     qml/cover/CoverPage.qml \
@@ -27,9 +27,8 @@ OTHER_FILES += \
     README.md \
     rpm/RPNCalc.yaml \
     qml/pages/MainPage.qml \
-    rpncalc.desktop \
-    rpncalc.png \
-    qml/cover/rpncalc.png \
-    rpm/rpncalc.spec \
-    qml/rpncalc.qml
+    harbour-rpncalc.png \
+    harbour-rpncalc.desktop \
+    qml/cover/harbour-rpncalc.png \
+    qml/harbour-rpncalc.qml
 
