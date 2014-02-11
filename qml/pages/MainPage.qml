@@ -119,15 +119,16 @@ Page {
     function formatNumber(n, maxsize){
         var str = String(n);
         var l = str.length;
+        var round_n;
 
         if(l > maxsize){
-            var tmp = str.split('.');
-            var int_length = tmp[0].length;
-            var real_length = tmp[1].length;
 
-            var precision = Math.pow(10, real_length - (l - maxsize));
+            if(str.split('e').length > 1){
+                round_n = Number(n).toPrecision(maxsize-5);
+            }else{
+                round_n = Number(n).toPrecision(maxsize);
+            }
 
-            var round_n = Math.round(n * precision) / precision;
             str = String(round_n);
         }
 

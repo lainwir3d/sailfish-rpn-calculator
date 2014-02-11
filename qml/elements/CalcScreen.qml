@@ -161,7 +161,7 @@ Item{
                 horizontalAlignment: Text.AlignRight
                 font.family: Theme.fontFamily
                 font.pixelSize: Theme.fontSizeExtraLarge
-                text: formatNumber(stack[0],17)
+                text: formatNumber(stack[0],15)
             }
             IconButton{
                 id: dropBtn

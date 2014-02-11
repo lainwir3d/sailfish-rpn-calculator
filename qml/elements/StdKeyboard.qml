@@ -67,7 +67,7 @@ Item {
 
             KeyboardButton {
                 actions: [{text: 'eˣ', visual:'', engine:'e^x', type:'function'},
-                {text: '10ˣ', visual:'', engine:'10^x', type:'operation'},
+                {text: 'ln', visual:'', engine:'ln', type:'function'},
                 {text: ' ', visual:'', engine:'', type:''}]
 
                 onClicked: {
@@ -79,7 +79,7 @@ Item {
             }
 
             KeyboardButton {
-                actions: [{text: 'ln', visual:'', engine:'ln', type:'function'},
+                actions: [{text: '10ˣ', visual:'', engine:'10^x', type:'operation'},
                 {text: 'log', visual:'', engine:'log', type:'function'},
                 {text: ' ', visual:'', engine:'', type:''}]
 
