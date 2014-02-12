@@ -106,7 +106,7 @@ Item {
 
             KeyboardButton {
                 actions: [{text: '1/x', visual:'', engine:'inv', type:'function'},
-                {text: ' ', visual:'', engine:'', type:''},
+                {text: 'x!', visual:'', engine:'factorial', type:'function'},
                 {text: ' ', visual:'', engine:'', type:''}]
 
                 onClicked: {
@@ -224,8 +224,8 @@ Item {
 
             KeyboardButton {
                 actions: [{text: '+/-', visual:'', engine:'neg', type:'operation'},
-                {text: ' ', visual:'', engine:'', type:''},
-                {text: ' ', visual:'', engine:'', type:''}]
+                {text: 'SHL', visual:'', engine:'shl', type:'operation'},
+                {text: 'SHR', visual:'', engine:'shr', type:'operation'}]
 
                 onClicked: {
                     formulaPush(actions[keyboard.action].visual,
@@ -255,7 +255,16 @@ Item {
             anchors.horizontalCenter: parent.horizontalCenter
 
             KeyboardButton {
+                actions: [{text: '%', visual:'', engine:'%', type:'function'},
+                {text: '8bit', visual:'', engine:'u8bit', type:'operation'},
+                {text: '16bit', visual:'', engine:'u16bit', type:'operation'}]
 
+                onClicked: {
+                    formulaPush(actions[keyboard.action].visual,
+                                actions[keyboard.action].engine,
+                                actions[keyboard.action].type);
+                    keyboard.action = 0;
+                }
             }
 
             KeyboardButton {
@@ -299,8 +308,8 @@ Item {
 
             KeyboardButton {
                 actions: [{text: '÷', visual:'', engine:'/', type:'operation'},
-                {text: ' ', visual:'', engine:'', type:''},
-                {text: ' ', visual:'', engine:'', type:''}]
+                {text: 'AND', visual:'', engine:'and', type:'operation'},
+                {text: 'NAND', visual:'', engine:'nand', type:'operation'}]
 
                 onClicked: {
                     formulaPush(actions[keyboard.action].visual,
@@ -371,8 +380,8 @@ Item {
 
             KeyboardButton {
                 actions: [{text: '×', visual:'', engine:'*', type:'operation'},
-                {text: ' ', visual:'', engine:'', type:''},
-                {text: ' ', visual:'', engine:'', type:''}]
+                {text: 'OR', visual:'', engine:'or', type:'operation'},
+                {text: 'NOR', visual:'', engine:'nor', type:'operation'}]
 
                 onClicked: {
                     formulaPush(actions[keyboard.action].visual,
@@ -405,8 +414,8 @@ Item {
 
             KeyboardButton {
                 actions: [{text: '1', visual:'1', engine:'1', type:'number'},
-                {text: ' ', visual:'', engine:'', type:''},
-                {text: ' ', visual:'', engine:'', type:''}]
+                    {text: ' ', visual:'', engine:'', type:''},
+                    {text: ' ', visual:'', engine:'', type:''}]
 
                 onClicked: {
                     formulaPush(actions[keyboard.action].visual,
@@ -418,8 +427,8 @@ Item {
 
             KeyboardButton {
                 actions: [{text: '2', visual:'2', engine:'2', type:'number'},
-                {text: ' ', visual:'', engine:'', type:''},
-                {text: ' ', visual:'', engine:'', type:''}]
+                    {text: ' ', visual:'', engine:'', type:''},
+                    {text: ' ', visual:'', engine:'', type:''}]
 
                 onClicked: {
                     formulaPush(actions[keyboard.action].visual,
@@ -431,8 +440,8 @@ Item {
 
             KeyboardButton {
                 actions: [{text: '3', visual:'3', engine:'3', type:'number'},
-                {text: ' ', visual:'', engine:'', type:''},
-                {text: ' ', visual:'', engine:'', type:''}]
+                    {text: ' ', visual:'', engine:'', type:''},
+                    {text: ' ', visual:'', engine:'', type:''}]
 
                 onClicked: {
                     formulaPush(actions[keyboard.action].visual,
@@ -444,8 +453,8 @@ Item {
 
             KeyboardButton {
                 actions: [{text: '−', visual:'', engine:'-', type:'operation'},
-                {text: ' ', visual:'', engine:'', type:''},
-                {text: ' ', visual:'', engine:'', type:''}]
+                {text: 'XOR', visual:'', engine:'xor', type:'operation'},
+                {text: 'XNOR', visual:'', engine:'xnor', type:'operation'}]
 
                 onClicked: {
                     formulaPush(actions[keyboard.action].visual,
@@ -472,8 +481,8 @@ Item {
             KeyboardButton {
                 text: "0"
                 actions: [{text: '0', visual:'0', engine:'0', type:'number'},
-                {text: ' ', visual:'', engine:'', type:''},
-                {text: ' ', visual:'', engine:'', type:''}]
+                    {text: 'c', visual:'', engine:'light', type:'constant'},
+                    {text: 'µ₀', visual:'', engine:'magnetic', type:'constant'}]
 
                 onClicked: {
                     formulaPush(actions[keyboard.action].visual,
@@ -485,8 +494,8 @@ Item {
 
             KeyboardButton {
                 actions: [{text: '.', visual:'.', engine:'.', type:'real'},
-                {text: ' ', visual:'', engine:'', type:''},
-                {text: ' ', visual:'', engine:'', type:''}]
+                    {text: 'q', visual:'', engine:'elementary_charge', type:'constant'},
+                    {text: 'ε₀', visual:'', engine:'electrical', type:'constant'}]
 
                 onClicked: {
                     formulaPush(actions[keyboard.action].visual,
@@ -497,13 +506,22 @@ Item {
             }
 
             KeyboardButton {
+                actions: [{text: 'π', visual:'π', engine:'pi', type:'constant'},
+                    {text: 'k', visual:'', engine:'boltzmann', type:'constant'},
+                    {text: 'G', visual:'', engine:'gravitation', type:'constant'}]
 
+                onClicked: {
+                    formulaPush(actions[keyboard.action].visual,
+                                actions[keyboard.action].engine,
+                                actions[keyboard.action].type);
+                    keyboard.action = 0;
+                }
             }
 
             KeyboardButton {
                 actions: [{text: '+', visual:'', engine:'+', type:'operation'},
-                {text: ' ', visual:'', engine:'', type:''},
-                {text: ' ', visual:'', engine:'', type:''}]
+                {text: 'NOT', visual:'', engine:'not', type:'operation'},
+                {text: '2CMP', visual:'', engine:'2cmp', type:'operation'}]
 
                 onClicked: {
                     formulaPush(actions[keyboard.action].visual,

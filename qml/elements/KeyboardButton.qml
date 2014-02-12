@@ -42,7 +42,7 @@ MouseArea {
         width: parent.width / 2
         height: Theme.fontSizeTiny.height
         horizontalAlignment: Text.AlignLeft
-        font.pixelSize: Theme.fontSizeTiny - 3
+        font.pixelSize: Theme.fontSizeTiny - 2
         color: "orange"
         text: actions[1].text
     }
@@ -53,7 +53,7 @@ MouseArea {
         width: parent.width / 2
         height: Theme.fontSizeTiny.height
         horizontalAlignment: Text.AlignRight
-        font.pixelSize: Theme.fontSizeTiny - 3
+        font.pixelSize: Theme.fontSizeTiny - 2
         color: "lightblue"
         text:actions[2].text
     }

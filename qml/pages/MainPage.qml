@@ -127,6 +127,9 @@ Page {
                 round_n = Number(n).toPrecision(maxsize-5);
             }else{
                 round_n = Number(n).toPrecision(maxsize);
+                if(String(round_n).length > maxsize){
+                    round_n = Number(n).toExponential(maxsize-4);
+                }
             }
 
             str = String(round_n);

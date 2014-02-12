@@ -3,6 +3,28 @@ import Sailfish.Silica 1.0
 
 CoverBackground {
 
+    function formatNumber(n, maxsize){
+        var str = String(n);
+        var l = str.length;
+        var round_n;
+
+        if(l > maxsize){
+
+            if(str.split('e').length > 1){
+                round_n = Number(n).toPrecision(maxsize-5);
+            }else{
+                round_n = Number(n).toPrecision(maxsize);
+                if(String(round_n).length > maxsize){
+                    round_n = Number(n).toExponential(maxsize-4);
+                }
+            }
+
+            str = String(round_n);
+        }
+
+        return str;
+    }
+
     Rectangle {
         id: screen
         color: Theme.secondaryHighlightColor
@@ -16,11 +38,8 @@ CoverBackground {
         }
         height: column.height + 10
 
-
-
         Column {
                 id: column
-
 
                 anchors {
                     top: parent.top
@@ -40,7 +59,7 @@ CoverBackground {
                     Label {
                         width: parent.width - stack_2_id.width - 4
                         horizontalAlignment: Text.AlignRight
-                        text: calculator.main_stack[2]
+                        text: formatNumber(calculator.main_stack[2],10)
                     }
                 }
                 Row{
@@ -54,7 +73,7 @@ CoverBackground {
                     Label {
                         width: parent.width - stack_1_id.width - 4
                         horizontalAlignment: Text.AlignRight
-                        text: calculator.main_stack[1]
+                        text: formatNumber(calculator.main_stack[1],10)
                     }
                 }
                 Row{
@@ -68,7 +87,7 @@ CoverBackground {
                     Label {
                         width: parent.width - stack_0_id.width - 4
                         horizontalAlignment: Text.AlignRight
-                        text: calculator.main_stack[0]
+                        text: formatNumber(calculator.main_stack[0],10)
                     }
                 }
         }
@@ -83,5 +102,7 @@ CoverBackground {
         source: "harbour-rpncalc.png"
     }
 }
+
+
 
 

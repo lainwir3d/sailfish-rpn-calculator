@@ -74,6 +74,13 @@ Math._asin = Math.asin;
 Math._acos = Math.acos;
 Math._atan = Math.atan;
 
+Math.C = 299792458; // speed of light
+Math.MAGNETIC = 4*Math.PI*Math.pow(10,-7);
+Math.ELECTRICAL = 1 / (Math.MAGNETIC * Math.pow(Math.C,2));
+Math.ELEMENTARY_CHARGE = 1.602176565 * Math.pow(10,-19);
+Math.BOLTZMANN = 1.3806488 * Math.pow(10,-23);
+Math.GRAVITATION = 6.67384 * Math.pow(10, -11);
+
 Math.sin = function(x, mode){
     switch(mode){
     case undefined:
@@ -228,13 +235,42 @@ function processInput(prev, visual, engine, type, formula_text, formula_text_for
             }
             break;
         case 'real': {
-            visual_text = visual;
-            engine_text = engine;
+            if(formula_text_for_engine.split('.').length < 2){
+                visual_text = visual;
+                engine_text = engine;
             }
             break;
-        case 'const': {
-            visual_text = visual;
-            engine_text = engine;
+        }
+        case 'constant': {
+
+            saveStack();
+            switch(engine){
+                case 'pi':
+                    stackPush(Math.PI);
+                    break;
+                case 'light':
+                    stackPush(Math.C);
+                    break;
+                case 'magnetic':
+                    stackPush(Math.MAGNETIC);
+                    break;
+                case 'electrical':
+                    stackPush(Math.ELECTRICAL);
+                    break;
+                case 'elementary_charge':
+                    stackPush(Math.ELEMENTARY_CHARGE);
+                    break;
+                case 'boltzmann':
+                    stackPush(Math.BOLTZMANN);
+                    break;
+                case 'gravitation':
+                    stackPush(Math.GRAVITATION);
+                    break;
+            }
+
+            formula_text_for_engine = '';
+            formula_text = '';
+            break;
             }
             break;
         case 'operation': {
@@ -287,8 +323,12 @@ function processInput(prev, visual, engine, type, formula_text, formula_text_for
                 case '/':
                     args_needed = 2;
                     if(nb_args >= args_needed){
-                        answer = args[1] / args[0];
-                        ok = 1;
+                        if(args[0] !== 0){
+                            answer = args[1] / args[0];
+                            ok = 1;
+                        }else{
+                            // TODO: notification
+                        }
                     }
                     break;
                 case 'neg':
@@ -336,6 +376,98 @@ function processInput(prev, visual, engine, type, formula_text, formula_text_for
                         for(var j=nb_args-2;j>=0;j--){
                             answer -= args[j];
                         }
+                        ok = 1;
+                    }
+                    break;
+                case 'and':
+                    args_needed = 2;
+                    if(nb_args >= args_needed){
+                        answer = args[1] & args[0];
+                        ok = 1;
+                    }
+                    break;
+                case 'nand':
+                    args_needed = 2;
+                    if(nb_args >= args_needed){
+                        answer = ~(args[1] & args[0]);
+                        ok = 1;
+                    }
+                    break;
+                case 'or':
+                    args_needed = 2;
+                    if(nb_args >= args_needed){
+                        answer = args[1] | args[0];
+                        ok = 1;
+                    }
+                    break;
+                case 'nor':
+                    args_needed = 2;
+                    if(nb_args >= args_needed){
+                        answer = ~(args[1] | args[0]);
+                        ok = 1;
+                    }
+                    break;
+                case 'xor':
+                    args_needed = 2;
+                    if(nb_args >= args_needed){
+                        answer = args[1] ^ args[0];
+                        ok = 1;
+                    }
+                    break;
+                case 'xnor':
+                    args_needed = 2;
+                    if(nb_args >= args_needed){
+                        answer = ~(args[1] ^ args[0]);
+                        ok = 1;
+                    }
+                    break;
+                case 'not':
+                    args_needed = 1;
+                    if(nb_args >= args_needed){
+                        answer = ~args[0];
+                        ok = 1;
+                    }
+                    break;
+                case '2cmp':
+                    args_needed = 1;
+                    if(nb_args >= args_needed){
+                        answer = (~args[0]) + 1;
+                        ok = 1;
+                    }
+                    break;
+                case 'u8bit':
+                    args_needed = 1;
+                    if(nb_args >= args_needed){
+                        answer = args[0] & 0xff;
+                        ok = 1;
+                    }
+                    break;
+                case 'u16bit':
+                    args_needed = 1;
+                    if(nb_args >= args_needed){
+                        answer = args[0] & 0xffff;
+                        ok = 1;
+                    }
+                    break;
+                case 'shl':
+                    if(nb_args >= 2){
+                        answer = args[1] << args[0];
+                        args_needed = 2;
+                        ok = 1;
+                    }else if(nb_args >= 1){
+                        answer = args[0] << 1;
+                        args_needed = 1;
+                        ok = 1;
+                    }
+                    break;
+                case 'shr':
+                    if(nb_args >= 2){
+                        answer = args[1] >>> args[0];
+                        args_needed = 2;
+                        ok = 1;
+                    }else if(nb_args >= 1){
+                        answer = args[0] >>> 1;
+                        args_needed = 1;
                         ok = 1;
                     }
                     break;
@@ -454,6 +586,20 @@ function processInput(prev, visual, engine, type, formula_text, formula_text_for
                     args_needed = 1;
                     if(nb_args >= args_needed){
                         answer = Math.pow(Math.E, args[0]);
+                        ok = 1;
+                    }
+                    break;
+                case 'factorial':
+                    args_needed = 1;
+                    if(nb_args >= args_needed){
+                        answer = Math.factorial(args[0]);
+                        ok = 1;
+                    }
+                    break;
+                case '%':
+                    args_needed = 2;
+                    if(nb_args >= args_needed){
+                        answer = args[0] * args[1] / 100;
                         ok = 1;
                     }
                     break;
