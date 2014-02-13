@@ -130,10 +130,10 @@ Math.asin = function(x, mode){
         return Math._asin(x);
 
     case DEG:
-        return Math._asin(x * Math.PI / 180);
+        return Math._asin(x) * 180 / Math.PI;
 
     case GRAD:
-        return Math._asin(x * Math.PI / 200);
+        return Math._asin(x) * 200 / Math.PI;
     }
 }
 
@@ -144,10 +144,10 @@ Math.acos = function(x, mode){
         return Math._acos(x);
 
     case DEG:
-        return Math._acos(x * Math.PI / 180);
+        return Math._acos(x) * 180 / Math.PI;
 
     case GRAD:
-        return Math._acos(x * Math.PI / 200);
+        return Math._acos(x) * 200 / Math.PI;
     }
 }
 
@@ -158,10 +158,10 @@ Math.atan = function(x, mode){
         return Math._atan(x);
 
     case DEG:
-        return Math._atan(x * Math.PI / 180);
+        return Math._atan(x) * 180 / Math.PI;
 
     case GRAD:
-        return Math._atan(x * Math.PI / 200);
+        return Math._atan(x) * 200 / Math.PI;
     }
 }
 
