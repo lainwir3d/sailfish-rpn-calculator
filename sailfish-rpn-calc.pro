@@ -31,4 +31,3 @@ OTHER_FILES += \
     harbour-rpncalc.desktop \
     qml/cover/harbour-rpncalc.png \
     qml/harbour-rpncalc.qml
-

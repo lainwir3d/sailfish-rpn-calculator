@@ -168,8 +168,14 @@ Item{
                 width: height
                 height: Theme.fontSizeExtraLarge + 10
                 icon.source: "image://Theme/icon-l-backspace"
-                onClicked: stackDropFirst()
-                onPressAndHold: stackDropAll()
+                onClicked: {
+                    stackDropFirst();
+                    vibration.start();
+                }
+                onPressAndHold: {
+                    stackDropAll();
+                    longVibration.start();
+                }
             }
         }
 
@@ -192,8 +198,14 @@ Item{
                 width: height
                 height: Theme.fontSizeExtraLarge + 10
                 icon.source: "image://Theme/icon-l-backspace"
-                onClicked: formulaPop()
-                onPressAndHold: formulaReset()
+                onClicked: {
+                    formulaPop();
+                    vibration.start();
+                }
+                onPressAndHold: {
+                    formulaReset();
+                    vibration.start();
+                }
             }
         }
     }

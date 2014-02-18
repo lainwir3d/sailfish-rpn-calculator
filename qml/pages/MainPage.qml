@@ -24,6 +24,7 @@ import QtQuick 2.0
 import Sailfish.Silica 1.0
 import "../elements"
 import "../engine.js" as CALC
+import QtFeedback 5.0
 
 Page {
     id: page
@@ -37,7 +38,17 @@ Page {
 
     property var formula: [];
 
+    HapticsEffect {
+        id: vibration
+        intensity: 0.8
+        duration: 50
+    }
 
+    HapticsEffect {
+        id: longVibration
+        intensity: 0.8
+        duration: 200
+    }
 
     function formulaPush(visual, engine, type) {
         var prev = null;

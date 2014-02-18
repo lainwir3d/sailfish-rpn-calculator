@@ -77,4 +77,8 @@ MouseArea {
         anchors.verticalCenter: rect.verticalCenter
         text: actions[0].text
     }
+
+    onClicked: {
+        vibration.start();
+    }
 }
