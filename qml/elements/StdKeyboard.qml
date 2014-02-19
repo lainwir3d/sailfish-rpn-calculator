@@ -54,7 +54,7 @@ Item {
             anchors.horizontalCenter: parent.horizontalCenter
             KeyboardButton {
                 actions: [{text: '√x', visual:'', engine:'sqrt', type:'function'},
-                {text: 'x²', visual:'', engine:'x^2', type:'operation'},
+                {text: 'ˣ√y', visual:'', engine:'nthroot', type:'function'},
                 {text: ' ', visual:'', engine:'', type:''}]
 
                 onClicked: {
@@ -93,7 +93,7 @@ Item {
 
             KeyboardButton {
                 actions: [{text: "yˣ", visual:'', engine:'^', type:'operation'},
-                {text: ' ', visual:'', engine:'', type:''},
+                {text: 'x²', visual:'', engine:'x^2', type:'operation'},
                 {text: ' ', visual:'', engine:'', type:''}]
 
                 onClicked: {
@@ -210,8 +210,8 @@ Item {
 
             KeyboardButton {
                 actions: [{text: 'x↔y', visual:'', engine:'swap', type:'stack'},
-                {text: ' ', visual:'', engine:'', type:''},
-                {text: ' ', visual:'', engine:'', type:''}]
+                    {text: '8bit', visual:'', engine:'u8bit', type:'operation'},
+                    {text: '16bit', visual:'', engine:'u16bit', type:'operation'}]
 
                 onClicked: {
                     formulaPush(actions[keyboard.action].visual,
@@ -255,9 +255,9 @@ Item {
             anchors.horizontalCenter: parent.horizontalCenter
 
             KeyboardButton {
-                actions: [{text: '%', visual:'', engine:'%', type:'function'},
-                {text: '8bit', visual:'', engine:'u8bit', type:'operation'},
-                {text: '16bit', visual:'', engine:'u16bit', type:'operation'}]
+                actions: [{text: 'EEX', visual:'e', engine:'e', type:'exp'},
+                    {text: '%', visual:'', engine:'%', type:'function'},
+                    {text: ' ', visual:'', engine:'', type:''}]
 
                 onClicked: {
                     formulaPush(actions[keyboard.action].visual,

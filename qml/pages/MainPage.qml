@@ -51,9 +51,11 @@ Page {
     }
 
     function formulaPush(visual, engine, type) {
+
         var prev = null;
-        if (formula.length > 0)
-            prev = formula[formula.length-1];
+        if(formula_text_for_engine.length > 0){
+            prev = formula_text_for_engine[formula_text_for_engine.length-1];
+        }
 
 
         var tmp = main_stack;

@@ -198,6 +198,17 @@ Math.factorial = function(x){
     return d1 * d2 * d3 * d4;
 }
 
+Math.nthroot = function(x, n) {
+    try {
+      var negate = n % 2 == 1 && x < 0;
+      if(negate)
+        x = -x;
+      var possible = Math.pow(x, 1 / n);
+      n = Math.pow(possible, n);
+      if(Math.abs(x - n) < 1 && (x > 0 == n > 0))
+        return negate ? -possible : possible;
+    } catch(e){}
+}
 
 // ----------------------------------------
 // Get formula texts for visual output
@@ -235,12 +246,22 @@ function processInput(prev, visual, engine, type, formula_text, formula_text_for
             }
             break;
         case 'real': {
-            if(formula_text_for_engine.split('.').length < 2){
-                visual_text = visual;
-                engine_text = engine;
+                if(formula_text_for_engine.split('.').length < 2){
+                    visual_text = visual;
+                    engine_text = engine;
+                }
             }
             break;
-        }
+        case 'exp': {
+            //console.log(prev);
+                if (prev != null){
+                    if(formula_text_for_engine.split('e').length < 2){
+                        visual_text = visual;
+                        engine_text = engine;
+                    }
+                }
+            }
+            break;
         case 'constant': {
 
             saveStack();
@@ -307,10 +328,16 @@ function processInput(prev, visual, engine, type, formula_text, formula_text_for
                     }
                     break;
                 case '-':
-                    args_needed = 2;
-                    if(nb_args >= args_needed){
-                        answer = args[1] - args[0];
-                        ok = 1;
+                    if (prev == 'e'){
+                        //console.log("got ya");
+                        visual_text = '-';
+                        engine_text = '-';
+                    }else{
+                        args_needed = 2;
+                        if(nb_args >= args_needed){
+                            answer = args[1] - args[0];
+                            ok = 1;
+                        }
                     }
                     break;
                 case '*':
@@ -332,11 +359,17 @@ function processInput(prev, visual, engine, type, formula_text, formula_text_for
                     }
                     break;
                 case 'neg':
-                    args_needed = 1;
-                    if(nb_args >= args_needed){
-                        answer = args[0] * -1;
-                        ok = 1;
+                    if (prev == 'e'){
+                        visual_text = '-';
+                        engine_text = '-';
+                    }else{
+                        args_needed = 1;
+                        if(nb_args >= args_needed){
+                            answer = args[0] * -1;
+                            ok = 1;
+                        }
                     }
+
                     break;
                 case '^':
                     args_needed = 2;
@@ -558,6 +591,14 @@ function processInput(prev, visual, engine, type, formula_text, formula_text_for
                         ok = 1;
                     }
                     break;
+                case 'nthroot':
+                    args_needed = 2;
+                    if(nb_args >= args_needed){
+
+                        answer = Math.nthroot(args[1], args[0]);
+                        ok = 1;
+                    }
+                    break;
                 case 'ln':
                     args_needed = 1;
                     if(nb_args >= args_needed){
@@ -636,16 +677,18 @@ function processInput(prev, visual, engine, type, formula_text, formula_text_for
 
                 switch(engine){
                     case 'enter':
-                        saveStack();
+                        if ((prev != 'e') && (prev != '-')){
+                            saveStack();
 
-                        if(formula_text_for_engine !== ''){
-                            stackPush(formula_text_for_engine);
-                        }else if(main_stack[0] !== ''){
-                            stackPush(main_stack[0]);
+                            if(formula_text_for_engine !== ''){
+                                stackPush(formula_text_for_engine);
+                            }else if(main_stack[0] !== ''){
+                                stackPush(main_stack[0]);
+                            }
+
+                            formula_text_for_engine = '';
+                            formula_text = '';
                         }
-
-                        formula_text_for_engine = '';
-                        formula_text = '';
                         break;
                     case 'swap':
                         saveStack();
