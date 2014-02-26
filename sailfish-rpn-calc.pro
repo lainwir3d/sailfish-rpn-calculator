@@ -11,7 +11,8 @@ TARGET = harbour-rpncalc
 CONFIG += sailfishapp
 
 SOURCES += \
-    src/harbour-rpncalc.cpp
+    src/harbour-rpncalc.cpp \
+    settingsmanager.cpp
 
 OTHER_FILES += \
     qml/cover/CoverPage.qml \
@@ -31,3 +32,6 @@ OTHER_FILES += \
     harbour-rpncalc.desktop \
     qml/cover/harbour-rpncalc.png \
     qml/harbour-rpncalc.qml
+
+HEADERS += \
+    settingsmanager.h

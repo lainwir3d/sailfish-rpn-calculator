@@ -3,6 +3,7 @@
 #endif
 
 #include <sailfishapp.h>
+#include <settingsmanager.h>
 
 int main(int argc, char *argv[])
 {
@@ -15,6 +16,15 @@ int main(int argc, char *argv[])
     //
     // To display the view, call "show()" (will show fullscreen on device).
 
-    return SailfishApp::main(argc, argv);
+    //return SailfishApp::main(argc, argv);
+
+    SettingsManager s;
+
+    QGuiApplication *app = SailfishApp::application(argc, argv);
+    QQuickView *view = SailfishApp::createView();
+    view->rootContext()->setContextProperty("settings",  &s);
+    view->setSource(SailfishApp::pathTo("qml/harbour-rpncalc.qml"));
+    view->showFullScreen();
+    return app->exec();
 }
 

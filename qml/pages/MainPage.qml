@@ -33,7 +33,7 @@ Page {
     property string brackets_added: '';
     property string formula_text_for_engine: '';
     property string answer: '';
-    property string angularUnit: "RAD";
+    property string angularUnit: settings.angleUnit();
     property var main_stack: CALC.main_stack;
 
     property var formula: [];
@@ -195,6 +195,28 @@ Page {
                 text: "Change mode to %1".arg(_modes[(_modes.indexOf(angularUnit)+1)%3])
                 onClicked: {
                     angularUnit = _modes[(_modes.indexOf(angularUnit)+1)%3];
+                    console.log("angularUnit : " + angularUnit);
+                    settings.setAngleUnit(angularUnit);
+                }
+            }
+            MenuItem {
+                //text: "Vibration " + (settings.vibration() === 0 ?  "OFF": "ON")
+                onClicked: {
+                    console.log("vibration " + settings.vibration())
+                    if(settings.vibration() === 0){
+                        settings.setVibration(1);
+                        text = "Set vibration OFF";
+                    }else{
+                        settings.setVibration(0);
+                        text = "Set vibration ON";
+                    }
+                }
+                Component.onCompleted: {
+                    if(settings.vibration() === 0){
+                        text = "Set vibration ON";
+                    }else{
+                        text = "Set vibration OFF";
+                    }
                 }
             }
         }

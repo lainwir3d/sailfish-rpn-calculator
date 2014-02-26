@@ -79,6 +79,8 @@ MouseArea {
     }
 
     onClicked: {
-        vibration.start();
+        if(settings.vibration()){
+            vibration.start();
+        }
     }
 }
