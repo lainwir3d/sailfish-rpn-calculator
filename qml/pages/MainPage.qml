@@ -24,7 +24,7 @@ import QtQuick 2.0
 import Sailfish.Silica 1.0
 import "../elements"
 import "../engine.js" as CALC
-import QtFeedback 5.0
+//import QtFeedback 5.0
 
 Page {
     id: page
@@ -38,6 +38,7 @@ Page {
 
     property var formula: [];
 
+    /*
     HapticsEffect {
         id: vibration
         intensity: 0.8
@@ -49,6 +50,7 @@ Page {
         intensity: 0.8
         duration: 200
     }
+    */
 
     function formulaPush(visual, engine, type) {
 
@@ -199,8 +201,8 @@ Page {
                     settings.setAngleUnit(angularUnit);
                 }
             }
+            /*
             MenuItem {
-                //text: "Vibration " + (settings.vibration() === 0 ?  "OFF": "ON")
                 onClicked: {
                     console.log("vibration " + settings.vibration())
                     if(settings.vibration() === 0){
@@ -219,6 +221,7 @@ Page {
                     }
                 }
             }
+            */
         }
     }
 

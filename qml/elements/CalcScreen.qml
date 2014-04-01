@@ -170,15 +170,19 @@ Item{
                 icon.source: "image://Theme/icon-l-backspace"
                 onClicked: {
                     stackDropFirst();
+                    /*
                     if(settings.vibration()){
                         vibration.start();
                     }
+                    */
                 }
                 onPressAndHold: {
                     stackDropAll();
+                    /*
                     if(settings.vibration()){
                         longVibration.start();
                     }
+                    */
                 }
             }
         }
@@ -204,15 +208,19 @@ Item{
                 icon.source: "image://Theme/icon-l-backspace"
                 onClicked: {
                     formulaPop();
+                    /*
                     if(settings.vibration()){
                         vibration.start();
                     }
+                    */
                 }
                 onPressAndHold: {
                     formulaReset();
+                    /*
                     if(settings.vibration()){
                         vibration.start();
                     }
+                    */
                 }
             }
         }

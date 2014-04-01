@@ -78,9 +78,11 @@ MouseArea {
         text: actions[0].text
     }
 
+    /*
     onClicked: {
         if(settings.vibration()){
             vibration.start();
         }
     }
+    */
 }
