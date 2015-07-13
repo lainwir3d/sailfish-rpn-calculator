@@ -31,7 +31,14 @@ OTHER_FILES += \
     harbour-rpncalc.png \
     harbour-rpncalc.desktop \
     qml/cover/harbour-rpncalc.png \
-    qml/harbour-rpncalc.qml
+    qml/harbour-rpncalc.qml \
+    python/rpncalc_engine.py \
+    rpm/harbour-rpncalc.spec
+
+python.files = python
+python.path = /usr/share/$${TARGET}
+
+INSTALLS += python
 
 HEADERS += \
     settingsmanager.h

@@ -22,6 +22,7 @@
 
 import QtQuick 2.0
 import Sailfish.Silica 1.0
+import io.thp.pyotherside 1.2
 import "../elements"
 import "../engine.js" as CALC
 //import QtFeedback 5.0
@@ -51,6 +52,32 @@ Page {
         duration: 200
     }
     */
+
+    Python {
+        id: python
+
+        Component.onCompleted: {
+            addImportPath(Qt.resolvedUrl('../../python'));
+            /*setHandler('progress', function(ratio) {
+                dlprogress.value = ratio;
+            });
+            setHandler('finished', function(newvalue) {
+                page.downloading = false;
+                mainLabel.text = 'Color is ' + newvalue + '.';
+            });
+            */
+
+            importModule('rpncalc_engine', function () {});
+        }
+
+        /*
+        function startDownload() {
+            page.downloading = true;
+            dlprogress.value = 0.0;
+            //call('datadownloader.downloader.download', function() {});
+        }
+        */
+    }
 
     function formulaPush(visual, engine, type) {
 
