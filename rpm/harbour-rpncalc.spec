@@ -6,6 +6,8 @@
 Name:       harbour-rpncalc
 
 # >> macros
+%define __provides_exclude_from ^%{_datadir}/.*$
+%define __requires_exclude ^libc|libpython3.4m.*$
 # << macros
 
 %{!?qtc_qmake:%define qtc_qmake %qmake}
@@ -65,7 +67,6 @@ desktop-file-install --delete-original       \
 %{_datadir}/icons/hicolor/86x86/apps/%{name}.png
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/%{name}
-%{_datadir}/%{name}/python
 %{_bindir}
 # >> files
 # << files

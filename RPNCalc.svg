@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="171.31876"
+   height="171.31876"
+   id="svg3004"
+   version="1.1"
+   inkscape:version="0.48.4 r9939"
+   sodipodi:docname="sailfish-rpn-calculator.svg"
+   inkscape:export-filename="/home/lainwir3d/projects/sailfish-rpn-calc/sailfish-rpn-calculator.png"
+   inkscape:export-xdpi="45.18"
+   inkscape:export-ydpi="45.18">
+  <defs
+     id="defs3006">
+    <linearGradient
+       id="linearGradient3841">
+      <stop
+         style="stop-color:#0f303b;stop-opacity:1"
+         offset="0"
+         id="stop3843" />
+      <stop
+         id="stop3847"
+         offset="0.50520933"
+         style="stop-color:#1aa6b5;stop-opacity:1" />
+      <stop
+         id="stop3845"
+         offset="1"
+         style="stop-color:#0f303b;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient3918">
+      <stop
+         id="stop5402"
+         offset="0"
+         style="stop-color:#62dbe8;stop-opacity:1;" />
+      <stop
+         style="stop-color:#0f303b;stop-opacity:1"
+         offset="1"
+         id="stop3922" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3918"
+       id="linearGradient5386"
+       x1="39.425308"
+       y1="572.78705"
+       x2="-130.7854"
+       y2="743.50287"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3918-4"
+       id="linearGradient5386-2"
+       x1="39.425308"
+       y1="572.78705"
+       x2="-130.7854"
+       y2="743.50287"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       id="linearGradient3918-4">
+      <stop
+         id="stop5402-1"
+         offset="0"
+         style="stop-color:#62dbe8;stop-opacity:1;" />
+      <stop
+         style="stop-color:#0f303b;stop-opacity:1"
+         offset="1"
+         id="stop3922-7" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3841"
+       id="linearGradient5464"
+       gradientUnits="userSpaceOnUse"
+       x1="39.425308"
+       y1="572.78705"
+       x2="-128.76509"
+       y2="741.48254"
+       gradientTransform="matrix(0,-1,1,0,-715.1362,576.01618)" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.979899"
+     inkscape:cx="-146.52026"
+     inkscape:cy="86.241184"
+     inkscape:document-units="px"
+     inkscape:current-layer="g3794"
+     showgrid="false"
+     inkscape:window-width="1920"
+     inkscape:window-height="1025"
+     inkscape:window-x="-3"
+     inkscape:window-y="-3"
+     inkscape:window-maximized="1"
+     fit-margin-left="0.3"
+     fit-margin-top="0.3"
+     fit-margin-right="0.3"
+     fit-margin-bottom="0.3" />
+  <metadata
+     id="metadata3009">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(142.77045,-536.42134)">
+    <g
+       id="g3784">
+      <g
+         id="g3794"
+         style="fill:#000000;fill-opacity:1">
+        <path
+           inkscape:connector-curvature="0"
+           id="rect3012"
+           d="m -137.22045,536.72134 c -2.89317,0 -5.25,2.32557 -5.25,5.21875 l 0,74.1875 c 0,0.39622 0.0734,0.78572 0.15625,1.15625 -0.0882,1.59007 -0.15625,3.20039 -0.15625,4.8125 0,47.14186 38.23315,85.34375 85.375001,85.34375 2.58337,0 5.13131,-0.11904 7.65625,-0.34375 l 72.125,0 c 2.89317,0 5.21875,-2.35683 5.21875,-5.25 l 0,-72.09375 c 0.22471,-2.52494 0.34375,-5.07288 0.34375,-7.65625 0,-47.14186 -38.20189,-85.375 -85.34375,-85.375 -1.75104,0 -3.49384,0.0835 -5.21875,0.1875 -0.39995,-0.0974 -0.81921,-0.1875 -1.25,-0.1875 l -73.656251,0 z"
+           style="fill:url(#linearGradient5464);fill-opacity:1;fill-rule:evenodd;stroke:none" />
+        <g
+           id="g3834-6"
+           transform="matrix(0,-1,1,0,-1023.7112,747.69219)"
+           style="fill:#000000;fill-opacity:1" />
+        <flowRoot
+           xml:space="preserve"
+           id="flowRoot2996"
+           style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Grand Hotel;-inkscape-font-specification:Grand Hotel"><flowRegion
+             id="flowRegion2998"><rect
+               id="rect3000"
+               width="133.34013"
+               height="51.012703"
+               x="-124.24876"
+               y="604.86462"
+               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Grand Hotel;-inkscape-font-specification:Grand Hotel" /></flowRegion><flowPara
+             id="flowPara3004"
+             style="font-size:40px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Grand Hotel;-inkscape-font-specification:Grand Hotel" /></flowRoot>        <flowRoot
+           xml:space="preserve"
+           id="flowRoot3008"
+           style="font-size:16px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"><flowRegion
+             id="flowRegion3010"><rect
+               id="rect3013"
+               width="57.578693"
+               height="24.748737"
+               x="-49.497475"
+               y="627.59302" /></flowRegion><flowPara
+             id="flowPara3015" /></flowRoot>        <text
+           xml:space="preserve"
+           style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:esint10;-inkscape-font-specification:esint10"
+           x="-51.51778"
+           y="630.62347"
+           id="text3017"
+           sodipodi:linespacing="125%"><tspan
+             sodipodi:role="line"
+             id="tspan3019"
+             x="-51.51778"
+             y="630.62347" /></text>
+        <text
+           xml:space="preserve"
+           style="font-size:72px;font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Grand Hotel;-inkscape-font-specification:Grand Hotel Italic"
+           x="-135.01181"
+           y="617.01752"
+           id="text3021"
+           sodipodi:linespacing="125%"><tspan
+             sodipodi:role="line"
+             id="tspan3023"
+             x="-135.01181"
+             y="617.01752"
+             style="fill:#ffffff">RPN</tspan></text>
+        <text
+           xml:space="preserve"
+           style="font-size:72px;font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Grand Hotel;-inkscape-font-specification:Grand Hotel Italic"
+           x="-97.412453"
+           y="681.0022"
+           id="text3021-6"
+           sodipodi:linespacing="125%"><tspan
+             sodipodi:role="line"
+             id="tspan3023-7"
+             x="-97.412453"
+             y="681.0022"
+             style="fill:#ffffff">Calc</tspan></text>
+      </g>
+    </g>
+  </g>
+</svg>

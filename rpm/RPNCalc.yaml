@@ -34,7 +34,6 @@ Files:
 - '%{_datadir}/icons/hicolor/86x86/apps/%{name}.png'
 - '%{_datadir}/applications/%{name}.desktop'
 - '%{_datadir}/%{name}'
-- '%{_datadir}/%{name}/python'
 - '%{_bindir}'
 
 

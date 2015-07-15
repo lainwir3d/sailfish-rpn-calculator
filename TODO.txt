@@ -1,0 +1,5 @@
+
+- Base conversion : hex, dec, bin, oct
+- Angle mode display (rad/dec/grad)
+
+- Settings page
