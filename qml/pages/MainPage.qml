@@ -22,7 +22,7 @@
 
 import QtQuick 2.0
 import Sailfish.Silica 1.0
-import io.thp.pyotherside 1.2
+import io.thp.pyotherside 1.4
 import "../elements"
 import "../engine.js" as CALC
 //import QtFeedback 5.0
@@ -61,11 +61,10 @@ Page {
             /*setHandler('progress', function(ratio) {
                 dlprogress.value = ratio;
             });
-            setHandler('finished', function(newvalue) {
-                page.downloading = false;
-                mainLabel.text = 'Color is ' + newvalue + '.';
-            });
             */
+            setHandler('currentOperand', currentOperandHandler);
+            setHandler('newStack', newStackHandler);
+
 
             importModule('rpncalc_engine', function () {});
         }
@@ -77,9 +76,28 @@ Page {
             //call('datadownloader.downloader.download', function() {});
         }
         */
+
+        function currentOperandHandler(operand){
+            console.log("Current operand changed :" + operand);
+        }
+
+        function newStackHandler(stack){
+            console.log("Current stack changed :"+stack);
+            var i=0;
+            for(i=0; i<stack.length ; i++){
+                console.log("index:"+stack[i]["index"]+ "  value:"+stack[i]["value"])
+            }
+        }
+
+
+        function processInput(input, type){
+            call("rpncalc_engine.engine.processInput", [input, type], function (){})
+        }
     }
 
     function formulaPush(visual, engine, type) {
+
+        python.processInput(engine, type);
 
         var prev = null;
         if(formula_text_for_engine.length > 0){
@@ -178,6 +196,20 @@ Page {
         }
 
         return str;
+    }
+
+    ListModel {
+        id: viewModel
+
+        ListElement {
+            index: 6
+            value: "bob"
+        }
+
+        ListElement {
+            index: 7
+            value: "eponge"
+        }
     }
 
     SilicaListView {
