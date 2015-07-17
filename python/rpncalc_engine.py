@@ -4,10 +4,8 @@ sys.path.append("/usr/share/harbour-rpncalc/lib/python/");
 
 
 import numpy
+import sympy
 import pyotherside
-
-#print("python")
-#print(platform.machine())
 
 class Engine:
 
@@ -28,17 +26,50 @@ class Engine:
             self.currentOperandChanged()
         elif type == "stack":
             self.stackInputProcessor(input)
+        elif type == "operation":
+            self.operationInputProcessor(input)
+        else:
+            print(type)
 
     def stackInputProcessor(self, input):
 
         if input == "enter":
             self.undoStack = self.stack
 
-            nb = self.strToNumber(self.currentOperand)
-            self.stackPush(nb)
+            expr = sympy.S(self.currentOperand)
+            self.stackPush(expr)
 
-    def stackPush(self, number):
-        self.stack.insert(0, number)
+    def operationInputProcessor(self, input):
+        if input == "+":
+            self.undoStack = self.stack
+
+            op1 = None
+            op2 = None
+
+            if self.currentOperand == "":
+                op1 = self.stack[0]
+                op2 = self.stack[1]
+                self.stackPop(2)
+            else:
+                op1 = sympy.S(self.currentOperand)
+                op2 = self.stack[0]
+                self.stackPop(1)
+
+            expr = op1 + op2
+            print(expr)
+            print(type(expr))
+            self.stackPush(expr)
+
+
+    def stackPop(self, nb = 1):
+
+        for i in range(0, nb):
+            self.stack.pop(0)
+
+
+    def stackPush(self, expr):
+        self.stack.insert(0, expr)
+        print(expr)
         self.clearCurrentOperand()
         self.stackChanged()
 
@@ -77,8 +108,9 @@ class SimpleBeautifier:
 
         index = 1
         for i in stack:
-            value = str(i)
-            el = {"index": index, "value": value}
+            value = str(sympy.N(i))
+            expr = str(i)
+            el = {"index": index, "expr": expr, "value": value}
             model.append(el)
             index += 1
 

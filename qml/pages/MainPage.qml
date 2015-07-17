@@ -85,7 +85,7 @@ Page {
             console.log("Current stack changed :"+stack);
             var i=0;
             for(i=0; i<stack.length ; i++){
-                console.log("index:"+stack[i]["index"]+ "  value:"+stack[i]["value"])
+                console.log("index:"+stack[i]["index"]+ " expr:"+stack[i]["expr"]+" value:"+stack[i]["value"])
             }
         }
 
