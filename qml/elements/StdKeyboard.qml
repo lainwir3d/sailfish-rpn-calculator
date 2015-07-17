@@ -197,7 +197,7 @@ Item {
             KeyboardButton {
                 width: buttonWidth*2 + 20
                 actions: [{text: 'ENTER', visual:'', engine:'enter', type:'stack'},
-                {text: ' ', visual:'', engine:'', type:''},
+                {text: '=', visual:'', engine:'=', type:'operation'},
                 {text: ' ', visual:'', engine:'', type:''}]
 
                 onClicked: {

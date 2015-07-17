@@ -35,6 +35,8 @@ class Engine:
             self.stackInputProcessor(input)
         elif type == "operation":
             self.operationInputProcessor(input)
+        elif type == "constant":
+            self.constantInputProcessor(input)
         else:
             print(type)
 
@@ -46,15 +48,42 @@ class Engine:
             expr = sympy.S(self.currentOperand)
             self.stackPush(expr)
 
+    def constantInputProcessor(self, input):
+
+        if input == "pi":
+            self.undoStack = self.stack
+            self.stackPush(sympy.pi)
+
     def operationInputProcessor(self, input):
         if input == "+":
             self.undoStack = self.stack
 
             (op1, op2) = self.getOperands(2)
-
             expr = op1 + op2
-            print(expr)
-            print(type(expr))
+            self.stackPush(expr)
+        elif input == "-":
+            self.undoStack = self.stack
+
+            (op1, op2) = self.getOperands(2)
+            expr = op1 - op2
+            self.stackPush(expr)
+        elif input == "*":
+            self.undoStack = self.stack
+
+            (op1, op2) = self.getOperands(2)
+            expr = op1 * op2
+            self.stackPush(expr)
+        elif input == "/":
+            self.undoStack = self.stack
+
+            (op1, op2) = self.getOperands(2)
+            expr = op1 / op2
+            self.stackPush(expr)
+        elif input == "=":
+            self.undoStack = self.stack
+
+            (op1) = self.getOperands(1)
+            expr = sympy.N(op1)
             self.stackPush(expr)
 
     def getOperands(self, nb=2):
@@ -77,6 +106,13 @@ class Engine:
                     op2 = self.stack[0]
                     self.stackPop(1)
                 return (op1, op2)
+            elif nb == 1:
+                if self.currentOperand == "":
+                    op1 = self.stack[0]
+                    self.stackPop(1)
+                else:
+                    op1 = sympy.S(self.currentOperand)
+                return (op1)
             else:
                 raise NotImplementedError()
         else:
