@@ -33,14 +33,11 @@ Page {
     property string currentOperand: ''
     property var currentStack: []
 
-    property string formula_text: '';
-    property string brackets_added: '';
-    property string formula_text_for_engine: '';
-    property string answer: '';
+    //property string formula_text: '';
+    //property string formula_text_for_engine: '';
     property string angularUnit: settings.angleUnit();
-    property var main_stack: CALC.main_stack;
-
-    property var formula: [];
+    //property var main_stack: CALC.main_stack;
+    //property var formula: [];
 
     /*
     HapticsEffect {
@@ -159,60 +156,18 @@ Page {
 
     function stackDropFirst(){
         python.dropFirstStackOperand();
-        /*
-        var tmp = main_stack;
-        CALC.stackPop(1);
-        main_stack = tmp;
-
-        memory.clear();
-        for(var i=CALC.stackLength()-1; i>4;i--){
-            memory.append({isLastItem: i == CALC.stackLength() ? true : false, index: String(i), value: main_stack[i]})
-            formulaView.positionViewAtEnd();
-        }
-        */
     }
 
     function stackDropAll(){
         python.dropAllStackOperand();
-        /*
-        var tmp = main_stack;
-        CALC.stackPop(20);
-        main_stack = tmp;
-
-        memory.clear();
-        for(var i=CALC.stackLength()-1; i>4;i--){
-            memory.append({isLastItem: i == CALC.stackLength() ? true : false, index: String(i), value: main_stack[i]})
-            formulaView.positionViewAtEnd();
-        }
-        */
     }
 
     function formulaPop() {
-        python.delLastOperandCharacter();
-        /*
-        if (formula.length > 0) {
-            var prev = formula[formula.length-1];
-            formula_text = formula_text.substring(0, formula_text.length - prev.visual.length);
-            formula_text_for_engine = formula_text_for_engine.substring(0, formula_text_for_engine.length - prev.engine.length);
-            if (prev.type === 'function' || (prev.type === 'group' && prev.engine === '(' || prev.engine === '*('))
-                brackets_added = brackets_added.substring(0, brackets_added.length-2)
-            else if (prev.type === 'group' && prev.engine === ')')
-                brackets_added += " )"
-            formula.pop();
-
-        }
-        */
+        python.delLastOperandCharacter(); // might need an UNDO type of thing if last typed key != 1 character
     }
 
     function formulaReset() {
         python.clearCurrentOperand();
-        /*
-        formula_text = '';
-        formula_text_for_engine = '';
-        formula = [];
-        answer = "";
-        brackets_added = '';
-        */
     }
 
     function formatNumber(n, maxsize){
@@ -246,8 +201,6 @@ Page {
         id: formulaView
         anchors.fill: parent
         snapMode: ListView.NoSnap
-        property string currentFormula: '%1<font color="lightgray">%2</font>'.arg(formula_text).arg(brackets_added)
-        property string currentAnswer: answer
         property int screenHeight: 0
 
         function showError() {
