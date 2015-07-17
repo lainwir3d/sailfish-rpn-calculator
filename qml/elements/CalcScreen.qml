@@ -69,7 +69,7 @@ Item{
                 font.family: Theme.fontFamily
                 font.pixelSize: Theme.fontSizeExtraLarge
                 //text: stack[4]
-                text: formatNumber(stack[4],20)
+                text: stack.length > 4 ? stack[4]['expr'] : ""
             }
         }
 
@@ -92,7 +92,7 @@ Item{
                 horizontalAlignment: Text.AlignRight
                 font.family: Theme.fontFamily
                 font.pixelSize: Theme.fontSizeExtraLarge
-                text: formatNumber(stack[3],20)
+                text: stack.length > 3 ? stack[3]['expr'] : ""
             }
         }
 
@@ -115,7 +115,7 @@ Item{
                 horizontalAlignment: Text.AlignRight
                 font.family: Theme.fontFamily
                 font.pixelSize: Theme.fontSizeExtraLarge
-                text: formatNumber(stack[2],20)
+                text: stack.length > 2 ? stack[2]['expr'] : ""
             }
         }
 
@@ -138,7 +138,7 @@ Item{
                 horizontalAlignment: Text.AlignRight
                 font.family: Theme.fontFamily
                 font.pixelSize: Theme.fontSizeExtraLarge
-                text: formatNumber(stack[1],20)
+                text: stack.length > 1 ? stack[1]['expr'] : ""
             }
         }
 
@@ -161,7 +161,7 @@ Item{
                 horizontalAlignment: Text.AlignRight
                 font.family: Theme.fontFamily
                 font.pixelSize: Theme.fontSizeExtraLarge
-                text: formatNumber(stack[0],15)
+                text: stack.length > 0 ? stack[0]['expr'] : ""
             }
             IconButton{
                 id: dropBtn
@@ -199,7 +199,7 @@ Item{
                 horizontalAlignment: Text.AlignRight
                 font.family: Theme.fontFamily
                 font.pixelSize: Theme.fontSizeExtraLarge
-                text: formula_text
+                text: currentOperand
             }
             IconButton{
                 id: backBtn

@@ -3,3 +3,10 @@
 - Angle mode display (rad/dec/grad)
 
 - Settings page
+- Float precision button (followed by a number)
+
+
+Changelog :
+  - unlimited stack
+  - cleaner code
+  - symbolic backend

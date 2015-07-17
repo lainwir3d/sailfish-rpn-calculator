@@ -30,6 +30,9 @@ import "../engine.js" as CALC
 Page {
     id: page
 
+    property string currentOperand: ''
+    property var currentStack: []
+
     property string formula_text: '';
     property string brackets_added: '';
     property string formula_text_for_engine: '';
@@ -79,26 +82,49 @@ Page {
 
         function currentOperandHandler(operand){
             console.log("Current operand changed :" + operand);
+            page.currentOperand = operand
         }
 
         function newStackHandler(stack){
-            console.log("Current stack changed :"+stack);
+            console.log("Current stack changed");
+            
+            memory.clear();
             var i=0;
-            for(i=0; i<stack.length ; i++){
+            for(i=stack.length-1; i>4 ; i--){
                 console.log("index:"+stack[i]["index"]+ " expr:"+stack[i]["expr"]+" value:"+stack[i]["value"])
+                memory.append({isLastItem: i == stack.length ? true : false, index: String(stack[i]["index"]), value: stack[i]["expr"]})
+                formulaView.positionViewAtEnd();
             }
+
+            page.currentStack = stack;
         }
 
 
         function processInput(input, type){
-            call("rpncalc_engine.engine.processInput", [input, type], function (){})
+            call("rpncalc_engine.engine.processInput", [input, type], function (){});
+        }
+
+        function clearCurrentOperand(){
+            call("rpncalc_engine.engine.clearCurrentOperand", function(){});
+        }
+
+        function delLastOperandCharacter(){
+            call("rpncalc_engine.engine.delLastOperandCharacter", function(){});
+        }
+
+        function dropFirstStackOperand(){
+            call("rpncalc_engine.engine.stackDropFirst", function(){});
+        }
+
+        function dropAllStackOperand(){
+            call("rpncalc_engine.engine.stackDropAll", function(){});
         }
     }
 
     function formulaPush(visual, engine, type) {
 
         python.processInput(engine, type);
-
+/*
         var prev = null;
         if(formula_text_for_engine.length > 0){
             prev = formula_text_for_engine[formula_text_for_engine.length-1];
@@ -127,10 +153,13 @@ Page {
             memory.append({isLastItem: i == CALC.stackLength() ? true : false, index: String(i), value: main_stack[i]})
             formulaView.positionViewAtEnd();
         }
+        */
 
     }
 
     function stackDropFirst(){
+        python.dropFirstStackOperand();
+        /*
         var tmp = main_stack;
         CALC.stackPop(1);
         main_stack = tmp;
@@ -140,9 +169,12 @@ Page {
             memory.append({isLastItem: i == CALC.stackLength() ? true : false, index: String(i), value: main_stack[i]})
             formulaView.positionViewAtEnd();
         }
+        */
     }
 
     function stackDropAll(){
+        python.dropAllStackOperand();
+        /*
         var tmp = main_stack;
         CALC.stackPop(20);
         main_stack = tmp;
@@ -152,9 +184,12 @@ Page {
             memory.append({isLastItem: i == CALC.stackLength() ? true : false, index: String(i), value: main_stack[i]})
             formulaView.positionViewAtEnd();
         }
+        */
     }
 
     function formulaPop() {
+        python.delLastOperandCharacter();
+        /*
         if (formula.length > 0) {
             var prev = formula[formula.length-1];
             formula_text = formula_text.substring(0, formula_text.length - prev.visual.length);
@@ -166,14 +201,18 @@ Page {
             formula.pop();
 
         }
+        */
     }
 
     function formulaReset() {
+        python.clearCurrentOperand();
+        /*
         formula_text = '';
         formula_text_for_engine = '';
         formula = [];
         answer = "";
         brackets_added = '';
+        */
     }
 
     function formatNumber(n, maxsize){
@@ -201,15 +240,6 @@ Page {
     ListModel {
         id: viewModel
 
-        ListElement {
-            index: 6
-            value: "bob"
-        }
-
-        ListElement {
-            index: 7
-            value: "eponge"
-        }
     }
 
     SilicaListView {
@@ -229,7 +259,7 @@ Page {
         delegate: StackFlick {
             id: stackFlick
             width: formulaView.width
-            stack: main_stack
+            stack: currentStack
 
             Component.onCompleted: {
                 if (formulaView.screenHeight == 0)
@@ -247,7 +277,7 @@ Page {
 
         model: Memory {
             id: memory
-            stack: main_stack
+            stack: currentStack
         }
 
         PushUpMenu {

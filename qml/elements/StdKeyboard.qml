@@ -33,7 +33,7 @@ Item {
     CalcScreen{
         id: calcScreen
         width: formulaView.width - 8
-        stack: main_stack
+        stack: currentStack
         anchors.top: parent.top
         anchors.horizontalCenter: parent.horizontalCenter
 

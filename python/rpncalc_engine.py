@@ -37,6 +37,10 @@ class Engine:
             self.operationInputProcessor(input)
         elif type == "constant":
             self.constantInputProcessor(input)
+        elif type == "real":
+            if len(self.currentOperand) > 0 and '.' not in self.currentOperand:
+                self.currentOperand += input
+                self.currentOperandChanged()
         else:
             print(type)
 
@@ -45,8 +49,14 @@ class Engine:
         if input == "enter":
             self.undoStack = self.stack
 
-            expr = sympy.S(self.currentOperand)
-            self.stackPush(expr)
+            expr = None
+            if self.currentOperand != "":
+                expr = sympy.S(self.currentOperand)
+            elif len(self.stack) > 0:
+                expr = self.stack[0]
+
+            if expr is not None:
+                self.stackPush(expr)
 
     def constantInputProcessor(self, input):
 
@@ -98,18 +108,18 @@ class Engine:
                 op1 = None
                 op2 = None
                 if self.currentOperand == "":
-                    op1 = self.stack[0]
-                    op2 = self.stack[1]
-                    self.stackPop(2)
-                else:
-                    op1 = sympy.S(self.currentOperand)
+                    op1 = self.stack[1]
                     op2 = self.stack[0]
-                    self.stackPop(1)
+                    self.__stackPop(2)
+                else:
+                    op1 = self.stack[0]
+                    op2 = sympy.S(self.currentOperand)
+                    self.__stackPop(1)
                 return (op1, op2)
             elif nb == 1:
                 if self.currentOperand == "":
                     op1 = self.stack[0]
-                    self.stackPop(1)
+                    self.__stackPop(1)
                 else:
                     op1 = sympy.S(self.currentOperand)
                 return (op1)
@@ -119,17 +129,25 @@ class Engine:
             raise NotEnoughOperandsException(nb, nbAvailable)
 
 
-    def stackPop(self, nb = 1):
-
+    def __stackPop(self, nb = 1):
         for i in range(0, nb):
             self.stack.pop(0)
-
 
     def stackPush(self, expr):
         self.stack.insert(0, expr)
         print(expr)
         self.clearCurrentOperand()
         self.stackChanged()
+
+    def stackDropFirst(self):
+        if len(self.stack) > 0:
+            self.stack.pop(0)
+            self.stackChanged()
+
+    def stackDropAll(self):
+        if len(self.stack) > 0:
+            self.stack.clear()
+            self.stackChanged()
 
     def strToNumber(self, str):
         if "." in str:
@@ -139,6 +157,10 @@ class Engine:
 
     def clearCurrentOperand(self):
         self.currentOperand = "";
+        self.currentOperandChanged();
+
+    def delLastOperandCharacter(self):
+        self.currentOperand = self.currentOperand[:-1]
         self.currentOperandChanged();
 
     def currentOperandChanged(self):
