@@ -2,10 +2,17 @@ import sys
 import platform
 sys.path.append("/usr/share/harbour-rpncalc/lib/python/");
 
-
 import numpy
 import sympy
 import pyotherside
+
+class NotEnoughOperandsException(Exception):
+    def __init__(self, nbRequested, nbAvailable):
+        self.nbRequested = nbRequested
+        self.nbAvailable = nbAvailable
+
+    def __str__(self):
+        return "Not enough operands available. " + self.nbRequested + " but only " + self.nbAvailable + " available."
 
 class Engine:
 
@@ -43,22 +50,37 @@ class Engine:
         if input == "+":
             self.undoStack = self.stack
 
-            op1 = None
-            op2 = None
-
-            if self.currentOperand == "":
-                op1 = self.stack[0]
-                op2 = self.stack[1]
-                self.stackPop(2)
-            else:
-                op1 = sympy.S(self.currentOperand)
-                op2 = self.stack[0]
-                self.stackPop(1)
+            (op1, op2) = self.getOperands(2)
 
             expr = op1 + op2
             print(expr)
             print(type(expr))
             self.stackPush(expr)
+
+    def getOperands(self, nb=2):
+        nbAvailable = 0
+
+        if self.currentOperand != "":
+            nbAvailable = 1
+        nbAvailable += len(self.stack)
+
+        if nb <= nbAvailable:
+            if nb == 2:
+                op1 = None
+                op2 = None
+                if self.currentOperand == "":
+                    op1 = self.stack[0]
+                    op2 = self.stack[1]
+                    self.stackPop(2)
+                else:
+                    op1 = sympy.S(self.currentOperand)
+                    op2 = self.stack[0]
+                    self.stackPop(1)
+                return (op1, op2)
+            else:
+                raise NotImplementedError()
+        else:
+            raise NotEnoughOperandsException(nb, nbAvailable)
 
 
     def stackPop(self, nb = 1):
