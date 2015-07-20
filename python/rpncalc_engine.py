@@ -400,6 +400,7 @@ class SimpleBeautifier:
         for i in stack:
             value = str(sympy.N(i))
             expr = str(i)
+            expr = expr.replace("**", "^")
             el = {"index": index, "expr": expr, "value": value}
             model.append(el)
             index += 1
