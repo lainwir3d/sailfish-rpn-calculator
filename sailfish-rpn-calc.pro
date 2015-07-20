@@ -33,7 +33,8 @@ OTHER_FILES += \
     qml/cover/harbour-rpncalc.png \
     qml/harbour-rpncalc.qml \
     python/rpncalc_engine.py \
-    rpm/harbour-rpncalc.spec
+    rpm/harbour-rpncalc.spec \
+    qml/elements/Popup.qml
 
 python.path = /usr/share/$${TARGET}
 python.files = python

@@ -53,6 +53,13 @@ Page {
     }
     */
 
+    Popup {
+        id: popup
+        z: 10
+
+        timeout: 3000
+    }
+
     Python {
         id: python
 
@@ -64,6 +71,8 @@ Page {
             */
             setHandler('currentOperand', currentOperandHandler);
             setHandler('newStack', newStackHandler);
+            setHandler('NotEnoughOperandsException', notEnoughOperandsExceptionHandler);
+            setHandler('WrongOperandsException', wrongOperandsExceptionHandler);
 
 
             importModule('rpncalc_engine', function () {});
@@ -77,6 +86,33 @@ Page {
         }
         */
 
+        function notEnoughOperandsExceptionHandler(nbExpected, nbAvailabled){
+            popup.notify("Not enough operands. Expecting " + nbExpected + ".");
+        }
+
+        function wrongOperandsExceptionHandler(expectedOperands){
+            popup.notify("Wrongs operands. Expected " + operandTypeToString(expectedOperands) + ".");
+        }
+
+        function operandTypeToString(operands){
+            var i = 0;
+            var rstr = "(";
+            for(i=0; i< operands.length; i++){
+                switch(Number(operands[i])){
+                    case 1:
+                        rstr += "Integer,";
+                        break;
+                    case 2:
+                        rstr += "Float,";
+                        break;
+                }
+            }
+            rstr = rstr.substring(0, rstr.length-1);
+            rstr += ")";
+            return rstr;
+        }
+
+
         function currentOperandHandler(operand){
             console.log("Current operand changed :" + operand);
             page.currentOperand = operand
@@ -84,7 +120,7 @@ Page {
 
         function newStackHandler(stack){
             console.log("Current stack changed");
-            
+
             memory.clear();
             var i=0;
             for(i=stack.length-1; i>4 ; i--){

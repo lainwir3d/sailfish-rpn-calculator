@@ -5,6 +5,7 @@ sys.path.append("/usr/share/harbour-rpncalc/lib/python/");
 import numpy
 import sympy
 import pyotherside
+from enum import Enum, IntEnum, unique
 
 class NotEnoughOperandsException(Exception):
     def __init__(self, nbRequested, nbAvailable):
@@ -14,12 +15,16 @@ class NotEnoughOperandsException(Exception):
     def __str__(self):
         return "Not enough operands available. " + str(self.nbRequested) + " but only " + str(self.nbAvailable) + " available."
 
+class OperandType(IntEnum):
+    Integer = 1
+    Float = 2
+
 class WrongOperandsException(Exception):
-    def __init__(self):
-        pass
+    def __init__(self, expectedTypes):
+        self.expectedTypes = expectedTypes
 
     def __str__(self):
-        return "Wrong operands inputed. Operation is probably valid on selected types"
+        return "Wrong operands inputed. Expected " + str(self.expectedTypes) + "."
 
 class Engine:
 
@@ -45,8 +50,10 @@ class Engine:
                 self.operationInputProcessor(input)
             except NotEnoughOperandsException as err:
                 print(err)
+                pyotherside.send("NotEnoughOperandsException", err.nbRequested, err.nbAvailable)
             except WrongOperandsException as err:
                 print(err)
+                pyotherside.send("WrongOperandsException", err.expectedTypes)
         elif type == "constant":
             self.constantInputProcessor(input)
         elif type == "real":
@@ -174,7 +181,7 @@ class Engine:
                 expr = sympy.S(expr)
                 self.stackPush(expr)
             else:
-                raise WrongOperandsException()
+                raise WrongOperandsException((OperandType.Integer,OperandType.Integer))
 
         elif input == "nand":
             self.undoStack = self.stack
@@ -187,7 +194,7 @@ class Engine:
                 expr = sympy.S(expr)
                 self.stackPush(expr)
             else:
-                raise WrongOperandsException()
+                raise WrongOperandsException((OperandType.Integer,OperandType.Integer))
         elif input == "or":
             self.undoStack = self.stack
 
@@ -199,7 +206,7 @@ class Engine:
                 expr = sympy.S(expr)
                 self.stackPush(expr)
             else:
-                raise WrongOperandsException()
+                raise WrongOperandsException((OperandType.Integer,OperandType.Integer))
         elif input == "nor":
             self.undoStack = self.stack
 
@@ -211,7 +218,7 @@ class Engine:
                 expr = sympy.S(expr)
                 self.stackPush(expr)
             else:
-                raise WrongOperandsException()
+                raise WrongOperandsException((OperandType.Integer,OperandType.Integer))
         elif input == "xor":
             self.undoStack = self.stack
 
@@ -223,7 +230,7 @@ class Engine:
                 expr = sympy.S(expr)
                 self.stackPush(expr)
             else:
-                raise WrongOperandsException()
+                raise WrongOperandsException((OperandType.Integer,OperandType.Integer))
         elif input == "xnor":
             self.undoStack = self.stack
 
@@ -235,7 +242,7 @@ class Engine:
                 expr = sympy.S(expr)
                 self.stackPush(expr)
             else:
-                raise WrongOperandsException()
+                raise WrongOperandsException((OperandType.Integer,OperandType.Integer))
         elif input == "shl":
             self.undoStack = self.stack
 
@@ -247,7 +254,7 @@ class Engine:
                 expr = sympy.S(expr)
                 self.stackPush(expr)
             else:
-                raise WrongOperandsException()
+                raise WrongOperandsException((OperandType.Integer,OperandType.Integer))
         elif input == "shr":
             self.undoStack = self.stack
 
@@ -259,7 +266,7 @@ class Engine:
                 expr = sympy.S(expr)
                 self.stackPush(expr)
             else:
-                raise WrongOperandsException()
+                raise WrongOperandsException((OperandType.Integer,OperandType.Integer))
         elif input == "not":
             self.undoStack = self.stack
 
@@ -270,7 +277,7 @@ class Engine:
                 expr = sympy.S(expr)
                 self.stackPush(expr)
             else:
-                raise WrongOperandsException()
+                raise WrongOperandsException((OperandType.Integer))
         elif input == "2cmp":
             self.undoStack = self.stack
 
@@ -281,7 +288,7 @@ class Engine:
                 expr = sympy.S(expr)
                 self.stackPush(expr)
             else:
-                raise WrongOperandsException()
+                raise WrongOperandsException((OperandType.Integer))
         elif input == "u8bit":
             self.undoStack = self.stack
 
@@ -292,7 +299,7 @@ class Engine:
                 expr = sympy.S(expr)
                 self.stackPush(expr)
             else:
-                raise WrongOperandsException()
+                raise WrongOperandsException((OperandType.Integer))
         elif input == "u16bit":
             self.undoStack = self.stack
 
@@ -303,7 +310,7 @@ class Engine:
                 expr = sympy.S(expr)
                 self.stackPush(expr)
             else:
-                raise WrongOperandsException()
+                raise WrongOperandsException((OperandType.Integer))
 
 
     def getOperands(self, nb=2):
