@@ -12,7 +12,14 @@ class NotEnoughOperandsException(Exception):
         self.nbAvailable = nbAvailable
 
     def __str__(self):
-        return "Not enough operands available. " + self.nbRequested + " but only " + self.nbAvailable + " available."
+        return "Not enough operands available. " + str(self.nbRequested) + " but only " + str(self.nbAvailable) + " available."
+
+class WrongOperandsException(Exception):
+    def __init__(self):
+        pass
+
+    def __str__(self):
+        return "Wrong operands inputed. Operation is probably valid on selected types"
 
 class Engine:
 
@@ -34,7 +41,12 @@ class Engine:
         elif type == "stack":
             self.stackInputProcessor(input)
         elif type == "operation":
-            self.operationInputProcessor(input)
+            try:
+                self.operationInputProcessor(input)
+            except NotEnoughOperandsException as err:
+                print(err)
+            except WrongOperandsException as err:
+                print(err)
         elif type == "constant":
             self.constantInputProcessor(input)
         elif type == "real":
@@ -57,6 +69,35 @@ class Engine:
 
             if expr is not None:
                 self.stackPush(expr)
+        elif input == "swap":
+
+            if len(self.stack) > 1:
+                self.undoStack = self.stack
+
+                op0 = self.stack[0]
+                op1 = self.stack[1]
+
+                self.stack[0] = op1;
+                self.stack[1] = op0;
+
+                self.stackChanged()
+        elif input == "drop":
+            self.stackDropFirst()
+        elif input == "clr":
+            self.stackDropAll()
+        elif input == "undo":
+            self.stack = self.undoStack
+            self.stackChanged()
+        elif input == "R-":
+            if len(self.stack) > 1:
+                self.stack.append(self.stack.pop(0))
+                self.stackChanged()
+        elif input == "R+":
+            if len(self.stack) > 1:
+                self.stack.insert(0, self.stack.pop())
+                self.stackChanged()
+
+
 
     def constantInputProcessor(self, input):
 
@@ -95,6 +136,175 @@ class Engine:
             (op1) = self.getOperands(1)
             expr = sympy.N(op1)
             self.stackPush(expr)
+        elif input == "^":
+            self.undoStack = self.stack
+
+            (op1, op2) = self.getOperands(2)
+            expr = op1 ** op2
+            self.stackPush(expr)
+        elif input == "10^x":
+            self.undoStack = self.stack
+
+            (op1) = self.getOperands(1)
+            expr = 10 ** op1
+
+            self.stackPush(expr)
+        elif input == "x^2":
+            self.undoStack = self.stack
+
+            (op1) = self.getOperands(1)
+            expr = op1 ** 2
+
+            self.stackPush(expr)
+        elif input == "neg":
+            self.undoStack = self.stack
+
+            (op1) = self.getOperands(1)
+            expr = op1 * -1
+
+            self.stackPush(expr)
+        elif input == "and":
+            self.undoStack = self.stack
+
+            (op1, op2) = self.getOperands(2)
+            if op1.is_integer and op2.is_integer:
+                op1 = int(sympy.N(op1))
+                op2 = int(sympy.N(op2))
+                expr = op1 & op2
+                expr = sympy.S(expr)
+                self.stackPush(expr)
+            else:
+                raise WrongOperandsException()
+
+        elif input == "nand":
+            self.undoStack = self.stack
+
+            (op1, op2) = self.getOperands(2)
+            if op1.is_integer and op2.is_integer:
+                op1 = int(sympy.N(op1))
+                op2 = int(sympy.N(op2))
+                expr = ~(op1 & op2)
+                expr = sympy.S(expr)
+                self.stackPush(expr)
+            else:
+                raise WrongOperandsException()
+        elif input == "or":
+            self.undoStack = self.stack
+
+            (op1, op2) = self.getOperands(2)
+            if op1.is_integer and op2.is_integer:
+                op1 = int(sympy.N(op1))
+                op2 = int(sympy.N(op2))
+                expr = op1 | op2
+                expr = sympy.S(expr)
+                self.stackPush(expr)
+            else:
+                raise WrongOperandsException()
+        elif input == "nor":
+            self.undoStack = self.stack
+
+            (op1, op2) = self.getOperands(2)
+            if op1.is_integer and op2.is_integer:
+                op1 = int(sympy.N(op1))
+                op2 = int(sympy.N(op2))
+                expr = ~(op1 | op2)
+                expr = sympy.S(expr)
+                self.stackPush(expr)
+            else:
+                raise WrongOperandsException()
+        elif input == "xor":
+            self.undoStack = self.stack
+
+            (op1, op2) = self.getOperands(2)
+            if op1.is_integer and op2.is_integer:
+                op1 = int(sympy.N(op1))
+                op2 = int(sympy.N(op2))
+                expr = op1 ^ op2
+                expr = sympy.S(expr)
+                self.stackPush(expr)
+            else:
+                raise WrongOperandsException()
+        elif input == "xnor":
+            self.undoStack = self.stack
+
+            (op1, op2) = self.getOperands(2)
+            if op1.is_integer and op2.is_integer:
+                op1 = int(sympy.N(op1))
+                op2 = int(sympy.N(op2))
+                expr = ~(op1 ^ op2)
+                expr = sympy.S(expr)
+                self.stackPush(expr)
+            else:
+                raise WrongOperandsException()
+        elif input == "shl":
+            self.undoStack = self.stack
+
+            (op1, op2) = self.getOperands(2)
+            if op1.is_integer and op2.is_integer:
+                op1 = int(sympy.N(op1))
+                op2 = int(sympy.N(op2))
+                expr = op1 << op2
+                expr = sympy.S(expr)
+                self.stackPush(expr)
+            else:
+                raise WrongOperandsException()
+        elif input == "shr":
+            self.undoStack = self.stack
+
+            (op1, op2) = self.getOperands(2)
+            if op1.is_integer and op2.is_integer:
+                op1 = int(sympy.N(op1))
+                op2 = int(sympy.N(op2))
+                expr = op1 >> op2
+                expr = sympy.S(expr)
+                self.stackPush(expr)
+            else:
+                raise WrongOperandsException()
+        elif input == "not":
+            self.undoStack = self.stack
+
+            (op1) = self.getOperands(1)
+            if op1.is_integer:
+                op1 = int(sympy.N(op1))
+                expr = ~op1
+                expr = sympy.S(expr)
+                self.stackPush(expr)
+            else:
+                raise WrongOperandsException()
+        elif input == "2cmp":
+            self.undoStack = self.stack
+
+            (op1) = self.getOperands(1)
+            if op1.is_integer:
+                op1 = int(sympy.N(op1))
+                expr = (~op1) + 1
+                expr = sympy.S(expr)
+                self.stackPush(expr)
+            else:
+                raise WrongOperandsException()
+        elif input == "u8bit":
+            self.undoStack = self.stack
+
+            (op1) = self.getOperands(1)
+            if op1.is_integer:
+                op1 = int(sympy.N(op1))
+                expr = op1 & 0xff
+                expr = sympy.S(expr)
+                self.stackPush(expr)
+            else:
+                raise WrongOperandsException()
+        elif input == "u16bit":
+            self.undoStack = self.stack
+
+            (op1) = self.getOperands(1)
+            if op1.is_integer:
+                op1 = int(sympy.N(op1))
+                expr = op1 & 0xffff
+                expr = sympy.S(expr)
+                self.stackPush(expr)
+            else:
+                raise WrongOperandsException()
+
 
     def getOperands(self, nb=2):
         nbAvailable = 0

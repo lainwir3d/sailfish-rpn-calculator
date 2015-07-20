@@ -10,3 +10,37 @@ Changelog :
   - unlimited stack
   - cleaner code
   - symbolic backend
+
+
+
+To be implemented in python engine :
+{text: '√x', visual:'', engine:'sqrt', type:'function'},
+{text: 'ˣ√y', visual:'', engine:'nthroot', type:'function'},
+{text: 'eˣ', visual:'', engine:'e^x', type:'function'},
+{text: 'ln', visual:'', engine:'ln', type:'function'},
+{text: 'log', visual:'', engine:'log', type:'function'},
+{text: '1/x', visual:'', engine:'inv', type:'function'},
+{text: 'x!', visual:'', engine:'factorial', type:'function'},
+{text: 'sin', visual:'', engine:'sin', type:'function'},
+{text: 'asin', visual:'', engine:'asin', type:'function'},
+{text: 'cos', visual:'', engine:'cos', type:'function'},
+{text: 'acos', visual:'', engine:'acos', type:'function'},
+{text: 'tan', visual:'', engine:'tan', type:'function'},
+{text: 'atan', visual:'', engine:'atan', type:'function'},
+{text: '%', visual:'', engine:'%', type:'function'},
+
+{text: 'C', visual:'', engine:'', type:''},
+
+{text: 'EEX', visual:'e', engine:'e', type:'exp'},
+
+{text: 'Σ+', visual:'', engine:'Σ+', type:'operation'},
+{text: 'Σ-', visual:'', engine:'Σ-', type:'operation'},
+
+{text: 'c', visual:'', engine:'light', type:'constant'},
+{text: 'µ₀', visual:'', engine:'magnetic', type:'constant'}]
+{text: 'q', visual:'', engine:'elementary_charge', type:'constant'},
+{text: 'ε₀', visual:'', engine:'electrical', type:'constant'}]
+{text: 'π', visual:'π', engine:'pi', type:'constant'},
+{text: 'k', visual:'', engine:'boltzmann', type:'constant'},
+{text: 'G', visual:'', engine:'gravitation', type:'constant'}]
+
