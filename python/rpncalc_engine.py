@@ -21,8 +21,14 @@ class OperandType(IntEnum):
     Float = 2
 
 class WrongOperandsException(Exception):
-    def __init__(self, expectedTypes):
-        self.expectedTypes = expectedTypes
+    def __init__(self, expectedTypes, nb=0):
+        try:
+            _ = (t for t in expectedTypes)  # check for iterable
+            self.expectedTypes = expectedTypes
+        except TypeError:
+            self.expectedTypes = (expectedTypes,)
+
+        self.nb = nb
 
     def __str__(self):
         return "Wrong operands inputed. Expected " + str(self.expectedTypes) + "."
@@ -61,7 +67,7 @@ class Engine:
                 pyotherside.send("NotEnoughOperandsException", err.nbRequested, err.nbAvailable)
             except WrongOperandsException as err:
                 print(err)
-                pyotherside.send("WrongOperandsException", err.expectedTypes)
+                pyotherside.send("WrongOperandsException", err.expectedTypes, err.nb)
         elif type == "constant":
             self.constantInputProcessor(input)
         elif type == "real":
@@ -312,6 +318,7 @@ class Engine:
 
 
             typesOk = True
+            exposedExceptionNb = 0
             try: # types is iterable, multiple types given. Checking against each operand.
                 i = 0
                 for t in types:
@@ -320,9 +327,9 @@ class Engine:
                     typesOk = typesOk and self.__verifyType(ops[i], t)
                     i += 1
             except TypeError: # types is not iterable
-                print("Only one type")
                 for o in ops:
                     typesOk = typesOk and self.__verifyType(o, types)
+                exposedExceptionNb = nb  # expose number of required operand type to exception, since we do not have details.
 
             if typesOk is True:
                 self.__stackPop(nbToPop)
@@ -331,7 +338,7 @@ class Engine:
                 else:
                     return ops
             else:
-                raise WrongOperandsException(types)
+                raise WrongOperandsException(types, exposedExceptionNb)
 
         else:
             raise NotEnoughOperandsException(nb, nbAvailable)

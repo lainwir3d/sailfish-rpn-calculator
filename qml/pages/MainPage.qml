@@ -90,13 +90,17 @@ Page {
             popup.notify("Not enough operands. Expecting " + nbExpected + ".");
         }
 
-        function wrongOperandsExceptionHandler(expectedOperands){
-            popup.notify("Wrongs operands. Expected " + operandTypeToString(expectedOperands) + ".");
+        function wrongOperandsExceptionHandler(expectedOperands, nb){
+            if(nb > 0){
+                popup.notify("Wrongs operands. Expected " + nb + " " + operandTypeToString(expectedOperands) + ".");
+            }else{
+                popup.notify("Wrongs operands. Expected " + operandTypeToString(expectedOperands) + ".");
+            }
         }
 
         function operandTypeToString(operands){
             var i = 0;
-            var rstr = "(";
+            var rstr = "";
             for(i=0; i< operands.length; i++){
                 switch(Number(operands[i])){
                     case 1:
@@ -108,7 +112,10 @@ Page {
                 }
             }
             rstr = rstr.substring(0, rstr.length-1);
-            rstr += ")";
+
+            if(operands.length > 1){
+                rstr = "(" + rstr + ")";
+            }
             return rstr;
         }
 
