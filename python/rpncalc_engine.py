@@ -208,6 +208,53 @@ class Engine:
             expr = self.convertFromRadians(expr)
             self.stackPush(expr)
 
+        elif input == "%":
+            self.undoStack = self.stack
+
+            (op1, op2) = self.getOperands(2)
+            expr = op1 * op2 / 100
+            self.stackPush(expr)
+
+        elif input == "inv":
+            self.undoStack = self.stack
+
+            op = self.getOperands(1)
+            expr = 1 / op
+            self.stackPush(expr)
+
+        elif input == "sqrt":
+            self.undoStack = self.stack
+
+            op = self.getOperands(1)
+            expr = sympy.sqrt(op)
+            self.stackPush(expr)
+
+        elif input == "nthroot":
+            self.undoStack = self.stack
+
+            (op1, op2) = self.getOperands(2)
+            expr = sympy.root(op1, op2)
+            self.stackPush(expr)
+
+        elif input == "log":
+            self.undoStack = self.stack
+
+            op = self.getOperands(1)
+            expr = sympy.log(op, 10)
+            self.stackPush(expr)
+        elif input == "ln":
+            self.undoStack = self.stack
+
+            op = self.getOperands(1)
+            expr = sympy.log(op)
+            self.stackPush(expr)
+        elif input == "e^x":
+            self.undoStack = self.stack
+
+            op = self.getOperands(1)
+            expr = sympy.exp(op)
+            self.stackPush(expr)
+
     def constantInputProcessor(self, input):
 
         if input == "pi":
@@ -503,6 +550,8 @@ class SimpleBeautifier:
             expr = str(i)
             expr = expr.replace("**", "^")
             expr = expr.replace("pi", "π")
+            expr = expr.replace("sqrt", "√")
+            expr = expr.replace("log", "ln")
             el = {"index": index, "expr": expr, "value": value}
             model.append(el)
             index += 1

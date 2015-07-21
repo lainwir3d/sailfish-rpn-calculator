@@ -15,23 +15,7 @@ Changelog :
 
 To be implemented in python engine :
 real to integer part
-getOperands should get optionnal "type" argument
-{text: '√x', visual:'', engine:'sqrt', type:'function'},
-{text: 'ˣ√y', visual:'', engine:'nthroot', type:'function'},
-{text: 'eˣ', visual:'', engine:'e^x', type:'function'},
-{text: 'ln', visual:'', engine:'ln', type:'function'},
-{text: 'log', visual:'', engine:'log', type:'function'},
-{text: '1/x', visual:'', engine:'inv', type:'function'},
 {text: 'x!', visual:'', engine:'factorial', type:'function'},
-{text: 'sin', visual:'', engine:'sin', type:'function'},
-{text: 'asin', visual:'', engine:'asin', type:'function'},
-{text: 'cos', visual:'', engine:'cos', type:'function'},
-{text: 'acos', visual:'', engine:'acos', type:'function'},
-{text: 'tan', visual:'', engine:'tan', type:'function'},
-{text: 'atan', visual:'', engine:'atan', type:'function'},
-{text: '%', visual:'', engine:'%', type:'function'},
-
-{text: 'C', visual:'', engine:'', type:''},
 
 {text: 'EEX', visual:'e', engine:'e', type:'exp'},
 
