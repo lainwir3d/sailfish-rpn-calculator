@@ -4,6 +4,7 @@ sys.path.append("/usr/share/harbour-rpncalc/lib/python/");
 
 import numpy
 import sympy
+from sympy import Function
 import pyotherside
 from enum import Enum, IntEnum, unique
 
@@ -19,6 +20,11 @@ class OperandType(IntEnum):
     All = 0
     Integer = 1
     Float = 2
+
+class TrigUnit(IntEnum):
+    Radians = 0
+    Degrees = 1
+    Gradients = 2
 
 class WrongOperandsException(Exception):
     def __init__(self, expectedTypes, nb=0):
@@ -40,6 +46,15 @@ class CannotVerifyOperandsTypeException(Exception):
     def __str__(self):
         return "Cannot verify operands type, array are not the same length."
 
+class deg(Function):
+    pass
+
+class rad(Function):
+    pass
+
+class grad(Function):
+    pass
+
 class Engine:
 
     def __init__(self, beautifier):
@@ -48,6 +63,7 @@ class Engine:
         self.currentOperand = ""
 
         self.beautifier = beautifier
+        self.trigUnit = TrigUnit.Radians
 
     def getStack(self):
         return self.stack
@@ -74,8 +90,33 @@ class Engine:
             if len(self.currentOperand) > 0 and '.' not in self.currentOperand:
                 self.currentOperand += input
                 self.currentOperandChanged()
+        elif type == "function":
+            self.functionInputProcessor(input)
         else:
             print(type)
+
+    def convertToRadians(self, expr):
+        newExpr = None
+        if self.trigUnit == TrigUnit.Degrees:
+            newExpr = rad(expr)
+        elif self.trigUnit == TrigUnit.Gradients:
+            newExpr = rad(expr)
+        else:
+            newExpr = expr
+
+        return newExpr
+
+    def convertFromRadians(self, expr):
+        newExpr = None
+        if self.trigUnit == TrigUnit.Degrees:
+            newExpr = deg(expr)
+        elif self.trigUnit == TrigUnit.Gradients:
+            newExpr = grad(expr)
+        else:
+            newExpr = expr
+
+        return newExpr
+
 
     def stackInputProcessor(self, input):
 
@@ -118,7 +159,54 @@ class Engine:
                 self.stack.insert(0, self.stack.pop())
                 self.stackChanged()
 
+    def functionInputProcessor(self, input):
 
+        if input == "cos":
+            self.undoStack = self.stack
+
+            op = self.getOperands(1)
+            op = self.convertToRadians(op)
+            expr = sympy.cos(op)
+            self.stackPush(expr)
+        elif input == "acos":
+            self.undoStack = self.stack
+
+            op = self.getOperands(1)
+            expr = sympy.acos(op)
+            expr = self.convertFromRadians(expr)
+            self.stackPush(expr)
+
+        elif input == "sin":
+            self.undoStack = self.stack
+
+            op = self.getOperands(1)
+            op = self.convertToRadians(op)
+            expr = sympy.sin(op)
+            self.stackPush(expr)
+
+        elif input == "asin":
+            self.undoStack = self.stack
+
+            op = self.getOperands(1)
+            expr = sympy.asin(op)
+            expr = self.convertFromRadians(expr)
+            self.stackPush(expr)
+
+        elif input == "tan":
+            self.undoStack = self.stack
+
+            op = self.getOperands(1)
+            op = self.convertToRadians(op)
+            expr = sympy.tan(op)
+            self.stackPush(expr)
+
+        elif input == "atan":
+            self.undoStack = self.stack
+
+            op = self.getOperands(1)
+            expr = sympy.atan(op)
+            expr = self.convertFromRadians(expr)
+            self.stackPush(expr)
 
     def constantInputProcessor(self, input):
 
@@ -414,6 +502,7 @@ class SimpleBeautifier:
             value = str(sympy.N(i))
             expr = str(i)
             expr = expr.replace("**", "^")
+            expr = expr.replace("pi", "π")
             el = {"index": index, "expr": expr, "value": value}
             model.append(el)
             index += 1
