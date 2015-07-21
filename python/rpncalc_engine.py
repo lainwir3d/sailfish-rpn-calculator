@@ -16,6 +16,7 @@ class NotEnoughOperandsException(Exception):
         return "Not enough operands available. " + str(self.nbRequested) + " but only " + str(self.nbAvailable) + " available."
 
 class OperandType(IntEnum):
+    All = 0
     Integer = 1
     Float = 2
 
@@ -25,6 +26,13 @@ class WrongOperandsException(Exception):
 
     def __str__(self):
         return "Wrong operands inputed. Expected " + str(self.expectedTypes) + "."
+
+class CannotVerifyOperandsTypeException(Exception):
+    def __init__(self):
+        pass
+
+    def __str__(self):
+        return "Cannot verify operands type, array are not the same length."
 
 class Engine:
 
@@ -173,147 +181,110 @@ class Engine:
         elif input == "and":
             self.undoStack = self.stack
 
-            (op1, op2) = self.getOperands(2)
-            if op1.is_integer and op2.is_integer:
-                op1 = int(sympy.N(op1))
-                op2 = int(sympy.N(op2))
-                expr = op1 & op2
-                expr = sympy.S(expr)
-                self.stackPush(expr)
-            else:
-                raise WrongOperandsException((OperandType.Integer,OperandType.Integer))
-
+            (op1, op2) = self.getOperands(2, (OperandType.Integer, OperandType.Integer)) # type verification tuple kept as reference, could be simplified as below
+            op1 = int(sympy.N(op1))
+            op2 = int(sympy.N(op2))
+            expr = op1 & op2
+            expr = sympy.S(expr)
+            self.stackPush(expr)
         elif input == "nand":
             self.undoStack = self.stack
 
-            (op1, op2) = self.getOperands(2)
-            if op1.is_integer and op2.is_integer:
-                op1 = int(sympy.N(op1))
-                op2 = int(sympy.N(op2))
-                expr = ~(op1 & op2)
-                expr = sympy.S(expr)
-                self.stackPush(expr)
-            else:
-                raise WrongOperandsException((OperandType.Integer,OperandType.Integer))
+            (op1, op2) = self.getOperands(2, OperandType.Integer)
+            op1 = int(sympy.N(op1))
+            op2 = int(sympy.N(op2))
+            expr = ~(op1 & op2)
+            expr = sympy.S(expr)
+            self.stackPush(expr)
         elif input == "or":
             self.undoStack = self.stack
 
-            (op1, op2) = self.getOperands(2)
-            if op1.is_integer and op2.is_integer:
-                op1 = int(sympy.N(op1))
-                op2 = int(sympy.N(op2))
-                expr = op1 | op2
-                expr = sympy.S(expr)
-                self.stackPush(expr)
-            else:
-                raise WrongOperandsException((OperandType.Integer,OperandType.Integer))
+            (op1, op2) = self.getOperands(2, OperandType.Integer)
+            op1 = int(sympy.N(op1))
+            op2 = int(sympy.N(op2))
+            expr = op1 | op2
+            expr = sympy.S(expr)
+            self.stackPush(expr)
         elif input == "nor":
             self.undoStack = self.stack
 
-            (op1, op2) = self.getOperands(2)
-            if op1.is_integer and op2.is_integer:
-                op1 = int(sympy.N(op1))
-                op2 = int(sympy.N(op2))
-                expr = ~(op1 | op2)
-                expr = sympy.S(expr)
-                self.stackPush(expr)
-            else:
-                raise WrongOperandsException((OperandType.Integer,OperandType.Integer))
+            (op1, op2) = self.getOperands(2, OperandType.Integer)
+            op1 = int(sympy.N(op1))
+            op2 = int(sympy.N(op2))
+            expr = ~(op1 | op2)
+            expr = sympy.S(expr)
+            self.stackPush(expr)
         elif input == "xor":
             self.undoStack = self.stack
 
-            (op1, op2) = self.getOperands(2)
-            if op1.is_integer and op2.is_integer:
-                op1 = int(sympy.N(op1))
-                op2 = int(sympy.N(op2))
-                expr = op1 ^ op2
-                expr = sympy.S(expr)
-                self.stackPush(expr)
-            else:
-                raise WrongOperandsException((OperandType.Integer,OperandType.Integer))
+            (op1, op2) = self.getOperands(2, OperandType.Integer)
+            op1 = int(sympy.N(op1))
+            op2 = int(sympy.N(op2))
+            expr = op1 ^ op2
+            expr = sympy.S(expr)
+            self.stackPush(expr)
         elif input == "xnor":
             self.undoStack = self.stack
 
-            (op1, op2) = self.getOperands(2)
-            if op1.is_integer and op2.is_integer:
-                op1 = int(sympy.N(op1))
-                op2 = int(sympy.N(op2))
-                expr = ~(op1 ^ op2)
-                expr = sympy.S(expr)
-                self.stackPush(expr)
-            else:
-                raise WrongOperandsException((OperandType.Integer,OperandType.Integer))
+            (op1, op2) = self.getOperands(2, OperandType.Integer)
+            op1 = int(sympy.N(op1))
+            op2 = int(sympy.N(op2))
+            expr = ~(op1 ^ op2)
+            expr = sympy.S(expr)
+            self.stackPush(expr)
         elif input == "shl":
             self.undoStack = self.stack
 
-            (op1, op2) = self.getOperands(2)
-            if op1.is_integer and op2.is_integer:
-                op1 = int(sympy.N(op1))
-                op2 = int(sympy.N(op2))
-                expr = op1 << op2
-                expr = sympy.S(expr)
-                self.stackPush(expr)
-            else:
-                raise WrongOperandsException((OperandType.Integer,OperandType.Integer))
+            (op1, op2) = self.getOperands(2, OperandType.Integer)
+            op1 = int(sympy.N(op1))
+            op2 = int(sympy.N(op2))
+            expr = op1 << op2
+            expr = sympy.S(expr)
+            self.stackPush(expr)
         elif input == "shr":
             self.undoStack = self.stack
 
-            (op1, op2) = self.getOperands(2)
-            if op1.is_integer and op2.is_integer:
-                op1 = int(sympy.N(op1))
-                op2 = int(sympy.N(op2))
-                expr = op1 >> op2
-                expr = sympy.S(expr)
-                self.stackPush(expr)
-            else:
-                raise WrongOperandsException((OperandType.Integer,OperandType.Integer))
+            (op1, op2) = self.getOperands(2, OperandType.Integer)
+            op1 = int(sympy.N(op1))
+            op2 = int(sympy.N(op2))
+            expr = op1 >> op2
+            expr = sympy.S(expr)
+            self.stackPush(expr)
         elif input == "not":
             self.undoStack = self.stack
 
-            (op1) = self.getOperands(1)
-            if op1.is_integer:
-                op1 = int(sympy.N(op1))
-                expr = ~op1
-                expr = sympy.S(expr)
-                self.stackPush(expr)
-            else:
-                raise WrongOperandsException((OperandType.Integer))
+            (op1,) = self.getOperands(1, OperandType.Integer)
+            op1 = int(sympy.N(op1))
+            expr = ~op1
+            expr = sympy.S(expr)
+            self.stackPush(expr)
         elif input == "2cmp":
             self.undoStack = self.stack
 
-            (op1) = self.getOperands(1)
-            if op1.is_integer:
-                op1 = int(sympy.N(op1))
-                expr = (~op1) + 1
-                expr = sympy.S(expr)
-                self.stackPush(expr)
-            else:
-                raise WrongOperandsException((OperandType.Integer))
+            (op1) = self.getOperands(1, OperandType.Integer)
+            op1 = int(sympy.N(op1))
+            expr = (~op1) + 1
+            expr = sympy.S(expr)
+            self.stackPush(expr)
         elif input == "u8bit":
             self.undoStack = self.stack
 
-            (op1) = self.getOperands(1)
-            if op1.is_integer:
-                op1 = int(sympy.N(op1))
-                expr = op1 & 0xff
-                expr = sympy.S(expr)
-                self.stackPush(expr)
-            else:
-                raise WrongOperandsException((OperandType.Integer))
+            (op1) = self.getOperands(1, OperandType.Integer)
+            op1 = int(sympy.N(op1))
+            expr = op1 & 0xff
+            expr = sympy.S(expr)
+            self.stackPush(expr)
         elif input == "u16bit":
             self.undoStack = self.stack
 
-            (op1) = self.getOperands(1)
-            if op1.is_integer:
-                op1 = int(sympy.N(op1))
-                expr = op1 & 0xffff
-                expr = sympy.S(expr)
-                self.stackPush(expr)
-            else:
-                raise WrongOperandsException((OperandType.Integer))
+            (op1) = self.getOperands(1, OperandType.Integer)
+            op1 = int(sympy.N(op1))
+            expr = op1 & 0xffff
+            expr = sympy.S(expr)
+            self.stackPush(expr)
 
 
-    def getOperands(self, nb=2):
+    def getOperands(self, nb=2, types=OperandType.All):
         nbAvailable = 0
 
         if self.currentOperand != "":
@@ -324,27 +295,80 @@ class Engine:
             if nb == 2:
                 op1 = None
                 op2 = None
+                nbToPop = 0;
                 if self.currentOperand == "":
                     op1 = self.stack[1]
                     op2 = self.stack[0]
-                    self.__stackPop(2)
+                    nbToPop = 2
                 else:
                     op1 = self.stack[0]
                     op2 = sympy.S(self.currentOperand)
-                    self.__stackPop(1)
-                return (op1, op2)
+                    nbToPop = 1
+
+                ops = (op1, op2)
+
+                typesOk = True
+                try:
+                    i = 0
+                    for t in types:
+                        print("Multiple given types")
+                        if len(types) != len(ops):
+                            print("len(types) != len(ops)")
+                            raise CannotVerifyOperandsTypeException()
+                        typesOk = self.__verifyType(ops[i], t)
+                        i += 1
+                except TypeError: # types is not iterable
+                    print("Only one type")
+                    for o in ops:
+                        typesOk = self.__verifyType(o, types)
+
+                if typesOk:
+                    self.__stackPop(nbToPop)
+                    return (op1, op2)
+                else:
+                    raise WrongOperandsException(types)
             elif nb == 1:
+                nbToPop = 0
                 if self.currentOperand == "":
                     op1 = self.stack[0]
-                    self.__stackPop(1)
+                    nbToPop = 1
                 else:
                     op1 = sympy.S(self.currentOperand)
-                return (op1)
+
+                ops = (op1,)
+                typesOk = True
+                try:
+                    i = 0
+                    for t in types:
+                        print("Multiple given types")
+                        if len(types) != len(ops):
+                            print("len(types) != len(ops)")
+                            raise CannotVerifyOperandsTypeException()
+                        typesOk = self.__verifyType(ops[i], t)
+                        i += 1
+                except TypeError: # types is not iterable
+                    print("Only one type")
+                    for o in ops:
+                        typesOk = self.__verifyType(o, types)
+
+                if typesOk:
+                    self.__stackPop(nbToPop)
+                    return ops
+                else:
+                    raise WrongOperandsException(types)
             else:
                 raise NotImplementedError()
         else:
             raise NotEnoughOperandsException(nb, nbAvailable)
 
+    def __verifyType(self, op, type):
+
+        if type == OperandType.All:
+            return True
+        elif type == OperandType.Integer:
+            return op.is_integer
+        elif type == OperandType.Float:
+            return op.is_real
 
     def __stackPop(self, nb = 1):
         for i in range(0, nb):
