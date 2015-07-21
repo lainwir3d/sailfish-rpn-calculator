@@ -48,6 +48,13 @@ class CannotVerifyOperandsTypeException(Exception):
     def __str__(self):
         return "Cannot verify operands type, array are not the same length."
 
+class ExpressionNotValidException(Exception):
+    def __init__(self):
+        pass
+
+    def __str__(self):
+        return "Expression not valid."
+
 class deg(Function):
     pass
 
@@ -72,30 +79,51 @@ class Engine:
 
     def processInput(self, input, type):
 
-        if type == "number":
-            self.currentOperand += input
-            self.currentOperandChanged()
-        elif type == "stack":
-            self.stackInputProcessor(input)
-        elif type == "operation":
-            try:
-                self.operationInputProcessor(input)
-            except NotEnoughOperandsException as err:
-                print(err)
-                pyotherside.send("NotEnoughOperandsException", err.nbRequested, err.nbAvailable)
-            except WrongOperandsException as err:
-                print(err)
-                pyotherside.send("WrongOperandsException", err.expectedTypes, err.nb)
-        elif type == "constant":
-            self.constantInputProcessor(input)
-        elif type == "real":
-            if len(self.currentOperand) > 0 and '.' not in self.currentOperand:
+        try:
+            if type == "number":
                 self.currentOperand += input
                 self.currentOperandChanged()
-        elif type == "function":
-            self.functionInputProcessor(input)
-        else:
-            print(type)
+            elif type == "exp":
+                if self.currentOperand == "":
+                    self.currentOperand += "1e"
+                else:
+                    self.currentOperand += "e"
+                self.currentOperandChanged()
+            elif type == "stack":
+                self.stackInputProcessor(input)
+            elif type == "operation":
+                self.operationInputProcessor(input)
+            elif type == "constant":
+                self.constantInputProcessor(input)
+            elif type == "real":
+                if len(self.currentOperand) > 0 and '.' not in self.currentOperand:
+                    self.currentOperand += input
+                    self.currentOperandChanged()
+            elif type == "function":
+                self.functionInputProcessor(input)
+            else:
+                print(type)
+        except ExpressionNotValidException as err:
+            print(err)
+            pyotherside.send("ExpressionNotValidException")
+        except NotEnoughOperandsException as err:
+            print(err)
+            pyotherside.send("NotEnoughOperandsException", err.nbRequested, err.nbAvailable)
+        except WrongOperandsException as err:
+            print(err)
+            pyotherside.send("WrongOperandsException", err.expectedTypes, err.nb)
+
+
+    def currentOperandValid(self):
+        valid = True
+        if self.currentOperand != "":
+            lastChr = self.currentOperand[-1:]
+            if lastChr == "e":
+                valid = False
+            elif lastChr == "-":
+                valid = False
+
+        return valid
 
     def convertToRadians(self, expr):
         newExpr = None
@@ -127,6 +155,9 @@ class Engine:
 
             expr = None
             if self.currentOperand != "":
+                if self.currentOperandValid() is False:
+                    raise ExpressionNotValidException()
+
                 expr = sympy.S(self.currentOperand)
             elif len(self.stack) > 0:
                 expr = self.stack[0]
@@ -469,6 +500,9 @@ class Engine:
                 nbToPop += 1
 
             if len(ops) < nb:
+                if self.currentOperandValid() is False:
+                    raise ExpressionNotValidException()
+
                 ops = ops + (sympy.S(self.currentOperand),)
 
 

@@ -10,14 +10,17 @@ Changelog :
   - unlimited stack
   - cleaner code
   - symbolic backend
+  - Function pretty view ?
+  - Documented functions ?
 
 
 
 To be implemented in python engine :
 real to integer part
-{text: 'x!', visual:'', engine:'factorial', type:'function'},
+possibility to add a minus after "e"
+change eval precision
 
-{text: 'EEX', visual:'e', engine:'e', type:'exp'},
+{text: 'x!', visual:'', engine:'factorial', type:'function'},
 
 {text: 'Σ+', visual:'', engine:'Σ+', type:'operation'},
 {text: 'Σ-', visual:'', engine:'Σ-', type:'operation'},

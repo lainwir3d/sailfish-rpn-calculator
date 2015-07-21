@@ -73,7 +73,7 @@ Page {
             setHandler('newStack', newStackHandler);
             setHandler('NotEnoughOperandsException', notEnoughOperandsExceptionHandler);
             setHandler('WrongOperandsException', wrongOperandsExceptionHandler);
-
+            setHandler('ExpressionNotValidException', expressionNotValidExceptionHandler);
 
             importModule('rpncalc_engine', function () {});
         }
@@ -85,6 +85,10 @@ Page {
             //call('datadownloader.downloader.download', function() {});
         }
         */
+
+        function expressionNotValidExceptionHandler(){
+            popup.notify("Expression not valid.");
+        }
 
         function notEnoughOperandsExceptionHandler(nbExpected, nbAvailabled){
             popup.notify("Not enough operands. Expecting " + nbExpected + ".");
