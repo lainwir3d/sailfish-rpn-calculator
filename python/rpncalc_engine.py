@@ -4,9 +4,11 @@ sys.path.append("/usr/share/harbour-rpncalc/lib/python/");
 
 import numpy
 import sympy
-from sympy import Function
 import pyotherside
 from enum import Enum, IntEnum, unique
+
+from sympy import Function
+import rpncalc_constants
 
 class NotEnoughOperandsException(Exception):
     def __init__(self, nbRequested, nbAvailable):
@@ -260,6 +262,24 @@ class Engine:
         if input == "pi":
             self.undoStack = self.stack
             self.stackPush(sympy.pi)
+        elif input == "light":
+            self.undoStack = self.stack
+            self.stackPush(rpncalc_constants.c)
+        elif input == "magnetic":
+            self.undoStack = self.stack
+            self.stackPush(rpncalc_constants.magn)
+        elif input == "elementary_charge":
+            self.undoStack = self.stack
+            self.stackPush(rpncalc_constants.q)
+        elif input == "electrical":
+            self.undoStack = self.stack
+            self.stackPush(rpncalc_constants.e0)
+        elif input == "boltzmann":
+            self.undoStack = self.stack
+            self.stackPush(rpncalc_constants.k)
+        elif input == "gravitation":
+            self.undoStack = self.stack
+            self.stackPush(rpncalc_constants.G)
 
     def operationInputProcessor(self, input):
         if input == "+":
@@ -493,7 +513,6 @@ class Engine:
 
     def stackPush(self, expr):
         self.stack.insert(0, expr)
-        print(expr)
         self.clearCurrentOperand()
         self.stackChanged()
 
