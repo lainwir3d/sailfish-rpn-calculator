@@ -121,13 +121,10 @@ Page {
 
 
         function currentOperandHandler(operand){
-            console.log("Current operand changed :" + operand);
             page.currentOperand = operand
         }
 
         function newStackHandler(stack){
-            console.log("Current stack changed");
-
             memory.clear();
             var i=0;
             for(i=stack.length-1; i>4 ; i--){
