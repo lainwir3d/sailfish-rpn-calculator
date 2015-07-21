@@ -253,7 +253,7 @@ class Engine:
         elif input == "not":
             self.undoStack = self.stack
 
-            (op1,) = self.getOperands(1, OperandType.Integer)
+            (op1) = self.getOperands(1, OperandType.Integer)
             op1 = int(sympy.N(op1))
             expr = ~op1
             expr = sympy.S(expr)
@@ -291,73 +291,48 @@ class Engine:
             nbAvailable = 1
         nbAvailable += len(self.stack)
 
+        if nb == -1:
+            nb = len(self.stack)
+            if self.currentOperand != "":
+                nb += 1
+
         if nb <= nbAvailable:
-            if nb == 2:
-                op1 = None
-                op2 = None
-                nbToPop = 0;
-                if self.currentOperand == "":
-                    op1 = self.stack[1]
-                    op2 = self.stack[0]
-                    nbToPop = 2
+            ops = ()
+            nbToPop = 0;
+            rangeStart = nb;
+            if self.currentOperand != "":
+                rangeStart -= 1;
+
+            for i in reversed(range(0, rangeStart)):
+                ops = ops + (self.stack[i],)
+                nbToPop += 1
+
+            if len(ops) < nb:
+                ops = ops + (sympy.S(self.currentOperand),)
+
+
+            typesOk = True
+            try: # types is iterable, multiple types given. Checking against each operand.
+                i = 0
+                for t in types:
+                    if len(types) != len(ops):  # late checking for length, because we had to know that it was iterable before
+                        raise CannotVerifyOperandsTypeException()
+                    typesOk = typesOk and self.__verifyType(ops[i], t)
+                    i += 1
+            except TypeError: # types is not iterable
+                print("Only one type")
+                for o in ops:
+                    typesOk = typesOk and self.__verifyType(o, types)
+
+            if typesOk is True:
+                self.__stackPop(nbToPop)
+                if len(ops) == 1:
+                    return ops[0]
                 else:
-                    op1 = self.stack[0]
-                    op2 = sympy.S(self.currentOperand)
-                    nbToPop = 1
-
-                ops = (op1, op2)
-
-                typesOk = True
-                try:
-                    i = 0
-                    for t in types:
-                        print("Multiple given types")
-                        if len(types) != len(ops):
-                            print("len(types) != len(ops)")
-                            raise CannotVerifyOperandsTypeException()
-                        typesOk = self.__verifyType(ops[i], t)
-                        i += 1
-                except TypeError: # types is not iterable
-                    print("Only one type")
-                    for o in ops:
-                        typesOk = self.__verifyType(o, types)
-
-                if typesOk:
-                    self.__stackPop(nbToPop)
-                    return (op1, op2)
-                else:
-                    raise WrongOperandsException(types)
-            elif nb == 1:
-                nbToPop = 0
-                if self.currentOperand == "":
-                    op1 = self.stack[0]
-                    nbToPop = 1
-                else:
-                    op1 = sympy.S(self.currentOperand)
-
-                ops = (op1,)
-                typesOk = True
-                try:
-                    i = 0
-                    for t in types:
-                        print("Multiple given types")
-                        if len(types) != len(ops):
-                            print("len(types) != len(ops)")
-                            raise CannotVerifyOperandsTypeException()
-                        typesOk = self.__verifyType(ops[i], t)
-                        i += 1
-                except TypeError: # types is not iterable
-                    print("Only one type")
-                    for o in ops:
-                        typesOk = self.__verifyType(o, types)
-
-                if typesOk:
-                    self.__stackPop(nbToPop)
                     return ops
-                else:
-                    raise WrongOperandsException(types)
             else:
-                raise NotImplementedError()
+                raise WrongOperandsException(types)
+
         else:
             raise NotEnoughOperandsException(nb, nbAvailable)
 
