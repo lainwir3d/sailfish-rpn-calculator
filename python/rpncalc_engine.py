@@ -3,12 +3,11 @@ import platform
 sys.path.append("/usr/share/harbour-rpncalc/lib/python/");
 
 import numpy
-import sympy
 import pyotherside
 from enum import Enum, IntEnum, unique
 
-from sympy import Function
-import rpncalc_constants
+import threading
+sympy = None
 
 class NotEnoughOperandsException(Exception):
     def __init__(self, nbRequested, nbAvailable):
@@ -55,24 +54,27 @@ class ExpressionNotValidException(Exception):
     def __str__(self):
         return "Expression not valid."
 
-class deg(Function):
-    pass
-
-class rad(Function):
-    pass
-
-class grad(Function):
-    pass
-
 class Engine:
 
     def __init__(self, beautifier):
+        self.engineLoaded = False
+        self.extendedFunctionLoaded = False
         self.stack = []
         self.undoStack = []
         self.currentOperand = ""
 
         self.beautifier = beautifier
-        self.trigUnit = TrigUnit.Radians
+        self.trigUnit = TrigUnit.Degrees
+
+        t = threading.Timer(0.1, self.loadEngine)
+        t.start()
+
+
+    def loadEngine(self):
+        global sympy
+        import sympy
+        print("Engine loaded")
+        self.engineLoaded = True
 
     def getStack(self):
         return self.stack
@@ -126,22 +128,30 @@ class Engine:
         return valid
 
     def convertToRadians(self, expr):
+        if self.extendedFunctionLoaded == False:
+            import rpncalc_functions
+            self.extendedFunctionLoaded = True
+
         newExpr = None
         if self.trigUnit == TrigUnit.Degrees:
-            newExpr = rad(expr)
+            newExpr = rpncalc_functions.rad(expr)
         elif self.trigUnit == TrigUnit.Gradients:
-            newExpr = rad(expr)
+            newExpr = rpncalc_functions.rad(expr)
         else:
             newExpr = expr
 
         return newExpr
 
     def convertFromRadians(self, expr):
+        if self.extendedFunctionLoaded == False:
+            import rpncalc_functions
+            self.extendedFunctionLoaded = True
+
         newExpr = None
         if self.trigUnit == TrigUnit.Degrees:
-            newExpr = deg(expr)
+            newExpr = rpncalc_functions.deg(expr)
         elif self.trigUnit == TrigUnit.Gradients:
-            newExpr = grad(expr)
+            newExpr = rpncalc_functions.grad(expr)
         else:
             newExpr = expr
 

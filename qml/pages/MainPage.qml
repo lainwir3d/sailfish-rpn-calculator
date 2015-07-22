@@ -75,7 +75,9 @@ Page {
             setHandler('WrongOperandsException', wrongOperandsExceptionHandler);
             setHandler('ExpressionNotValidException', expressionNotValidExceptionHandler);
 
-            importModule('rpncalc_engine', function () {});
+            importModule('rpncalc_engine', function () {
+                console.log("Module successfully imported. Loading engine.");
+            });
         }
 
         /*
