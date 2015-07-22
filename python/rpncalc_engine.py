@@ -474,6 +474,27 @@ class Engine:
             expr = op1 & 0xffff
             expr = sympy.S(expr)
             self.stackPush(expr)
+        elif input == "Σ+":
+            self.undoStack = self.stack
+
+            ops = self.getOperands(-1)
+            expr = ops[0]
+
+            for i in range(1, len(ops)):
+                expr = expr + ops[i]
+
+            self.stackPush(expr)
+
+        elif input == "Σ-":
+            self.undoStack = self.stack
+
+            ops = self.getOperands(-1)
+            expr = ops[0]
+
+            for i in range(1, len(ops)):
+                expr = expr - ops[i]
+
+            self.stackPush(expr)
 
 
     def getOperands(self, nb=2, types=OperandType.All):

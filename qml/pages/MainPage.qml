@@ -132,7 +132,6 @@ Page {
             memory.clear();
             var i=0;
             for(i=stack.length-1; i>4 ; i--){
-                console.log("index:"+stack[i]["index"]+ " expr:"+stack[i]["expr"]+" value:"+stack[i]["value"])
                 memory.append({isLastItem: i == stack.length ? true : false, index: String(stack[i]["index"]), value: stack[i]["expr"]})
                 formulaView.positionViewAtEnd();
             }
