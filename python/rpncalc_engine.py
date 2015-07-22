@@ -287,6 +287,12 @@ class Engine:
             op = self.getOperands(1)
             expr = sympy.exp(op)
             self.stackPush(expr)
+        elif input == "factorial":
+            self.undoStack = self.stack
+
+            op = self.getOperands(1)
+            expr = sympy.factorial(op)
+            self.stackPush(expr)
 
     def constantInputProcessor(self, input):
 

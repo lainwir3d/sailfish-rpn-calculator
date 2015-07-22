@@ -20,9 +20,4 @@ real to integer part
 possibility to add a minus after "e"
 change eval precision
 
-{text: 'x!', visual:'', engine:'factorial', type:'function'},
-
-{text: 'Σ+', visual:'', engine:'Σ+', type:'operation'},
-{text: 'Σ-', visual:'', engine:'Σ-', type:'operation'},
-
 
