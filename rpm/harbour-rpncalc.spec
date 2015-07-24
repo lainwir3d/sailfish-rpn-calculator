@@ -56,6 +56,7 @@ rm -rf %{buildroot}
 %qmake5_install
 
 # >> install post
+python3 -c "import sys; sys.path.append('%{buildroot}/%{_datadir}/%{name}/lib/python/'); import sympy"
 # << install post
 
 desktop-file-install --delete-original       \
