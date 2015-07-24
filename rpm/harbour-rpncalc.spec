@@ -47,6 +47,25 @@ Read http://en.wikipedia.org/wiki/Reverse_Polish_notation if you want to know mo
 %qtc_make %{?_smp_mflags}
 
 # >> build post
+cp -r /home/mersdk/share/dev/Qt/sailfish-rpn-calculator/python_modules_src %qtc_builddir/
+cd python_modules_src/
+
+tar xvf fastcache-1.0.2.tar.gz
+cd fastcache-1.0.2
+python3 setup.py build
+cd ..
+
+#tar xvf numpy-1.9.2.tar.gz
+#cd numpy-1.9.2
+#python3 setup.py build
+#cd ..
+
+tar xvf sympy-0.7.6.tar.gz
+cd sympy-0.7.6
+python3 setup.py build
+cd ..
+
+cd ..
 # << build post
 
 %install
@@ -56,7 +75,24 @@ rm -rf %{buildroot}
 %qmake5_install
 
 # >> install post
-python3 -c "import sys; sys.path.append('%{buildroot}/%{_datadir}/%{name}/lib/python/'); import sympy"
+cd python_modules_src/
+
+cd fastcache-1.0.2
+python3 setup.py install --root=%{buildroot} --prefix=%{_datadir}/%{name}/
+cd ..
+
+#cd numpy-1.9.2
+#python3 setup.py install --root=%{buildroot} --prefix=%{_datadir}/%{name}/
+#cd ..
+
+cd sympy-0.7.6
+python3 setup.py install --root=%{buildroot} --prefix=%{_datadir}/%{name}/
+cd ..
+
+rm -rf %{buildroot}/%{_datadir}/%{name}/share
+rm -rf %{buildroot}/%{_datadir}/%{name}/bin
+
+cd ..
 # << install post
 
 desktop-file-install --delete-original       \

@@ -40,12 +40,13 @@ OTHER_FILES += \
 python.path = /usr/share/$${TARGET}
 python.files = python
 
-libs.path = /usr/share/$${TARGET}
+#libs.path = /usr/share/$${TARGET}
 #libs.files = libs/i686/lib
-libs.files = libs/armv7l/lib
+#libs.files = libs/armv7l/lib
 
 
-INSTALLS += python libs
+#INSTALLS += python libs
+INSTALLS += python
 
 HEADERS += \
     settingsmanager.h

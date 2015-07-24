@@ -1,6 +1,8 @@
 import sys
 import platform
-sys.path.append("/usr/share/harbour-rpncalc/lib/python/");
+
+(major, minor, micro, release, serial) = sys.version_info
+sys.path.append("/usr/share/harbour-rpncalc/lib/python" + str(major) + "." + str(minor) + "/site-packages/");
 
 import numpy
 import pyotherside
@@ -64,7 +66,7 @@ class Engine:
         self.currentOperand = ""
 
         self.beautifier = beautifier
-        self.trigUnit = TrigUnit.Degrees
+        self.trigUnit = TrigUnit.Radians
 
         t = threading.Timer(0.1, self.loadEngine)
         t.start()
