@@ -4,7 +4,6 @@ import platform
 (major, minor, micro, release, serial) = sys.version_info
 sys.path.append("/usr/share/harbour-rpncalc/lib/python" + str(major) + "." + str(minor) + "/site-packages/");
 
-import numpy
 import pyotherside
 from enum import Enum, IntEnum, unique
 
