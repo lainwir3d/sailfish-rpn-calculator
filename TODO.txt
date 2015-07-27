@@ -10,8 +10,11 @@ Changelog :
   - unlimited stack
   - cleaner code
   - symbolic backend
-  - Function pretty view ?
+  - Function pretty view on long press ?
   - Documented functions ?
+  - sympy expression editor ?
+  - tap on stack to include in expression when keyboard open ?
+  - tap on expression to evaluate ?
 
 
 
