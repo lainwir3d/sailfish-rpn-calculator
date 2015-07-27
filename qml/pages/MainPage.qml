@@ -33,11 +33,9 @@ Page {
     property string currentOperand: ''
     property var currentStack: []
 
-    //property string formula_text: '';
-    //property string formula_text_for_engine: '';
+    property bool engineLoaded: false
+
     property string angularUnit: settings.angleUnit();
-    //property var main_stack: CALC.main_stack;
-    //property var formula: [];
 
     /*
     HapticsEffect {
@@ -74,19 +72,19 @@ Page {
             setHandler('NotEnoughOperandsException', notEnoughOperandsExceptionHandler);
             setHandler('WrongOperandsException', wrongOperandsExceptionHandler);
             setHandler('ExpressionNotValidException', expressionNotValidExceptionHandler);
+            setHandler('EngineLoaded', engineLoadedHandler);
+
 
             importModule('rpncalc_engine', function () {
                 console.log("Module successfully imported. Loading engine.");
+                popup.notify("Loading engine...");
             });
         }
 
-        /*
-        function startDownload() {
-            page.downloading = true;
-            dlprogress.value = 0.0;
-            //call('datadownloader.downloader.download', function() {});
+        function engineLoadedHandler(){
+            popup.notify("Engine loaded.");
+            page.engineLoaded = true;
         }
-        */
 
         function expressionNotValidExceptionHandler(){
             popup.notify("Expression not valid.");

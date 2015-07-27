@@ -26,15 +26,22 @@ import Sailfish.Silica 1.0
 MouseArea {
     id: buttonRect
     property string text;
-    property variant actions: [{text: ' ', visual:'', engine:'', type:''},
-        {text: ' ', visual:'', engine:'', type:''},
-        {text: ' ', visual:'', engine:'', type:''}];
+    property variant actions: [{text: ' ', visual:'', engine:'', type:'', enabled: false},
+        {text: ' ', visual:'', engine:'', type:'', enabled: false},
+        {text: ' ', visual:'', engine:'', type:'', enabled: false}];
     width: buttonWidth
     height: buttonHeigth
     property string rectColor: "transparent"
     property variant rectBorderColor: Theme.secondaryColor
     property int rectBorderWidth: 1
     property real rectOpacity: 1
+
+    property int mode: 0
+    property real disabledOpacity: 0.1
+    enabled: actions[mode].enabled
+    opacity: enabled ? 1: disabledOpacity
+
+    Behavior on opacity { NumberAnimation { duration: 500 } }
 
     Label{
         anchors.top: parent.top

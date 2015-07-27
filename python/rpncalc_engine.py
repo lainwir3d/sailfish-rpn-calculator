@@ -9,6 +9,7 @@ from enum import Enum, IntEnum, unique
 
 import threading
 sympy = None
+rpncalc_constants = None
 
 class NotEnoughOperandsException(Exception):
     def __init__(self, nbRequested, nbAvailable):
@@ -74,8 +75,13 @@ class Engine:
     def loadEngine(self):
         global sympy
         import sympy
+
+        global rpncalc_constants
+        import rpncalc_constants
+
         print("Engine loaded")
         self.engineLoaded = True
+        pyotherside.send("EngineLoaded")
 
     def getStack(self):
         return self.stack
