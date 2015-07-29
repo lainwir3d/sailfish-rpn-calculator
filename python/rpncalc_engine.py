@@ -140,6 +140,13 @@ class Engine:
 
         return valid
 
+    def currentOperandLastChr(self):
+        lastChr = ""
+        if self.currentOperand != "":
+            lastChr = self.currentOperand[-1:]
+
+        return lastChr
+
     def changeTrigonometricUnit(self, unit):
         print("Changing unit to " + str(unit))
         if unit == "Radian":
@@ -354,9 +361,13 @@ class Engine:
         elif input == "-":
             self.undoStack = self.stack
 
-            (op1, op2) = self.getOperands(2)
-            expr = op1 - op2
-            self.stackPush(expr)
+            if self.currentOperandLastChr() == "e":
+                self.currentOperand += "-"
+                self.currentOperandChanged()
+            else:
+                (op1, op2) = self.getOperands(2)
+                expr = op1 - op2
+                self.stackPush(expr)
         elif input == "*":
             self.undoStack = self.stack
 
@@ -398,10 +409,14 @@ class Engine:
         elif input == "neg":
             self.undoStack = self.stack
 
-            (op1) = self.getOperands(1)
-            expr = op1 * -1
+            if self.currentOperandLastChr() == "e":
+                self.currentOperand += "-"
+                self.currentOperandChanged()
+            else:
+                (op1) = self.getOperands(1)
+                expr = op1 * -1
+                self.stackPush(expr)
 
-            self.stackPush(expr)
         elif input == "and":
             self.undoStack = self.stack
 
