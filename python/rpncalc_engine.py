@@ -91,6 +91,10 @@ class Engine:
 
         pyotherside.send("EngineLoaded")
 
+    def setBeautifierPrecision(self, prec):
+        self.beautifier.setPrecision(prec)
+        self.stackChanged()
+
     def getStack(self):
         return self.stack
 
@@ -675,7 +679,10 @@ class StackManager:
 class SimpleBeautifier:
 
     def __init__(self):
-        pass
+        self.precision = 4
+
+    def setPrecision(self, prec):
+        self.precision = prec
 
     def beautifyNumber(self, number):
         pass
@@ -685,12 +692,18 @@ class SimpleBeautifier:
 
         index = 1
         for i in stack:
+            expr = None
+            if i.is_Float is True:
+                expr = str(i.evalf(self.precision))
+            else:
+                expr = str(i)
+                expr = expr.replace("**", "^")
+                expr = expr.replace("pi", "π")
+                expr = expr.replace("sqrt", "√")
+                expr = expr.replace("log", "ln")
+
             value = str(sympy.N(i))
-            expr = str(i)
-            expr = expr.replace("**", "^")
-            expr = expr.replace("pi", "π")
-            expr = expr.replace("sqrt", "√")
-            expr = expr.replace("log", "ln")
+
             el = {"index": index, "expr": expr, "value": value}
             model.append(el)
             index += 1

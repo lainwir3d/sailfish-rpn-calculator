@@ -43,6 +43,38 @@ Page {
                     settings.angleUnit = currentItem.text;
                 }
             }
+
+            ComboBox{
+                label: "Stack view precision"
+                currentIndex: settings.reprFloatPrecision - 1
+
+                menu: ContextMenu {
+                    MenuItem { text: "1"; }
+                    MenuItem { text: "2"; }
+                    MenuItem { text: "3"; }
+                    MenuItem { text: "4"; }
+                    MenuItem { text: "5"; }
+                    MenuItem { text: "6"; }
+                    MenuItem { text: "7"; }
+                    MenuItem { text: "8"; }
+                    MenuItem { text: "9"; }
+                    MenuItem { text: "10"; }
+                    MenuItem { text: "11"; }
+                    MenuItem { text: "12"; }
+                    MenuItem { text: "13"; }
+                    MenuItem { text: "14"; }
+                    MenuItem { text: "15"; }
+                    MenuItem { text: "16"; }
+                    MenuItem { text: "17"; }
+                    MenuItem { text: "18"; }
+                    MenuItem { text: "19"; }
+                    MenuItem { text: "20"; }
+                }
+
+                onCurrentItemChanged: {
+                    settings.reprFloatPrecision = Number(currentItem.text);
+                }
+            }
         }
     }
 }

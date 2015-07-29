@@ -62,6 +62,9 @@ Page {
         onAngleUnitChanged: {
             python.changeTrigonometricUnit(settings.angleUnit);
         }
+        onReprFloatPrecisionChanged: {
+            python.changeReprFloatPrecision(settings.reprFloatPrecision);
+        }
     }
 
     Python {
@@ -88,6 +91,7 @@ Page {
             popup.notify("Engine loaded.");
             page.engineLoaded = true;
             changeTrigonometricUnit(settings.angleUnit);
+            changeReprFloatPrecision(settings.reprFloatPrecision);
             pageStack.pushAttached(Qt.resolvedUrl("Settings.qml"));
         }
 
@@ -109,6 +113,10 @@ Page {
 
         function changeTrigonometricUnit(unit){
             call("rpncalc_engine.engine.changeTrigonometricUnit", [unit], function (){});
+        }
+
+        function changeReprFloatPrecision(prec){
+            call("rpncalc_engine.engine.setBeautifierPrecision", [prec], function (){});
         }
 
         function operandTypeToString(operands){

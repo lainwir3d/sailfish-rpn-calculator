@@ -13,6 +13,7 @@ Changelog :
   - Settings page on left swipe
   - real time expression correctness evaluation
   - Error messages on missing operand / wrong operand / wrong expression
+  - Precision change for ui display / evaluation
   - Function pretty view on long press ?
   - Documented functions ?
   - sympy expression editor ?
@@ -21,9 +22,10 @@ Changelog :
   - Display unit under current expression ?
   - Auto simplify option ? use kernS if no simplify
   - quick precision with blue button + orange button + number ?
+  - copy / paste ?
+  - scroll horizontally each individual result ?
 
 To be implemented in python engine :
 real to integer part
-change eval precision
 More effective stack change to UI
 
