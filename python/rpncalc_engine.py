@@ -63,8 +63,10 @@ class Engine:
         self.engineLoaded = False
         self.extendedFunctionLoaded = False
         self.stack = []
-        self.undoStack = []
         self.currentOperand = ""
+
+        self.undoStack = []
+        self.undoCurrentOperand = ""
 
         self.beautifier = beautifier
         self.trigUnit = TrigUnit.Radians
@@ -128,16 +130,18 @@ class Engine:
             print(err)
             pyotherside.send("WrongOperandsException", err.expectedTypes, err.nb)
 
-    def currentOperandValid(self):
+    def stringExpressionValid(self, str):
         valid = True
-        if self.currentOperand != "":
+        if str != "":
             try:
-                sympy.S(self.currentOperand)
+                sympy.S(str)
             except sympy.SympifyError as err:
                 print(err)
                 valid = False
-
         return valid
+
+    def currentOperandValid(self):
+        return self.stringExpressionValid(self.currentOperand)
 
     def currentOperandLastChr(self):
         lastChr = ""
@@ -179,10 +183,14 @@ class Engine:
 
         return newExpr
 
+    def pushUndo(self):
+        self.undoStack = self.stack.copy()
+        self.undoCurrentOperand = self.currentOperand
+
     def stackInputProcessor(self, input):
 
         if input == "enter":
-            self.undoStack = self.stack
+            self.pushUndo()
 
             expr = None
             if self.currentOperand != "":
@@ -198,7 +206,7 @@ class Engine:
         elif input == "swap":
 
             if len(self.stack) > 1:
-                self.undoStack = self.stack
+                self.pushUndo()
 
                 op0 = self.stack[0]
                 op1 = self.stack[1]
@@ -212,7 +220,19 @@ class Engine:
         elif input == "clr":
             self.stackDropAll()
         elif input == "undo":
-            self.stack = self.undoStack
+            expr = None
+            if self.undoCurrentOperand != "":
+                if self.stringExpressionValid(self.undoCurrentOperand) is False:
+                    raise UndoErrorException()
+
+                expr = sympy.S(self.undoCurrentOperand)
+
+            self.stack = self.undoStack.copy()
+            if expr is not None:
+                self.stackPush(expr)
+
+            self.undoCurrentOperand = ""
+            self.currentOperandChanged()
             self.stackChanged()
         elif input == "R-":
             if len(self.stack) > 1:
@@ -226,14 +246,14 @@ class Engine:
     def functionInputProcessor(self, input):
 
         if input == "cos":
-            self.undoStack = self.stack
+            self.pushUndo()
 
             op = self.getOperands(1)
             op = self.convertToRadians(op)
             expr = sympy.cos(op)
             self.stackPush(expr)
         elif input == "acos":
-            self.undoStack = self.stack
+            self.pushUndo()
 
             op = self.getOperands(1)
             expr = sympy.acos(op)
@@ -241,7 +261,7 @@ class Engine:
             self.stackPush(expr)
 
         elif input == "sin":
-            self.undoStack = self.stack
+            self.pushUndo()
 
             op = self.getOperands(1)
             op = self.convertToRadians(op)
@@ -249,7 +269,7 @@ class Engine:
             self.stackPush(expr)
 
         elif input == "asin":
-            self.undoStack = self.stack
+            self.pushUndo()
 
             op = self.getOperands(1)
             expr = sympy.asin(op)
@@ -257,7 +277,7 @@ class Engine:
             self.stackPush(expr)
 
         elif input == "tan":
-            self.undoStack = self.stack
+            self.pushUndo()
 
             op = self.getOperands(1)
             op = self.convertToRadians(op)
@@ -265,7 +285,7 @@ class Engine:
             self.stackPush(expr)
 
         elif input == "atan":
-            self.undoStack = self.stack
+            self.pushUndo()
 
             op = self.getOperands(1)
             expr = sympy.atan(op)
@@ -273,53 +293,53 @@ class Engine:
             self.stackPush(expr)
 
         elif input == "%":
-            self.undoStack = self.stack
+            self.pushUndo()
 
             (op1, op2) = self.getOperands(2)
             expr = op1 * op2 / 100
             self.stackPush(expr)
 
         elif input == "inv":
-            self.undoStack = self.stack
+            self.pushUndo()
 
             op = self.getOperands(1)
             expr = 1 / op
             self.stackPush(expr)
 
         elif input == "sqrt":
-            self.undoStack = self.stack
+            self.pushUndo()
 
             op = self.getOperands(1)
             expr = sympy.sqrt(op)
             self.stackPush(expr)
 
         elif input == "nthroot":
-            self.undoStack = self.stack
+            self.pushUndo()
 
             (op1, op2) = self.getOperands(2)
             expr = sympy.root(op1, op2)
             self.stackPush(expr)
 
         elif input == "log":
-            self.undoStack = self.stack
+            self.pushUndo()
 
             op = self.getOperands(1)
             expr = sympy.log(op, 10)
             self.stackPush(expr)
         elif input == "ln":
-            self.undoStack = self.stack
+            self.pushUndo()
 
             op = self.getOperands(1)
             expr = sympy.log(op)
             self.stackPush(expr)
         elif input == "e^x":
-            self.undoStack = self.stack
+            self.pushUndo()
 
             op = self.getOperands(1)
             expr = sympy.exp(op)
             self.stackPush(expr)
         elif input == "factorial":
-            self.undoStack = self.stack
+            self.pushUndo()
 
             op = self.getOperands(1)
             expr = sympy.factorial(op)
@@ -328,36 +348,36 @@ class Engine:
     def constantInputProcessor(self, input):
 
         if input == "pi":
-            self.undoStack = self.stack
+            self.pushUndo()
             self.stackPush(sympy.pi)
         elif input == "light":
-            self.undoStack = self.stack
+            self.pushUndo()
             self.stackPush(rpncalc_constants.c)
         elif input == "magnetic":
-            self.undoStack = self.stack
+            self.pushUndo()
             self.stackPush(rpncalc_constants.magn)
         elif input == "elementary_charge":
-            self.undoStack = self.stack
+            self.pushUndo()
             self.stackPush(rpncalc_constants.q)
         elif input == "electrical":
-            self.undoStack = self.stack
+            self.pushUndo()
             self.stackPush(rpncalc_constants.e0)
         elif input == "boltzmann":
-            self.undoStack = self.stack
+            self.pushUndo()
             self.stackPush(rpncalc_constants.k)
         elif input == "gravitation":
-            self.undoStack = self.stack
+            self.pushUndo()
             self.stackPush(rpncalc_constants.G)
 
     def operationInputProcessor(self, input):
         if input == "+":
-            self.undoStack = self.stack
+            self.pushUndo()
 
             (op1, op2) = self.getOperands(2)
             expr = op1 + op2
             self.stackPush(expr)
         elif input == "-":
-            self.undoStack = self.stack
+            self.pushUndo()
 
             if self.currentOperandLastChr() == "e":
                 self.currentOperand += "-"
@@ -367,45 +387,45 @@ class Engine:
                 expr = op1 - op2
                 self.stackPush(expr)
         elif input == "*":
-            self.undoStack = self.stack
+            self.pushUndo()
 
             (op1, op2) = self.getOperands(2)
             expr = op1 * op2
             self.stackPush(expr)
         elif input == "/":
-            self.undoStack = self.stack
+            self.pushUndo()
 
             (op1, op2) = self.getOperands(2)
             expr = op1 / op2
             self.stackPush(expr)
         elif input == "=":
-            self.undoStack = self.stack
+            self.pushUndo()
 
             (op1) = self.getOperands(1)
             expr = sympy.N(op1)
             self.stackPush(expr)
         elif input == "^":
-            self.undoStack = self.stack
+            self.pushUndo()
 
             (op1, op2) = self.getOperands(2)
             expr = op1 ** op2
             self.stackPush(expr)
         elif input == "10^x":
-            self.undoStack = self.stack
+            self.pushUndo()
 
             (op1) = self.getOperands(1)
             expr = 10 ** op1
 
             self.stackPush(expr)
         elif input == "x^2":
-            self.undoStack = self.stack
+            self.pushUndo()
 
             (op1) = self.getOperands(1)
             expr = op1 ** 2
 
             self.stackPush(expr)
         elif input == "neg":
-            self.undoStack = self.stack
+            self.pushUndo()
 
             if self.currentOperandLastChr() == "e":
                 self.currentOperand += "-"
@@ -416,7 +436,7 @@ class Engine:
                 self.stackPush(expr)
 
         elif input == "and":
-            self.undoStack = self.stack
+            self.pushUndo()
 
             (op1, op2) = self.getOperands(2, (OperandType.Integer, OperandType.Integer)) # type verification tuple kept as reference, could be simplified as below
             op1 = int(sympy.N(op1))
@@ -425,7 +445,7 @@ class Engine:
             expr = sympy.S(expr)
             self.stackPush(expr)
         elif input == "nand":
-            self.undoStack = self.stack
+            self.pushUndo()
 
             (op1, op2) = self.getOperands(2, OperandType.Integer)
             op1 = int(sympy.N(op1))
@@ -434,7 +454,7 @@ class Engine:
             expr = sympy.S(expr)
             self.stackPush(expr)
         elif input == "or":
-            self.undoStack = self.stack
+            self.pushUndo()
 
             (op1, op2) = self.getOperands(2, OperandType.Integer)
             op1 = int(sympy.N(op1))
@@ -443,7 +463,7 @@ class Engine:
             expr = sympy.S(expr)
             self.stackPush(expr)
         elif input == "nor":
-            self.undoStack = self.stack
+            self.pushUndo()
 
             (op1, op2) = self.getOperands(2, OperandType.Integer)
             op1 = int(sympy.N(op1))
@@ -452,7 +472,7 @@ class Engine:
             expr = sympy.S(expr)
             self.stackPush(expr)
         elif input == "xor":
-            self.undoStack = self.stack
+            self.pushUndo()
 
             (op1, op2) = self.getOperands(2, OperandType.Integer)
             op1 = int(sympy.N(op1))
@@ -461,7 +481,7 @@ class Engine:
             expr = sympy.S(expr)
             self.stackPush(expr)
         elif input == "xnor":
-            self.undoStack = self.stack
+            self.pushUndo()
 
             (op1, op2) = self.getOperands(2, OperandType.Integer)
             op1 = int(sympy.N(op1))
@@ -470,7 +490,7 @@ class Engine:
             expr = sympy.S(expr)
             self.stackPush(expr)
         elif input == "shl":
-            self.undoStack = self.stack
+            self.pushUndo()
 
             (op1, op2) = self.getOperands(2, OperandType.Integer)
             op1 = int(sympy.N(op1))
@@ -479,7 +499,7 @@ class Engine:
             expr = sympy.S(expr)
             self.stackPush(expr)
         elif input == "shr":
-            self.undoStack = self.stack
+            self.pushUndo()
 
             (op1, op2) = self.getOperands(2, OperandType.Integer)
             op1 = int(sympy.N(op1))
@@ -488,7 +508,7 @@ class Engine:
             expr = sympy.S(expr)
             self.stackPush(expr)
         elif input == "not":
-            self.undoStack = self.stack
+            self.pushUndo()
 
             (op1) = self.getOperands(1, OperandType.Integer)
             op1 = int(sympy.N(op1))
@@ -496,7 +516,7 @@ class Engine:
             expr = sympy.S(expr)
             self.stackPush(expr)
         elif input == "2cmp":
-            self.undoStack = self.stack
+            self.pushUndo()
 
             (op1) = self.getOperands(1, OperandType.Integer)
             op1 = int(sympy.N(op1))
@@ -504,7 +524,7 @@ class Engine:
             expr = sympy.S(expr)
             self.stackPush(expr)
         elif input == "u8bit":
-            self.undoStack = self.stack
+            self.pushUndo()
 
             (op1) = self.getOperands(1, OperandType.Integer)
             op1 = int(sympy.N(op1))
@@ -512,7 +532,7 @@ class Engine:
             expr = sympy.S(expr)
             self.stackPush(expr)
         elif input == "u16bit":
-            self.undoStack = self.stack
+            self.pushUndo()
 
             (op1) = self.getOperands(1, OperandType.Integer)
             op1 = int(sympy.N(op1))
@@ -520,7 +540,7 @@ class Engine:
             expr = sympy.S(expr)
             self.stackPush(expr)
         elif input == "Σ+":
-            self.undoStack = self.stack
+            self.pushUndo()
 
             ops = self.getOperands(-1)
             expr = ops[0]
@@ -531,7 +551,7 @@ class Engine:
             self.stackPush(expr)
 
         elif input == "Σ-":
-            self.undoStack = self.stack
+            self.pushUndo()
 
             ops = self.getOperands(-1)
             expr = ops[0]
