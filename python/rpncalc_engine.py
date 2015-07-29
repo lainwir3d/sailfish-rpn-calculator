@@ -10,6 +10,7 @@ from enum import Enum, IntEnum, unique
 import threading
 sympy = None
 rpncalc_constants = None
+rpncalc_functions = None
 
 class NotEnoughOperandsException(Exception):
     def __init__(self, nbRequested, nbAvailable):
@@ -79,8 +80,13 @@ class Engine:
         global rpncalc_constants
         import rpncalc_constants
 
+        global rpncalc_functions
+        import rpncalc_functions
+
         print("Engine loaded")
         self.engineLoaded = True
+        self.extendedFunctionLoaded = True
+
         pyotherside.send("EngineLoaded")
 
     def getStack(self):
@@ -134,11 +140,18 @@ class Engine:
 
         return valid
 
-    def convertToRadians(self, expr):
-        if self.extendedFunctionLoaded == False:
-            import rpncalc_functions
-            self.extendedFunctionLoaded = True
+    def changeTrigonometricUnit(self, unit):
+        print("Changing unit to " + str(unit))
+        if unit == "Radian":
+            self.trigUnit = TrigUnit.Radians
+        elif unit == "Degree":
+            self.trigUnit = TrigUnit.Degrees
+        elif unit == "Gradient":
+            self.trigUnit = TrigUnit.Gradients
+        else:
+            print("Invalid unit")
 
+    def convertToRadians(self, expr):
         newExpr = None
         if self.trigUnit == TrigUnit.Degrees:
             newExpr = rpncalc_functions.rad(expr)
@@ -150,10 +163,6 @@ class Engine:
         return newExpr
 
     def convertFromRadians(self, expr):
-        if self.extendedFunctionLoaded == False:
-            import rpncalc_functions
-            self.extendedFunctionLoaded = True
-
         newExpr = None
         if self.trigUnit == TrigUnit.Degrees:
             newExpr = rpncalc_functions.deg(expr)

@@ -10,17 +10,18 @@ Changelog :
   - unlimited stack
   - cleaner code
   - symbolic backend
+  - Settings page on left swipe
   - Function pretty view on long press ?
   - Documented functions ?
   - sympy expression editor ?
   - tap on stack to include in expression when keyboard open ?
   - tap on expression to evaluate ?
-
+  - Display unit under current expression ?
 
 
 To be implemented in python engine :
 real to integer part
 possibility to add a minus after "e"
 change eval precision
-
+evaluate expression correctness using sympy
 

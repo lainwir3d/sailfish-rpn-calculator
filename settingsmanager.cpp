@@ -24,7 +24,10 @@ int SettingsManager::vibration()
 
 void SettingsManager::setAngleUnit(QString unit)
 {
-    settings->setValue("angle_unit", unit);
+    if(unit != settings->value("angle_unit").toString()){
+        settings->setValue("angle_unit", unit);
+        emit angleUnitChanged();
+    }
 }
 
 QString SettingsManager::angleUnit()

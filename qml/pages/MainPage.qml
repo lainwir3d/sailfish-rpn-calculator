@@ -35,8 +35,6 @@ Page {
 
     property bool engineLoaded: false
 
-    property string angularUnit: settings.angleUnit();
-
     /*
     HapticsEffect {
         id: vibration
@@ -58,15 +56,19 @@ Page {
         timeout: 3000
     }
 
+    Connections {
+        target: settings
+        onAngleUnitChanged: {
+            python.changeTrigonometricUnit(settings.angleUnit);
+        }
+    }
+
     Python {
         id: python
 
         Component.onCompleted: {
             addImportPath(Qt.resolvedUrl('../../python'));
-            /*setHandler('progress', function(ratio) {
-                dlprogress.value = ratio;
-            });
-            */
+
             setHandler('currentOperand', currentOperandHandler);
             setHandler('newStack', newStackHandler);
             setHandler('NotEnoughOperandsException', notEnoughOperandsExceptionHandler);
@@ -84,6 +86,8 @@ Page {
         function engineLoadedHandler(){
             popup.notify("Engine loaded.");
             page.engineLoaded = true;
+            changeTrigonometricUnit(settings.angleUnit);
+            pageStack.pushAttached(Qt.resolvedUrl("Settings.qml"));
         }
 
         function expressionNotValidExceptionHandler(){
@@ -100,6 +104,10 @@ Page {
             }else{
                 popup.notify("Wrongs operands. Expected " + operandTypeToString(expectedOperands) + ".");
             }
+        }
+
+        function changeTrigonometricUnit(unit){
+            call("rpncalc_engine.engine.changeTrigonometricUnit", [unit], function (){});
         }
 
         function operandTypeToString(operands){
@@ -162,39 +170,7 @@ Page {
     }
 
     function formulaPush(visual, engine, type) {
-
         python.processInput(engine, type);
-/*
-        var prev = null;
-        if(formula_text_for_engine.length > 0){
-            prev = formula_text_for_engine[formula_text_for_engine.length-1];
-        }
-
-
-        var tmp = main_stack;
-        var result = CALC.processInput(prev, visual, engine, type, formula_text, formula_text_for_engine, angularUnit)
-        main_stack = tmp;
-
-        var visual_text = result[0];
-        var engine_text = result[1];
-        var fixed_type = result[2];
-        formula_text = result[3];
-        formula_text_for_engine = result[4];
-
-        if (visual_text !== null && engine_text !== null) {
-            formula_text += visual_text;
-            formula_text_for_engine += engine_text;
-            formula.push({'visual': visual_text, 'engine': engine_text, 'type': fixed_type});
-
-        }
-
-        memory.clear();
-        for(var i=CALC.stackLength()-1; i>4;i--){
-            memory.append({isLastItem: i == CALC.stackLength() ? true : false, index: String(i), value: main_stack[i]})
-            formulaView.positionViewAtEnd();
-        }
-        */
-
     }
 
     function stackDropFirst(){
@@ -275,42 +251,7 @@ Page {
             id: memory
             stack: currentStack
         }
-
-        PushUpMenu {
-            MenuItem {
-                property variant _modes: ["RAD", "DEG", "GRAD"];
-                text: "Change mode to %1".arg(_modes[(_modes.indexOf(angularUnit)+1)%3])
-                onClicked: {
-                    angularUnit = _modes[(_modes.indexOf(angularUnit)+1)%3];
-                    console.log("angularUnit : " + angularUnit);
-                    settings.setAngleUnit(angularUnit);
-                }
-            }
-            /*
-            MenuItem {
-                onClicked: {
-                    console.log("vibration " + settings.vibration())
-                    if(settings.vibration() === 0){
-                        settings.setVibration(1);
-                        text = "Set vibration OFF";
-                    }else{
-                        settings.setVibration(0);
-                        text = "Set vibration ON";
-                    }
-                }
-                Component.onCompleted: {
-                    if(settings.vibration() === 0){
-                        text = "Set vibration ON";
-                    }else{
-                        text = "Set vibration OFF";
-                    }
-                }
-            }
-            */
-        }
     }
-
-
 }
 
 
