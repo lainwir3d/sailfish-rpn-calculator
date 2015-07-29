@@ -31,6 +31,7 @@ Page {
     id: page
 
     property string currentOperand: ''
+    property bool currentOperandValid: true
     property var currentStack: []
 
     property bool engineLoaded: false
@@ -132,8 +133,9 @@ Page {
         }
 
 
-        function currentOperandHandler(operand){
-            page.currentOperand = operand
+        function currentOperandHandler(operand, valid){
+            page.currentOperand = operand;
+            page.currentOperandValid = valid;
         }
 
         function newStackHandler(stack){

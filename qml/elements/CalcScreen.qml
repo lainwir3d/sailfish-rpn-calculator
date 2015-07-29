@@ -200,6 +200,7 @@ Item{
                 font.family: Theme.fontFamily
                 font.pixelSize: Theme.fontSizeExtraLarge
                 text: currentOperand
+                color: currentOperandValid ? "white" : "red"
             }
             IconButton{
                 id: backBtn

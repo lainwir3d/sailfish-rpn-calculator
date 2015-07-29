@@ -128,7 +128,6 @@ class Engine:
             print(err)
             pyotherside.send("WrongOperandsException", err.expectedTypes, err.nb)
 
-
     def currentOperandValid(self):
         valid = True
         if self.currentOperand != "":
@@ -179,7 +178,6 @@ class Engine:
             newExpr = expr
 
         return newExpr
-
 
     def stackInputProcessor(self, input):
 
@@ -643,7 +641,7 @@ class Engine:
         self.currentOperandChanged();
 
     def currentOperandChanged(self):
-        pyotherside.send("currentOperand", self.currentOperand)
+        pyotherside.send("currentOperand", self.currentOperand, self.currentOperandValid())
 
     def stackChanged(self):
         res = self.beautifier.beautifyStack(self.stack)
