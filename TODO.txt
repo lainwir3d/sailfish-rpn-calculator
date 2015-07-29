@@ -18,9 +18,9 @@ Changelog :
   - tap on expression to evaluate ?
   - Display unit under current expression ?
   - Auto simplify option ? use kernS if no simplify
+  - real time expression correctness evaluation ?
 
 To be implemented in python engine :
 real to integer part
 change eval precision
-evaluate expression correctness using sympy
 

@@ -132,10 +132,10 @@ class Engine:
     def currentOperandValid(self):
         valid = True
         if self.currentOperand != "":
-            lastChr = self.currentOperand[-1:]
-            if lastChr == "e":
-                valid = False
-            elif lastChr == "-":
+            try:
+                sympy.S(self.currentOperand)
+            except sympy.SympifyError as err:
+                print(err)
                 valid = False
 
         return valid
