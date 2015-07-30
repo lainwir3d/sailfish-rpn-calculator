@@ -7,7 +7,7 @@ SettingsManager::SettingsManager(QObject *parent) :
 
     if(settings->value("vibration") == QVariant()) settings->setValue("vibration", 1);
     if(settings->value("angle_unit") == QVariant()) settings->setValue("angle_unit", QString("DEG"));
-    if(settings->value("reprFloatPrecision") == QVariant()) settings->setValue("reprFloatPrecision", 4);
+    if(settings->value("reprFloatPrecision") == QVariant()) settings->setValue("reprFloatPrecision", 9);
 
 }
 
