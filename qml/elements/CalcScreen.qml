@@ -1,269 +1,67 @@
-/****************************************************************************************
-**
-** Copyright (C) 2013 Riccardo Ferrazzo <f.riccardo87@gmail.com>.
-** All rights reserved.
-**
-** This program is based on ubuntu-calculator-app created by:
-** Dalius Dobravolskas <dalius@sandbox.lt>
-** Riccardo Ferrazzo <f.riccardo87@gmail.com>
-**
-** This file is part of ScientificCalc Calculator.
-** ScientificCalc Calculator is free software: you can redistribute it and/or modify
-** it under the terms of the GNU General Public License as published by
-** the Free Software Foundation, either version 3 of the License, or
-** (at your option) any later version.
-**
-** ScientificCalc Calculator is distributed in the hope that it will be useful,
-** but WITHOUT ANY WARRANTY; without even the implied warranty of
-** MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-** GNU General Public License for more details.
-**
-****************************************************************************************/
-
 import QtQuick 2.0
 import Sailfish.Silica 1.0
 
 Item{
-    id: root
-    height: columnA.height
-    transformOrigin: Item.Bottom
-    state: "current"
+    id: calcScreen
 
-    property var stack;
+    property alias contentHeight: listView.contentHeight
+    property alias model: listView.model
 
-    signal useAnswer(string answerToUse, string formulaData)
-
-    Column {
-        id: columnA
-        spacing: 1
-        width: parent.width - 8
-
-/*
-        Label{
-            id: drg
-            visible: isLastItem
-            font.family: Theme.fontFamily
-            font.pixelSize: Theme.fontSizeExtraSmall
-            color: Theme.secondaryColor
-            height: lineHeight + 10
-            text: angularUnit[0]
-        }
-*/
-        Row{
-            width: parent.width
-            height: Theme.fontSizeExtraLarge
-            spacing: 4
-            Label {
-                id: stack_4_id
-                height: font.pixelSize + 10
-                horizontalAlignment: Text.AlignLeft
-                font.family: Theme.fontFamily
-                font.pixelSize: Theme.fontSizeExtraLarge
-                text: "5:"
-            }
-            Label {
-                id: stack_4
-                width: parent.width - stack_4_id.width
-                height: font.pixelSize + 10
-                horizontalAlignment: Text.AlignRight
-                font.family: Theme.fontFamily
-                font.pixelSize: Theme.fontSizeExtraLarge
-                //text: stack[4]
-                text: stack.length > 4 ? stack[4]['expr'] : ""
-            }
-        }
-
-        Row{
-            width: parent.width
-            height: Theme.fontSizeExtraLarge
-            spacing: 4
-            Label {
-                id: stack_3_id
-                height: font.pixelSize + 10
-                horizontalAlignment: Text.AlignLeft
-                font.family: Theme.fontFamily
-                font.pixelSize: Theme.fontSizeExtraLarge
-                text: "4:"
-            }
-            Label {
-                id: stack_3
-                width: parent.width - stack_3_id.width
-                height: font.pixelSize + 10
-                horizontalAlignment: Text.AlignRight
-                font.family: Theme.fontFamily
-                font.pixelSize: Theme.fontSizeExtraLarge
-                text: stack.length > 3 ? stack[3]['expr'] : ""
-            }
-        }
-
-        Row{
-            width: parent.width
-            height: Theme.fontSizeExtraLarge
-            spacing: 4
-            Label {
-                id: stack_2_id
-                height: font.pixelSize + 10
-                horizontalAlignment: Text.AlignLeft
-                font.family: Theme.fontFamily
-                font.pixelSize: Theme.fontSizeExtraLarge
-                text: "3:"
-            }
-            Label {
-                id: stack_2
-                width: parent.width - stack_2_id.width
-                height: font.pixelSize + 10
-                horizontalAlignment: Text.AlignRight
-                font.family: Theme.fontFamily
-                font.pixelSize: Theme.fontSizeExtraLarge
-                text: stack.length > 2 ? stack[2]['expr'] : ""
-            }
-        }
-
-        Row{
-            width: parent.width
-            height: Theme.fontSizeExtraLarge
-            spacing: 4
-            Label {
-                id: stack_1_id
-                height: Theme.fontSizeExtraLarge + 10
-                horizontalAlignment: Text.AlignLeft
-                font.family: Theme.fontFamily
-                font.pixelSize: Theme.fontSizeExtraLarge
-                text: "2:"
-            }
-            Label {
-                id: stack_1
-                width: parent.width - stack_1_id.width
-                height: Theme.fontSizeExtraLarge + 10
-                horizontalAlignment: Text.AlignRight
-                font.family: Theme.fontFamily
-                font.pixelSize: Theme.fontSizeExtraLarge
-                text: stack.length > 1 ? stack[1]['expr'] : ""
-            }
-        }
-
-        Row{
-            width: parent.width
-            height: Theme.fontSizeExtraLarge
-            spacing: 4
-            Label {
-                id: stack_0_id
-                height: Theme.fontSizeExtraLarge + 10
-                horizontalAlignment: Text.AlignLeft
-                font.family: Theme.fontFamily
-                font.pixelSize: Theme.fontSizeExtraLarge
-                text: "1:"
-            }
-            Label {
-                id: stack_0
-                width: parent.width - stack_0_id.width - dropBtn.width - 4 - 4
-                height: Theme.fontSizeExtraLarge + 10
-                horizontalAlignment: Text.AlignRight
-                font.family: Theme.fontFamily
-                font.pixelSize: Theme.fontSizeExtraLarge
-                text: stack.length > 0 ? stack[0]['expr'] : ""
-            }
-            IconButton{
-                id: dropBtn
-                width: height
-                height: Theme.fontSizeExtraLarge + 10
-                icon.source: "image://Theme/icon-l-backspace"
-                onClicked: {
-                    stackDropFirst();
-                    /*
-                    if(settings.vibration()){
-                        vibration.start();
-                    }
-                    */
-                }
-                onPressAndHold: {
-                    stackDropAll();
-                    /*
-                    if(settings.vibration()){
-                        longVibration.start();
-                    }
-                    */
-                }
-            }
-        }
-
-
-        Row{
-            width: parent.width
-            height: formulaLabel.height
-            spacing: 4
-            Label {
-                id: formulaLabel
-                width: parent.width- backBtn.width -4
-                height: Theme.fontSizeExtraLarge + 10
-                horizontalAlignment: Text.AlignRight
-                font.family: Theme.fontFamily
-                font.pixelSize: Theme.fontSizeExtraLarge
-                text: currentOperand
-                color: currentOperandValid ? "white" : "red"
-            }
-            IconButton{
-                id: backBtn
-                width: height
-                height: Theme.fontSizeExtraLarge + 10
-                icon.source: "image://Theme/icon-l-backspace"
-                onClicked: {
-                    formulaPop();
-                    /*
-                    if(settings.vibration()){
-                        vibration.start();
-                    }
-                    */
-                }
-                onPressAndHold: {
-                    formulaReset();
-                    /*
-                    if(settings.vibration()){
-                        vibration.start();
-                    }
-                    */
-                }
-            }
-        }
-    }
+    property alias view: listView
 
     GlassItem {
         id: divider
+
         anchors.top: parent.top
-        anchors.topMargin: (height/2)*-1
         anchors.horizontalCenter: parent.horizontalCenter
+
         objectName: "menuitem"
+
         height: Theme.paddingLarge
         width: parent.width
+
         color: Theme.highlightColor
+        opacity : (listView.height >= listView.contentHeight) || listView.atYBeginning ? 0.0 : 1.0
+
+        Behavior on opacity { NumberAnimation {duration: 500} }
+
         cache: false
     }
 
-    states: [
-        State {
-            name: "one"
-            when: memory.count == 0
-            PropertyChanges {
-                target: divider
-                visible: false
-            }
-        },
-        State {
-            name: "more"
-            when: memory.count >= 1
-            PropertyChanges {
-                target: divider
-                visible: true
-            }
-        }
-    ]
+    SilicaListView {
+        id: listView
 
-    transitions: [
-        Transition {
-            from: "one"
-            to: "more"
-            NumberAnimation { target: divider; property: "opacity"; from: 0; to: 1; duration: 500 }
-        }
-    ]
+        anchors.fill: parent
 
+        snapMode: ListView.NoSnap
+
+        VerticalScrollDecorator {}
+
+        delegate: StackFlick {
+            id: stackFlick
+            width: listView.width
+            stack: currentStack
+        }
+
+    }
+
+    GlassItem {
+        id: divider2
+
+        anchors.top: listView.bottom
+        anchors.topMargin: (height/2)*-1
+        anchors.horizontalCenter: parent.horizontalCenter
+
+        objectName: "menuitem"
+
+        height: Theme.paddingLarge
+        width: parent.width
+
+        color: Theme.highlightColor
+        opacity: listView.atYEnd ? 0.0 : 1.0
+
+        Behavior on opacity { NumberAnimation {duration: 500} }
+
+        cache: false
+    }
 }

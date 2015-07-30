@@ -149,9 +149,15 @@ Page {
         function newStackHandler(stack){
             memory.clear();
             var i=0;
-            for(i=stack.length-1; i>4 ; i--){
-                memory.append({isLastItem: i == stack.length ? true : false, index: String(stack[i]["index"]), value: stack[i]["expr"]})
-                formulaView.positionViewAtEnd();
+            for(i=stack.length-1; i>=0 ; i--){
+                memory.append({isLastItem: i == stack.length ? true : false, value: stack[i]["expr"]})
+                calcScreen.view.positionViewAtEnd();
+            }
+
+            //fill in first 10 of stack
+            for(i=memory.count; i<1 ; i++){
+                memory.insert(0, {isLastItem: i == stack.length ? true : false, value: ""});
+                calcScreen.view.positionViewAtEnd();
             }
 
             page.currentStack = stack;
@@ -221,46 +227,70 @@ Page {
         return str;
     }
 
-    ListModel {
-        id: viewModel
+    Item {
+        id: heightMeasurement
+        anchors.bottom: currentOperandEditor.top
+        anchors.top: parent.top
 
+        visible: false
     }
 
-    SilicaListView {
-        id: formulaView
-        anchors.fill: parent
-        snapMode: ListView.NoSnap
-        property int screenHeight: 0
+    CalcScreen {
+        id: calcScreen
 
-        function showError() {
-            animateError.start()
-        }
+        anchors.bottom: currentOperandEditor.top
+        anchors.left: parent.left
+        anchors.right: parent.right
 
-        PropertyAnimation {id: animateError; target: formulaView; properties: "color"; from: "#FFA0A0"; to: "#FFFFFF"; duration: 100}
+        height: heightMeasurement.height > contentHeight ? contentHeight : heightMeasurement.height
 
-        delegate: StackFlick {
-            id: stackFlick
-            width: formulaView.width
-            stack: currentStack
-
-            Component.onCompleted: {
-                if (formulaView.screenHeight == 0)
-                    formulaView.screenHeight = height
-
-            }
-
-
-        }
-
-        footer : StdKeyboard {
-            width: parent.width
-            height: page.height
-        }
+        anchors.margins: 10
+        clip: true
 
         model: Memory {
             id: memory
             stack: currentStack
         }
+    }
+
+    OperandEditor {
+        id: currentOperandEditor
+
+        anchors.bottom: kbd.top
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.rightMargin: 10
+        anchors.leftMargin: 10
+
+        operand: currentOperand
+        operandInvalid: currentOperandValid ? false : true  // <= lol
+
+        backButton.onClicked: {
+            formulaPop();
+            /*
+            if(settings.vibration()){
+                vibration.start();
+            }
+            */
+        }
+
+        backButton.onPressAndHold: {
+            formulaReset();
+            /*
+            if(settings.vibration()){
+                vibration.start();
+            }
+            */
+        }
+    }
+
+    StdKeyboard {
+        id: kbd
+        anchors.bottom: parent.bottom
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.bottomMargin: 20
+
+        width: parent.width
     }
 }
 

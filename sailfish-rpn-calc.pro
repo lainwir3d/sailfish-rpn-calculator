@@ -36,7 +36,8 @@ OTHER_FILES += \
     rpm/harbour-rpncalc.spec \
     qml/elements/Popup.qml \
     python/rpncalc_constants.py \
-    qml/pages/Settings.qml
+    qml/pages/Settings.qml \
+    qml/elements/OperandEditor.qml
 
 python.path = /usr/share/$${TARGET}
 python.files = python

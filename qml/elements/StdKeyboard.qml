@@ -30,21 +30,10 @@ Item {
     property int buttonWidth: 85
     property int buttonHeigth: 80
 
-    CalcScreen{
-        id: calcScreen
-        width: formulaView.width - 8
-        stack: currentStack
-        anchors.top: parent.top
-        anchors.horizontalCenter: parent.horizontalCenter
-
-    }
-
-
     Column{
         id: keyboard
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.bottom: parent.bottom
-        anchors.bottomMargin: 30
         spacing: 5
 
         property int action: 0
