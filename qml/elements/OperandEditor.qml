@@ -1,7 +1,7 @@
 import QtQuick 2.0
 import Sailfish.Silica 1.0
 
-Row{
+Item{
     id: operandEditor
 
     property bool operandInvalid: false
@@ -9,7 +9,8 @@ Row{
 
     property alias backButton: backBtn
 
-    spacing: 4
+    height: backBtn.height
+
 /*
     IconButton{
         id: kbdBtn
@@ -52,7 +53,11 @@ Row{
     Label {
         id: operandLabel
 
-        width: parent.width- backBtn.width -4
+        anchors.right: backBtn.left
+        anchors.verticalCenter: parent.verticalCenter
+        anchors.rightMargin: 10
+
+        //width: parent.width- backBtn.width
         height: Theme.fontSizeExtraLarge + 10
 
         horizontalAlignment: Text.AlignRight
@@ -65,6 +70,10 @@ Row{
 
     IconButton{
         id: backBtn
+
+        anchors.right: parent.right
+        anchors.verticalCenter: parent.verticalCenter
+
         width: height
         height: Theme.fontSizeExtraLarge + 10
         icon.source: "image://Theme/icon-l-backspace"

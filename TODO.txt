@@ -14,9 +14,8 @@ Changelog :
   - real time expression correctness evaluation
   - Error messages on missing operand / wrong operand / wrong expression
   - Precision change for ui display / evaluation
+  - Each stack element is flickable individually
 
-  - Function pretty view on long press ?
-  - Documented functions ?
   - sympy expression editor ?
   - tap on stack to include in expression when keyboard open ?
   - tap on expression to evaluate ?
@@ -24,7 +23,12 @@ Changelog :
   - Auto simplify option ? use kernS if no simplify
   - quick precision with blue button + orange button + number ?
   - copy / paste to clipboard ?
-  - scroll horizontally each individual result ?
+  - option to change screen font size
+
+Next update :
+  - Function pretty view on long press ?
+  - Documented functions ?
+
 
 real to integer part
 More effective stack change to UI

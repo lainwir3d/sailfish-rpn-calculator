@@ -242,9 +242,9 @@ Page {
         anchors.left: parent.left
         anchors.right: parent.right
 
-        height: heightMeasurement.height > contentHeight ? contentHeight : heightMeasurement.height
+        // Don't why I need 10 here... without it GlassItem is displayed too low
+        height: heightMeasurement.height + 10 > contentHeight ? contentHeight : heightMeasurement.height + 10
 
-        anchors.margins: 10
         clip: true
 
         model: Memory {

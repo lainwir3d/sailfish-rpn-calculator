@@ -35,53 +35,101 @@ Item{
     Column {
         id: columnA
 
-        width: parent.width - 8
+        width: parent.width
 
         anchors{
             top: parent.top
             left: parent.left
-            leftMargin: 4
         }
 
         spacing: 10
 
-        Row{
+        BackgroundItem {
+            id: bg
+
             width: parent.width
             height: Theme.fontSizeExtraLarge
+            //highlighted: true
 
-            spacing: 4
+            property int flickableSize: bg.width - 10 - idLabel.width - 10 - flickable.anchors.rightMargin - (dropBtn.visible ? dropBtn.width + 10 : 0)
 
             Label {
-                id: stack_2_id
+                id: idLabel
+
+                anchors.left: parent.left
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.leftMargin: 10
 
                 height: Theme.fontSizeExtraLarge + 10
 
                 horizontalAlignment: Text.AlignLeft
+                verticalAlignment: Text.AlignVCenter
                 font.family: Theme.fontFamily
                 font.pixelSize: Theme.fontSizeExtraLarge
 
                 text: String(invertedIndex) + ":"
             }
-            Label {
-                id: stack_2
 
-                width: invertedIndex == 1 ? parent.width - stack_2_id.width - dropBtn.width - 4 : parent.width - stack_2_id.width - 4 - 4
-                height: Theme.fontSizeExtraLarge + 10
+            Flickable {
+                id: flickable
 
-                horizontalAlignment: Text.AlignRight
-                font.family: Theme.fontFamily
-                font.pixelSize: Theme.fontSizeExtraLarge
+                height: Theme.fontSizeExtraLarge
 
-                text: value
+                width: bg.flickableSize
+
+                anchors.right: dropBtn.visible ? dropBtn.left : parent.right
+                anchors.rightMargin: dropBtn.visible ? 10 : 20
+                anchors.verticalCenter: parent.verticalCenter
+
+                contentHeight: height
+                contentWidth: flicked.width
+
+                clip: true
+
+                HorizontalScrollDecorator{
+                    height: Math.round(Theme.paddingSmall/4)
+
+                    opacity: 0.5    // always visible
+                }
+
+                Item {
+                    id: flicked
+
+                    anchors.verticalCenter: parent.verticalCenter
+
+                    width: Math.max(valueLabel.paintedWidth, bg.flickableSize)
+                    height: Theme.fontSizeExtraLarge + 10
+
+                    Label {
+                        id: valueLabel
+
+                        anchors.right: parent.right
+                        anchors.verticalCenter: parent.verticalCenter
+
+                        height: Theme.fontSizeExtraLarge + 10
+
+                        horizontalAlignment: Text.AlignRight
+                        verticalAlignment: Text.AlignVCenter
+                        font.family: Theme.fontFamily
+                        font.pixelSize: Theme.fontSizeExtraLarge
+                        truncationMode: TruncationMode.Fade
+
+                        text: value
+                    }
+                }
             }
 
             IconButton{
                 id: dropBtn
 
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.right: parent.right
+                anchors.rightMargin: 10
+
                 width: height
                 height: Theme.fontSizeExtraLarge + 10
 
-                visible: invertedIndex == 1 ? true : false
+                visible: invertedIndex === 1
 
                 icon.source: "image://Theme/icon-l-backspace"
 
