@@ -127,6 +127,11 @@ class Engine:
                 self.stackInputProcessor(input)
             elif type == "operation":
                 self.operationInputProcessor(input)
+            elif type == "symbol":
+                self.pushUndo()
+
+                expr = sympy.S(input)
+                self.stackPush(expr)
             elif type == "constant":
                 self.constantInputProcessor(input)
             elif type == "real":
@@ -262,6 +267,12 @@ class Engine:
 
     def functionInputProcessor(self, input):
 
+        if input == "simplify":
+            self.pushUndo()
+
+            op = self.getOperands(1)
+            expr = sympy.simplify(op)
+            self.stackPush(expr)
         if input == "cos":
             self.pushUndo()
 

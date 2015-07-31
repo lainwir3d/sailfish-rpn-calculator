@@ -207,7 +207,7 @@ Item {
                 width: buttonWidth*2 + 20
                 actions: [{text: 'ENTER', visual:'', engine:'enter', type:'stack', enabled: engineLoaded},
                 {text: '=', visual:'', engine:'=', type:'operation', enabled: engineLoaded},
-                {text: ' ', visual:'', engine:'', type:'', enabled: false}]
+                {text: 'simplify', visual:'', engine:'simplify', type:'function', enabled: engineLoaded}]
 
                 mode: keyboard.action
 
@@ -289,7 +289,7 @@ Item {
             KeyboardButton {
                 actions: [{text: '7', visual:'7', engine:'7', type:'number', enabled: true},
                 {text: ' ', visual:'', engine:'', type:'', enabled: false},
-                {text: ' ', visual:'', engine:'', type:'', enabled: false}]
+                {text: 'x', visual:'', engine:'x', type:'symbol', enabled: true}]
 
                 mode: keyboard.action
 
@@ -304,7 +304,7 @@ Item {
             KeyboardButton {
                 actions: [{text: '8', visual:'8', engine:'8', type:'number', enabled: true},
                 {text: ' ', visual:'', engine:'', type:'', enabled: false},
-                {text: ' ', visual:'', engine:'', type:'', enabled: false}]
+                {text: 'y', visual:'', engine:'y', type:'symbol', enabled: true}]
 
                 mode: keyboard.action
 
@@ -319,7 +319,7 @@ Item {
             KeyboardButton {
                 actions: [{text: '9', visual:'9', engine:'9', type:'number', enabled: true},
                 {text: ' ', visual:'', engine:'', type:'', enabled: false},
-                {text: ' ', visual:'', engine:'', type:'', enabled: false}]
+                {text: 'z', visual:'', engine:'z', type:'symbol', enabled: true}]
 
                 mode: keyboard.action
 

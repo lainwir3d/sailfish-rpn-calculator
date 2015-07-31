@@ -1,10 +1,5 @@
 
 - Base conversion : hex, dec, bin, oct
-- Angle mode display (rad/dec/grad)
-
-- Settings page
-- Float precision button (followed by a number)
-
 
 Changelog :
   - unlimited stack
@@ -16,6 +11,8 @@ Changelog :
   - Precision change for ui display / evaluation
   - Each stack element is flickable individually
   - Symbolic mode option
+  - UI changes
+  - Symplify expression button
 
   - sympy expression editor ?
   - tap on stack to include in expression when keyboard open ?
@@ -26,7 +23,10 @@ Changelog :
   - copy / paste to clipboard ?
   - option to change screen font size
   - flickable for current expression
-  - simplify button ?
+  - resolve equation ?
+  - fix cover clipping
+  - vibration ?
+  - symbol page ?
 
 Next update :
   - Function pretty view on long press ?
@@ -35,3 +35,4 @@ Next update :
 
 real to integer part
 More effective stack change to UI
+do not clip individual stack flickable (because of symbols going too low like "y" or "µ₀")
