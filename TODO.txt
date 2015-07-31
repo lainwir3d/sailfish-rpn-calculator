@@ -15,6 +15,7 @@ Changelog :
   - Error messages on missing operand / wrong operand / wrong expression
   - Precision change for ui display / evaluation
   - Each stack element is flickable individually
+  - Symbolic mode option
 
   - sympy expression editor ?
   - tap on stack to include in expression when keyboard open ?
@@ -25,6 +26,7 @@ Changelog :
   - copy / paste to clipboard ?
   - option to change screen font size
   - flickable for current expression
+  - simplify button ?
 
 Next update :
   - Function pretty view on long press ?
@@ -33,6 +35,3 @@ Next update :
 
 real to integer part
 More effective stack change to UI
-auto-simplify option
-symbolic mode option
-

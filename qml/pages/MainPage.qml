@@ -65,6 +65,12 @@ Page {
         onReprFloatPrecisionChanged: {
             python.changeReprFloatPrecision(settings.reprFloatPrecision);
         }
+        onAutoSimplifyChanged: {
+            python.enableAutoSimplify(settings.autoSimplify);
+        }
+        onSymbolicModeChanged: {
+            python.enableSymbolicMode(settings.symbolicMode);
+        }
     }
 
     Python {
@@ -90,8 +96,12 @@ Page {
         function engineLoadedHandler(){
             popup.notify("Engine loaded.");
             page.engineLoaded = true;
+
             changeTrigonometricUnit(settings.angleUnit);
             changeReprFloatPrecision(settings.reprFloatPrecision);
+            enableSymbolicMode(settings.symbolicMode);
+            enableAutoSimplify(settings.autoSimplify);
+
             pageStack.pushAttached(Qt.resolvedUrl("Settings.qml"));
         }
 
@@ -109,6 +119,14 @@ Page {
             }else{
                 popup.notify("Wrongs operands. Expected " + operandTypeToString(expectedOperands) + ".");
             }
+        }
+
+        function enableSymbolicMode(enabled){
+            call("rpncalc_engine.engine.setSymbolicMode", [enabled], function (){});
+        }
+
+        function enableAutoSimplify(enabled){
+            call("rpncalc_engine.engine.setAutoSimplify", [enabled], function (){});
         }
 
         function changeTrigonometricUnit(unit){

@@ -71,6 +71,9 @@ class Engine:
         self.beautifier = beautifier
         self.trigUnit = TrigUnit.Radians
 
+        self._autoSimplify = True
+        self._symbolicMode = True
+
         t = threading.Timer(0.1, self.loadEngine)
         t.start()
 
@@ -90,6 +93,16 @@ class Engine:
         self.extendedFunctionLoaded = True
 
         pyotherside.send("EngineLoaded")
+
+    def setSymbolicMode(self, enabled):
+        if self._symbolicMode != enabled:
+            self._symbolicMode = enabled
+            self.beautifier.setSymbolicMode(enabled)
+            self.stackChanged()
+
+    def setAutoSimplify(self, enabled):
+        if self._autoSimplify != enabled:
+            self._autoSimplify = enabled
 
     def setBeautifierPrecision(self, prec):
         self.beautifier.setPrecision(prec)
@@ -680,6 +693,11 @@ class SimpleBeautifier:
 
     def __init__(self):
         self.precision = 4
+        self._symbolicMode = True
+
+    def setSymbolicMode(self, enabled):
+        if enabled != self._symbolicMode:
+            self._symbolicMode = enabled
 
     def setPrecision(self, prec):
         self.precision = prec
@@ -693,14 +711,17 @@ class SimpleBeautifier:
         index = 1
         for i in stack:
             expr = None
-            if i.is_Float is True:
-                expr = str(i.evalf(self.precision))
+            if self._symbolicMode is True:
+                if i.is_Float is True:
+                    expr = str(i.evalf(self.precision))
+                else:
+                    expr = str(i)
+                    expr = expr.replace("**", "^")
+                    expr = expr.replace("pi", "π")
+                    expr = expr.replace("sqrt", "√")
+                    expr = expr.replace("log", "ln")
             else:
-                expr = str(i)
-                expr = expr.replace("**", "^")
-                expr = expr.replace("pi", "π")
-                expr = expr.replace("sqrt", "√")
-                expr = expr.replace("log", "ln")
+                expr = str(i.evalf(self.precision))
 
             value = str(sympy.N(i))
 

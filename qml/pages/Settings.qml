@@ -75,6 +75,26 @@ Page {
                     settings.reprFloatPrecision = Number(currentItem.text);
                 }
             }
+
+            TextSwitch {
+                text: "Symbolic mode"
+                checked: settings.symbolicMode
+
+                onCheckedChanged: {
+                    settings.symbolicMode = checked;
+                }
+            }
+
+            /* Not functionnal
+            TextSwitch {
+                text: "Auto simplify expression"
+                checked: settings.autoSimplify
+
+                onCheckedChanged: {
+                    settings.autoSimplify = checked;
+                }
+            }
+            */
         }
     }
 }
