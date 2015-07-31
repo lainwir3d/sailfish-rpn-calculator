@@ -69,6 +69,17 @@ Page {
                     MenuItem { text: "18"; }
                     MenuItem { text: "19"; }
                     MenuItem { text: "20"; }
+                    MenuItem { text: "21"; }
+                    MenuItem { text: "22"; }
+                    MenuItem { text: "23"; }
+                    MenuItem { text: "24"; }
+                    MenuItem { text: "25"; }
+                    MenuItem { text: "26"; }
+                    MenuItem { text: "27"; }
+                    MenuItem { text: "28"; }
+                    MenuItem { text: "29"; }
+                    MenuItem { text: "30"; }
+
                 }
 
                 onCurrentItemChanged: {
