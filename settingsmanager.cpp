@@ -9,6 +9,9 @@ SettingsManager::SettingsManager(QObject *parent) :
     if(settings->value("angle_unit") == QVariant()) settings->setValue("angle_unit", QString("DEG"));
     if(settings->value("reprFloatPrecision") == QVariant()) settings->setValue("reprFloatPrecision", 9);
 
+    if(settings->value("symbolicMode") == QVariant()) settings->setValue("symbolicMode", true);
+    if(settings->value("autoSimplify") == QVariant()) settings->setValue("autoSimplify", true);
+
 }
 
 void SettingsManager::setVibration(int on)
@@ -40,5 +43,21 @@ void SettingsManager::setReprFloatPrecision(int prec)
     if(prec != reprFloatPrecision()){
         settings->setValue("reprFloatPrecision", prec);
         emit reprFloatPrecisionChanged();
+    }
+}
+
+void SettingsManager::setAutoSimplify(bool enabled)
+{
+    if(enabled != autoSimplify()){
+        settings->setValue("autoSimplify", enabled);
+        emit autoSimplifyChanged();
+    }
+}
+
+void SettingsManager::setSymbolicMode(bool enabled)
+{
+    if(enabled != symbolicMode()){
+        settings->setValue("symbolicMode", enabled);
+        emit symbolicModeChanged();
     }
 }

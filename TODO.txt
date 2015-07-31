@@ -24,6 +24,7 @@ Changelog :
   - quick precision with blue button + orange button + number ?
   - copy / paste to clipboard ?
   - option to change screen font size
+  - flickable for current expression
 
 Next update :
   - Function pretty view on long press ?
