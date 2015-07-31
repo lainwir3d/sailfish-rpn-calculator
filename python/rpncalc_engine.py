@@ -168,9 +168,9 @@ class Engine:
     def convertToRadians(self, expr):
         newExpr = None
         if self.trigUnit == TrigUnit.Degrees:
-            newExpr = rpncalc_functions.rad(expr)
+            newExpr = sympy.rad(expr)
         elif self.trigUnit == TrigUnit.Gradients:
-            newExpr = rpncalc_functions.rad(expr)
+            newExpr = expr * sympy.pi / 200
         else:
             newExpr = expr
 
@@ -179,9 +179,9 @@ class Engine:
     def convertFromRadians(self, expr):
         newExpr = None
         if self.trigUnit == TrigUnit.Degrees:
-            newExpr = rpncalc_functions.deg(expr)
+            newExpr = sympy.deg(expr)
         elif self.trigUnit == TrigUnit.Gradients:
-            newExpr = rpncalc_functions.grad(expr)
+            newExpr = expr * 200 / sympy.pi
         else:
             newExpr = expr
 
