@@ -7,7 +7,7 @@ Name:       harbour-rpncalc
 
 # >> macros
 %define __provides_exclude_from ^%{_datadir}/.*$
-%define __requires_exclude ^libc|libpython3.4m.*$
+%define __requires_exclude ^libc|libpython3.4m|python|env|libutil.*$
 # << macros
 
 %{!?qtc_qmake:%define qtc_qmake %qmake}
@@ -93,6 +93,9 @@ rm -rf %{buildroot}/%{_datadir}/%{name}/share
 rm -rf %{buildroot}/%{_datadir}/%{name}/bin
 
 cd ..
+
+cp /usr/lib/libpython3.4m.so.1.0 %{buildroot}/%{_datadir}/%{name}/lib/
+cp /lib/libutil-2.15.so %{buildroot}/%{_datadir}/%{name}/lib/libutil.so.1
 # << install post
 
 desktop-file-install --delete-original       \
