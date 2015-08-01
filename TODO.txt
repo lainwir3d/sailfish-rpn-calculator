@@ -31,6 +31,7 @@ Changelog :
 Next update :
   - Function pretty view on long press ?
   - Documented functions ?
+  - Multiple UNDO with option to select max undo stack size
 
 
 real to integer part

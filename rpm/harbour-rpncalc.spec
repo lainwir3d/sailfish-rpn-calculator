@@ -19,7 +19,7 @@ Version:    2.0
 Release:    1
 Group:      Qt/Qt
 License:    GPL
-URL:        http://example.org/
+URL:        https://github.com/lainwir3d/sailfish-rpn-calculator
 Source0:    %{name}-%{version}.tar.bz2
 Source100:  harbour-rpncalc.yaml
 Requires:   sailfishsilica-qt5 >= 0.10.9
