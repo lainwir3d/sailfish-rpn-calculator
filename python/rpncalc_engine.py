@@ -689,7 +689,10 @@ class Engine:
         self.currentOperandChanged();
 
     def currentOperandChanged(self):
-        pyotherside.send("currentOperand", self.currentOperand, self.currentOperandValid())
+        if self.engineLoaded is True:
+            pyotherside.send("currentOperand", self.currentOperand, self.currentOperandValid())
+        else:
+            pyotherside.send("currentOperand", self.currentOperand, True)
 
     def stackChanged(self):
         res = self.beautifier.beautifyStack(self.stack)
