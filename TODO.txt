@@ -1,45 +1,50 @@
-Changelog :
-  - Unlimited stack
-  - Symbolic backend (with option to enable symbolic mode or not)
-  - Settings page on left swipe
-  - Real time expression validation
-  - Explicit error messages on missing / wrong operand and wrong expression
-  - Precision change for stack display / evaluation.
-  - Each stack element is flickable individually if too long.
+2.0.1:
+
+  - Unlimited stack.
+  - Symbolic backend based on sympy.
+  - Option to enable symbolic mode or not.
+  - Real time sympy expression validation.
+  - Explicit error messages on missing / wrong operand and wrong expression.
+  - Precision option for stack display / evaluation.
+  - Each stack element is flickable individually if too large.
   - Stack is now flickable in place instead of pull down menu style.
-  - Symplify expression function
-  - Cleaner code
+  - Symplify expression function.
+  - Hide inactive buttons depending on sub-button activation (orange / blue).
+  - Settings page on left swipe.
+  - Cleaner code.
+
+Known bugs :
+
+  - Sympy engine is slow to load (~4 seconds).
+  - Cover display wrongly if stack values too long.
+  - Some characters are clipped if they are too tall ('µ' for example).
+  - The app may become slow if the stack is too deep.
 
 
-  - sympy expression editor ?
+Future updates :
+
+  - Copy / paste to clipboard.
+  - Context menu for stack elements : drop / move to first.
+  - Equation solving.
+  - Full sympy expression editor with virtual keyboard.
+  - Ability to "UNDO" multiple times.
+  - More effective stack change to fix big stack depth performance problem.
+
+"Long term" updates:
+
+  - Function pretty view on stack element long press.
+  - Documented functions.
+  - Landscape mode
+  - Tablet mode
   - tap on stack to include in expression when keyboard open ?
   - tap on expression to evaluate ?
   - Display unit under current expression ?
   - Auto simplify option ? use kernS if no simplify
   - quick precision with blue button + orange button + number ?
   - option to change screen font size
-  - fix cover clipping
   - vibration ?
   - symbol page ?
 
-Future updates :
-  - Function pretty view on long press ?
-  - Documented functions ?
-  - Multiple UNDO with option to select max undo stack size
-  - Landscape mode
-  - Tablet mode
-  - copy / paste to clipboard ?
-  - Drop stack elements individually
-  - Equation solving
-
-
-
-Known bugs :
-  - Engine / app is slow to load
-  - Cover stack display wrongly if value too long
-  - Some character are clipped if they are too tall (µ for example)
-
 real to integer part
-More effective stack change to UI
 do not clip individual stack flickable (because of symbols going too low like "y" or "µ₀")
 Base conversion : hex, dec, bin, oct
