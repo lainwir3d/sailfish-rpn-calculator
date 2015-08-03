@@ -37,12 +37,69 @@ Item{
 
         VerticalScrollDecorator {}
 
-        delegate: StackFlick {
-            id: stackFlick
-            width: listView.width
-            stack: currentStack
+        property Item contextMenu
+
+        delegate: Item {
+            id: myListItem
+            property bool menuOpen: view.contextMenu != null && view.contextMenu.parent === myListItem
+
+            width: view.width
+            height: menuOpen ? view.contextMenu.height + stackFlick.height : stackFlick.height
+
+            StackFlick {
+                id: stackFlick
+
+                stack: currentStack
+
+                width: view.width
+
+                onPressAndHold: {
+                    if (!view.contextMenu)
+                        view.contextMenu = contextMenuComponent.createObject(view);
+
+                    view.contextMenu.showOptionsForItem(myListItem, stackFlick);
+                }
+            }
         }
 
+
+        Component {
+            id: contextMenuComponent
+
+            ContextMenu {
+                id: menu
+
+                property Item currentItem
+                property int toDrop: -1
+
+                onClosed: {
+                     if(toDrop != -1){
+                         stackDropUIIndex(toDrop);
+                         toDrop = -1;
+                     }
+                }
+
+                function showOptionsForItem(showItem, item){
+                    menu.currentItem = item;
+                    menu.show(showItem);
+                }
+
+                MenuItem {
+                    text: "Copy"
+                    onClicked: {
+                        copyToClipboard(menu.currentItem.text);
+                    }
+                }
+                MenuItem {
+                    text: "Drop"
+                    onClicked: {
+                        if(menu.currentItem){
+                            menu.toDrop = menu.currentItem.invertedIndex; // do not drop immediately, wait after menu is closed.
+                        }
+                    }
+                }
+            }
+        }
     }
 
     GlassItem {

@@ -31,6 +31,10 @@ Item{
 
     property var stack;
     property int invertedIndex: memory.count - index
+    property string text: value
+
+    signal pressAndHold()
+    signal clicked()
 
     Column {
         id: columnA
@@ -135,11 +139,11 @@ Item{
                         }
 
                         onClicked: {
-                            console.log("clicked !");
+                            root.clicked();
                         }
 
                         onPressAndHold: {
-                            console.log("long press !");
+                            root.pressAndHold();
                         }
                     }
                 }

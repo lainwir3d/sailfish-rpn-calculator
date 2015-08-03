@@ -674,6 +674,12 @@ class Engine:
             self.stack.clear()
             self.stackChanged()
 
+    def stackDrop(self, idx):
+
+        if len(self.stack) > int(idx):
+            self.stack.pop(int(idx))
+            self.stackChanged()
+
     def strToNumber(self, str):
         if "." in str:
             return float(self.currentOperand)
