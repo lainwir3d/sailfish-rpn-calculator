@@ -1,18 +1,15 @@
-
-- Base conversion : hex, dec, bin, oct
-
 Changelog :
-  - unlimited stack
-  - cleaner code
-  - symbolic backend
+  - Unlimited stack
+  - Symbolic backend (with option to enable symbolic mode or not)
   - Settings page on left swipe
-  - real time expression correctness evaluation
-  - Error messages on missing operand / wrong operand / wrong expression
-  - Precision change for ui display / evaluation
-  - Each stack element is flickable individually
-  - Symbolic mode option
-  - UI changes
-  - Symplify expression button
+  - Real time expression validation
+  - Explicit error messages on missing / wrong operand and wrong expression
+  - Precision change for stack display / evaluation.
+  - Each stack element is flickable individually if too long.
+  - Stack is now flickable in place instead of pull down menu style.
+  - Symplify expression function
+  - Cleaner code
+
 
   - sympy expression editor ?
   - tap on stack to include in expression when keyboard open ?
@@ -20,20 +17,29 @@ Changelog :
   - Display unit under current expression ?
   - Auto simplify option ? use kernS if no simplify
   - quick precision with blue button + orange button + number ?
-  - copy / paste to clipboard ?
   - option to change screen font size
-  - flickable for current expression
-  - resolve equation ?
   - fix cover clipping
   - vibration ?
   - symbol page ?
 
-Next update :
+Future updates :
   - Function pretty view on long press ?
   - Documented functions ?
   - Multiple UNDO with option to select max undo stack size
+  - Landscape mode
+  - Tablet mode
+  - copy / paste to clipboard ?
+  - Drop stack elements individually
+  - Equation solving
 
+
+
+Known bugs :
+  - Engine / app is slow to load
+  - Cover stack display wrongly if value too long
+  - Some character are clipped if they are too tall (µ for example)
 
 real to integer part
 More effective stack change to UI
 do not clip individual stack flickable (because of symbols going too low like "y" or "µ₀")
+Base conversion : hex, dec, bin, oct

@@ -11,6 +11,8 @@ Item{
 
     height: backBtn.height
 
+    property int flickableSize: width - flickable.anchors.rightMargin - backBtn.width - 10
+
 /*
     IconButton{
         id: kbdBtn
@@ -50,22 +52,67 @@ Item{
        }
     }
 */
-    Label {
-        id: operandLabel
+
+    Flickable {
+        id: flickable
+
+        height: Theme.fontSizeExtraLarge
+
+        width: operandEditor.flickableSize
 
         anchors.right: backBtn.left
-        anchors.verticalCenter: parent.verticalCenter
         anchors.rightMargin: 10
+        anchors.verticalCenter: parent.verticalCenter
 
-        //width: parent.width- backBtn.width
-        height: Theme.fontSizeExtraLarge + 10
+        contentHeight: height
+        contentWidth: flicked.width
 
-        horizontalAlignment: Text.AlignRight
-        font.family: Theme.fontFamily
-        font.pixelSize: Theme.fontSizeExtraLarge
-        color: operandEditor.operandInvalid ? "red" : "white"
+        clip: true
 
-        text: ""
+        function flickToRightEdge(){
+            if((operandLabel.paintedWidth > operandEditor.flickableSize) && !atXEnd){
+                console.log("flick !!");
+                contentX = operandLabel.paintedWidth - flickable.width;
+            }
+        }
+
+        HorizontalScrollDecorator{
+            height: Math.round(Theme.paddingSmall/4)
+
+            opacity: 0.5    // always visible
+        }
+
+        Item {
+            id: flicked
+
+            anchors.verticalCenter: parent.verticalCenter
+
+            width: Math.max(operandLabel.paintedWidth, operandEditor.flickableSize)
+            height: Theme.fontSizeExtraLarge + 10
+
+            Label {
+                id: operandLabel
+
+                anchors.right: parent.right
+                anchors.verticalCenter: parent.verticalCenter
+
+                height: Theme.fontSizeExtraLarge + 10
+
+                horizontalAlignment: Text.AlignRight
+                verticalAlignment: Text.AlignVCenter
+                font.family: Theme.fontFamily
+                font.pixelSize: Theme.fontSizeExtraLarge
+                truncationMode: TruncationMode.Fade
+
+                color: operandEditor.operandInvalid ? "red" : "white"
+
+                text: ""
+
+                onTextChanged: {
+                    flickable.flickToRightEdge();
+                }
+            }
+        }
     }
 
     IconButton{
