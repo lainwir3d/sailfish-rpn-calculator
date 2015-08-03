@@ -49,7 +49,6 @@ Item{
 
             width: parent.width
             height: Theme.fontSizeExtraLarge
-            //highlighted: true
 
             property int flickableSize: bg.width - 10 - idLabel.width - 10 - flickable.anchors.rightMargin - (dropBtn.visible ? dropBtn.width + 10 : 0)
 
@@ -86,6 +85,12 @@ Item{
 
                 clip: true
 
+                onDragEnded: {
+                    if(bg.highlighted) {
+                        bg.highlighted = false;
+                    }
+                }
+
                 HorizontalScrollDecorator{
                     height: Math.round(Theme.paddingSmall/4)
 
@@ -115,6 +120,27 @@ Item{
                         truncationMode: TruncationMode.Fade
 
                         text: value
+                    }
+
+                    MouseArea {
+                        id: mouseA
+                        anchors.fill: parent
+
+                        onPressed: {
+                            bg.highlighted = true;
+                        }
+
+                        onReleased: {
+                            bg.highlighted = false;
+                        }
+
+                        onClicked: {
+                            console.log("clicked !");
+                        }
+
+                        onPressAndHold: {
+                            console.log("long press !");
+                        }
                     }
                 }
             }
