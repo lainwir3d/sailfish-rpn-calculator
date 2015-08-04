@@ -1,5 +1,4 @@
 2.0.1:
-
   - Unlimited stack.
   - Symbolic backend based on sympy.
   - Option to enable symbolic mode or not.
@@ -13,6 +12,12 @@
   - Settings page on left swipe.
   - Cleaner code.
 
+2.1.0:
+  - Long press on stack value to display context menu :
+    - Pick
+    - Drop
+    - Copy to clipboard
+
 Known bugs :
 
   - Sympy engine is slow to load (~4 seconds).
@@ -22,9 +27,6 @@ Known bugs :
 
 
 Future updates :
-
-  - Copy / paste to clipboard.
-  - Context menu for stack elements : drop / move to first.
   - Equation solving.
   - Full sympy expression editor with virtual keyboard.
   - Ability to "UNDO" multiple times.

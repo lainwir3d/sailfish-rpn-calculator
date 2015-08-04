@@ -129,6 +129,7 @@ Item{
                         onClicked: {
                             copyToClipboard(menu.currentItem.text);
                             menu.hide();
+                            popup.notify("Copied to clipboard !");
                         }
                     }
                 }
