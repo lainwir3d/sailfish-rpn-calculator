@@ -33,8 +33,19 @@ Item{
     property int invertedIndex: memory.count - index
     property string text: value
 
+    property alias highlighted : bg.highlighted
+
     signal pressAndHold()
     signal clicked()
+
+    Connections {
+        target: view
+        onDragEnded: {
+            if(bg.highlighted) {
+                bg.highlighted = false;
+            }
+        }
+    }
 
     Column {
         id: columnA

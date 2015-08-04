@@ -57,6 +57,7 @@ Item{
                     if (!view.contextMenu)
                         view.contextMenu = contextMenuComponent.createObject(view);
 
+                    highlighted = false;
                     view.contextMenu.showOptionsForItem(myListItem, stackFlick);
                 }
             }
