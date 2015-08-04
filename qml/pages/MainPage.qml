@@ -296,7 +296,7 @@ Page {
     OperandEditor {
         id: currentOperandEditor
 
-        anchors.bottom: kbd.top
+        anchors.bottom: unit.top
         anchors.left: parent.left
         anchors.right: parent.right
         anchors.rightMargin: 10
@@ -322,6 +322,22 @@ Page {
             }
             */
         }
+    }
+
+    Label {
+        id: unit
+
+        anchors.bottom: kbd.top
+        anchors.right: parent.right
+        anchors.rightMargin: 20
+        anchors.bottomMargin: 10
+
+        text: settings.angleUnit
+        font.family: Theme.fontFamily
+        font.pixelSize: Theme.fontSizeExtraSmall
+
+        color: Theme.secondaryColor
+
     }
 
     StdKeyboard {

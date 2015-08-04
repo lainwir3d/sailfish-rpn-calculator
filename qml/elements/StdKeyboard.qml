@@ -25,7 +25,7 @@ import Sailfish.Silica 1.0
 
 Item {
     width: parent.width
-    height: keyboard.height + 24
+    height: keyboard.height + 5
 
     property int buttonWidth: 85
     property int buttonHeigth: 80

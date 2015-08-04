@@ -17,6 +17,7 @@
     - Pick
     - Drop
     - Copy to clipboard
+    - Display current trig unit under current expression
 
 Known bugs :
 
@@ -40,7 +41,6 @@ Future updates :
   - Tablet mode
   - tap on stack to include in expression when keyboard open ?
   - tap on expression to evaluate ?
-  - Display unit under current expression ?
   - Auto simplify option ? use kernS if no simplify
   - quick precision with blue button + orange button + number ?
   - option to change screen font size
