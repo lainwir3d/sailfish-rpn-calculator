@@ -57,7 +57,6 @@ Item{
                     if (!view.contextMenu)
                         view.contextMenu = contextMenuComponent.createObject(view);
 
-                    highlighted = false;
                     view.contextMenu.showOptionsForItem(myListItem, stackFlick);
                 }
             }
@@ -72,11 +71,16 @@ Item{
 
                 property Item currentItem
                 property int toDrop: -1
-
+                property int toPick: -1
                 onClosed: {
                      if(toDrop != -1){
                          stackDropUIIndex(toDrop);
                          toDrop = -1;
+                     }
+
+                     if(toPick != -1){
+                         stackPickUIIndex(toPick);
+                         toPick = -1;
                      }
                 }
 
@@ -85,17 +89,46 @@ Item{
                     menu.show(showItem);
                 }
 
-                MenuItem {
-                    text: "Copy"
-                    onClicked: {
-                        copyToClipboard(menu.currentItem.text);
+                Row {
+                    width: parent ? parent.width : Screen.width
+                    height: Theme.itemSizeSmall
+                    BackgroundItem {
+                        width: parent.width / 3
+                        Label{
+                            text: "Pick"
+                            anchors.centerIn: parent
+                        }
+                        onClicked: {
+                            if(menu.currentItem){
+                                menu.toPick = menu.currentItem.invertedIndex; // do not drop immediately, wait after menu is closed.
+                            }
+
+                            menu.hide();
+                        }
                     }
-                }
-                MenuItem {
-                    text: "Drop"
-                    onClicked: {
-                        if(menu.currentItem){
-                            menu.toDrop = menu.currentItem.invertedIndex; // do not drop immediately, wait after menu is closed.
+                    BackgroundItem {
+                        width: parent.width / 3
+                        Label{
+                            text: "Drop"
+                            anchors.centerIn: parent
+                        }
+                        onClicked: {
+                            if(menu.currentItem){
+                                menu.toDrop = menu.currentItem.invertedIndex; // do not drop immediately, wait after menu is closed.
+                            }
+
+                            menu.hide();
+                        }
+                    }
+                    BackgroundItem {
+                        width: parent.width / 3
+                        Label{
+                            text: "Copy"
+                            anchors.centerIn: parent
+                        }
+                        onClicked: {
+                            copyToClipboard(menu.currentItem.text);
+                            menu.hide();
                         }
                     }
                 }

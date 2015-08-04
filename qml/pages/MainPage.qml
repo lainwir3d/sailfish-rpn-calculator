@@ -205,6 +205,10 @@ Page {
         function dropStackOperand(idx){
             call("rpncalc_engine.engine.stackDrop", [idx], function(){});
         }
+
+        function pickStackOperand(idx){
+            call("rpncalc_engine.engine.stackPick", [idx], function(){});
+        }
     }
 
     function formulaPush(visual, engine, type) {
@@ -222,6 +226,11 @@ Page {
     function stackDropUIIndex(idx){
         var engineIdx = idx - 1;
         python.dropStackOperand(engineIdx);
+    }
+
+    function stackPickUIIndex(idx){
+        var engineIdx = idx - 1;
+        python.pickStackOperand(engineIdx);
     }
 
     function formulaPop() {

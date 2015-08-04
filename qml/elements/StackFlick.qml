@@ -38,15 +38,6 @@ Item{
     signal pressAndHold()
     signal clicked()
 
-    Connections {
-        target: view
-        onDragEnded: {
-            if(bg.highlighted) {
-                bg.highlighted = false;
-            }
-        }
-    }
-
     Column {
         id: columnA
 
@@ -100,12 +91,6 @@ Item{
 
                 clip: true
 
-                onDragEnded: {
-                    if(bg.highlighted) {
-                        bg.highlighted = false;
-                    }
-                }
-
                 HorizontalScrollDecorator{
                     height: Math.round(Theme.paddingSmall/4)
 
@@ -149,11 +134,16 @@ Item{
                             bg.highlighted = false;
                         }
 
+                        onCanceled: {
+                            bg.highlighted = false;
+                        }
+
                         onClicked: {
                             root.clicked();
                         }
 
                         onPressAndHold: {
+                            bg.highlighted = false;
                             root.pressAndHold();
                         }
                     }

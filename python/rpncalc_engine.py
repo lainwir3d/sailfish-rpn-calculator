@@ -675,9 +675,14 @@ class Engine:
             self.stackChanged()
 
     def stackDrop(self, idx):
-
         if len(self.stack) > int(idx):
             self.stack.pop(int(idx))
+            self.stackChanged()
+
+    def stackPick(self, idx):
+        if len(self.stack) > int(idx):
+            expr = self.stack.pop(int(idx))
+            self.stack.insert(0, expr)
             self.stackChanged()
 
     def strToNumber(self, str):
