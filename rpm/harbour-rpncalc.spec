@@ -66,6 +66,11 @@ cd sympy-0.7.6
 python3 setup.py build
 cd ..
 
+tar xvf mpmath-0.19.tar.gz
+cd mpmath-0.19
+python3 setup.py build
+cd ..
+
 cd ..
 # << build post
 
@@ -87,6 +92,10 @@ cd ..
 #cd ..
 
 cd sympy-0.7.6
+python3 setup.py install --root=%{buildroot} --prefix=%{_datadir}/%{name}/
+cd ..
+
+cd mpmath-0.19
 python3 setup.py install --root=%{buildroot} --prefix=%{_datadir}/%{name}/
 cd ..
 
