@@ -46,6 +46,8 @@ Future updates :
   - option to change screen font size
   - vibration ?
   - symbol page ?
+  - switcher de pile
+  - save stack
 
 real to integer part
 do not clip individual stack flickable (because of symbols going too low like "y" or "µ₀")

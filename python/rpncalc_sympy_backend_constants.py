@@ -1,5 +1,22 @@
 from sympy import N, S, pi, Function, Number, NumberSymbol, Symbol
 
+class Constants():
+
+    constants = {}
+
+    @classmethod
+    def addConstant(*args):
+        if len(args) == 2:
+            Constants.constants[args[1].__qualname__] = args[1]()
+            return args[1]
+        elif len(args) == 3:
+            Constants.constants[args[1]] = args[2]
+
+constants = Constants.constants
+
+Constants.addConstant("pi", pi)
+
+@Constants.addConstant
 class Celerity(NumberSymbol):
 
     is_real = True
@@ -26,7 +43,7 @@ class Celerity(NumberSymbol):
 
 c = Celerity()
 
-
+@Constants.addConstant
 class Boltzmann(NumberSymbol):
 
     is_real = True
@@ -53,7 +70,7 @@ class Boltzmann(NumberSymbol):
 
 k = Boltzmann()
 
-
+@Constants.addConstant
 class Gravitation(NumberSymbol):
 
     is_real = True
@@ -80,7 +97,7 @@ class Gravitation(NumberSymbol):
 
 G = Gravitation()
 
-
+@Constants.addConstant
 class Magnetic(NumberSymbol):
 
     is_real = True
@@ -104,7 +121,7 @@ class Magnetic(NumberSymbol):
 
 magn = Magnetic()
 
-
+@Constants.addConstant
 class Electrical(NumberSymbol):
 
     is_real = True
@@ -128,7 +145,7 @@ class Electrical(NumberSymbol):
 
 e0 = Electrical()
 
-
+@Constants.addConstant
 class ElementaryCharge(NumberSymbol):
 
     is_real = True

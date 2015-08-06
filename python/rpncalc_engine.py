@@ -8,54 +8,8 @@ import pyotherside
 from enum import Enum, IntEnum, unique
 
 import threading
-sympy = None
-rpncalc_constants = None
-rpncalc_functions = None
-
-class NotEnoughOperandsException(Exception):
-    def __init__(self, nbRequested, nbAvailable):
-        self.nbRequested = nbRequested
-        self.nbAvailable = nbAvailable
-
-    def __str__(self):
-        return "Not enough operands available. " + str(self.nbRequested) + " but only " + str(self.nbAvailable) + " available."
-
-class OperandType(IntEnum):
-    All = 0
-    Integer = 1
-    Float = 2
-
-class TrigUnit(IntEnum):
-    Radians = 0
-    Degrees = 1
-    Gradients = 2
-
-class WrongOperandsException(Exception):
-    def __init__(self, expectedTypes, nb=0):
-        try:
-            _ = (t for t in expectedTypes)  # check for iterable
-            self.expectedTypes = expectedTypes
-        except TypeError:
-            self.expectedTypes = (expectedTypes,)
-
-        self.nb = nb
-
-    def __str__(self):
-        return "Wrong operands inputed. Expected " + str(self.expectedTypes) + "."
-
-class CannotVerifyOperandsTypeException(Exception):
-    def __init__(self):
-        pass
-
-    def __str__(self):
-        return "Cannot verify operands type, array are not the same length."
-
-class ExpressionNotValidException(Exception):
-    def __init__(self):
-        pass
-
-    def __str__(self):
-        return "Expression not valid."
+from rpncalc_common import *
+sympyBackend = None
 
 class Engine:
 
@@ -79,14 +33,10 @@ class Engine:
 
 
     def loadEngine(self):
-        global sympy
-        import sympy
 
-        global rpncalc_constants
-        import rpncalc_constants
-
-        global rpncalc_functions
-        import rpncalc_functions
+        global sympyBackend
+        import rpncalc_sympy_backend as sympyBackend
+        sympyBackend.trigUnit = self.trigUnit
 
         print("Engine loaded")
         self.engineLoaded = True
@@ -130,7 +80,8 @@ class Engine:
             elif type == "symbol":
                 self.pushUndo()
 
-                expr = sympy.S(input)
+                if sympyBackend.features & Feature.Symbolic:
+                    expr = sympyBackend.addSymbol(input)
                 self.stackPush(expr)
             elif type == "constant":
                 self.constantInputProcessor(input)
@@ -155,11 +106,7 @@ class Engine:
     def stringExpressionValid(self, str):
         valid = True
         if str != "":
-            try:
-                sympy.S(str)
-            except sympy.SympifyError as err:
-                print(err)
-                valid = False
+            valid = sympyBackend.stringExpressionValid(str)
         return valid
 
     def currentOperandValid(self):
@@ -183,27 +130,7 @@ class Engine:
         else:
             print("Invalid unit")
 
-    def convertToRadians(self, expr):
-        newExpr = None
-        if self.trigUnit == TrigUnit.Degrees:
-            newExpr = sympy.rad(expr)
-        elif self.trigUnit == TrigUnit.Gradients:
-            newExpr = expr * sympy.pi / 200
-        else:
-            newExpr = expr
-
-        return newExpr
-
-    def convertFromRadians(self, expr):
-        newExpr = None
-        if self.trigUnit == TrigUnit.Degrees:
-            newExpr = sympy.deg(expr)
-        elif self.trigUnit == TrigUnit.Gradients:
-            newExpr = expr * 200 / sympy.pi
-        else:
-            newExpr = expr
-
-        return newExpr
+        sympyBackend.trigUnit = self.trigUnit
 
     def pushUndo(self):
         self.undoStack = self.stack.copy()
@@ -219,7 +146,12 @@ class Engine:
                 if self.currentOperandValid() is False:
                     raise ExpressionNotValidException()
 
-                expr = sympy.S(self.currentOperand)
+                expr = None
+                if sympyBackend.features & Feature.StringConversion:
+                    expr = sympyBackend.stringToExpr(self.currentOperand)
+                else:
+                    raise NotSupportedException()
+
             elif len(self.stack) > 0:
                 expr = self.stack[0]
 
@@ -247,7 +179,11 @@ class Engine:
                 if self.stringExpressionValid(self.undoCurrentOperand) is False:
                     raise UndoErrorException()
 
-                expr = sympy.S(self.undoCurrentOperand)
+                expr = None
+                if sympyBackend.features & Feature.StringConversion:
+                    expr = sympyBackend.stringToExpr(self.undoCurrentOperand)
+                else:
+                    raise NotSupportedException()
 
             self.stack = self.undoStack.copy()
             if expr is not None:
@@ -266,329 +202,38 @@ class Engine:
                 self.stackChanged()
 
     def functionInputProcessor(self, input):
+        o = sympyBackend.objs[input]
 
-        if input == "simplify":
+        if o["undo"] is True:
             self.pushUndo()
 
-            op = self.getOperands(1)
-            expr = sympy.simplify(op)
-            self.stackPush(expr)
-        if input == "cos":
+        ops = self.getOperands(o["operands"], o["operandTypes"])
+        expr = o["func"](ops)
+
+        self.stackPush(expr)
+
+    def operationInputProcessor(self, input):
+
+        if input == "neg" and self.currentOperandLastChr() == "e":
+            self.currentOperand += "-"
+            self.currentOperandChanged()
+            return
+
+        o = sympyBackend.objs[input]
+
+        if o["undo"] is True:
             self.pushUndo()
 
-            op = self.getOperands(1)
-            op = self.convertToRadians(op)
-            expr = sympy.cos(op)
-            self.stackPush(expr)
-        elif input == "acos":
-            self.pushUndo()
+        ops = self.getOperands(o["operands"], o["operandTypes"])
+        expr = o["func"](ops)
 
-            op = self.getOperands(1)
-            expr = sympy.acos(op)
-            expr = self.convertFromRadians(expr)
-            self.stackPush(expr)
-
-        elif input == "sin":
-            self.pushUndo()
-
-            op = self.getOperands(1)
-            op = self.convertToRadians(op)
-            expr = sympy.sin(op)
-            self.stackPush(expr)
-
-        elif input == "asin":
-            self.pushUndo()
-
-            op = self.getOperands(1)
-            expr = sympy.asin(op)
-            expr = self.convertFromRadians(expr)
-            self.stackPush(expr)
-
-        elif input == "tan":
-            self.pushUndo()
-
-            op = self.getOperands(1)
-            op = self.convertToRadians(op)
-            expr = sympy.tan(op)
-            self.stackPush(expr)
-
-        elif input == "atan":
-            self.pushUndo()
-
-            op = self.getOperands(1)
-            expr = sympy.atan(op)
-            expr = self.convertFromRadians(expr)
-            self.stackPush(expr)
-
-        elif input == "%":
-            self.pushUndo()
-
-            (op1, op2) = self.getOperands(2)
-            expr = op1 * op2 / 100
-            self.stackPush(expr)
-
-        elif input == "inv":
-            self.pushUndo()
-
-            op = self.getOperands(1)
-            expr = 1 / op
-            self.stackPush(expr)
-
-        elif input == "sqrt":
-            self.pushUndo()
-
-            op = self.getOperands(1)
-            expr = sympy.sqrt(op)
-            self.stackPush(expr)
-
-        elif input == "nthroot":
-            self.pushUndo()
-
-            (op1, op2) = self.getOperands(2)
-            expr = sympy.root(op1, op2)
-            self.stackPush(expr)
-
-        elif input == "log":
-            self.pushUndo()
-
-            op = self.getOperands(1)
-            expr = sympy.log(op, 10)
-            self.stackPush(expr)
-        elif input == "ln":
-            self.pushUndo()
-
-            op = self.getOperands(1)
-            expr = sympy.log(op)
-            self.stackPush(expr)
-        elif input == "e^x":
-            self.pushUndo()
-
-            op = self.getOperands(1)
-            expr = sympy.exp(op)
-            self.stackPush(expr)
-        elif input == "factorial":
-            self.pushUndo()
-
-            op = self.getOperands(1)
-            expr = sympy.factorial(op)
-            self.stackPush(expr)
+        self.stackPush(expr)
 
     def constantInputProcessor(self, input):
 
-        if input == "pi":
-            self.pushUndo()
-            self.stackPush(sympy.pi)
-        elif input == "light":
-            self.pushUndo()
-            self.stackPush(rpncalc_constants.c)
-        elif input == "magnetic":
-            self.pushUndo()
-            self.stackPush(rpncalc_constants.magn)
-        elif input == "elementary_charge":
-            self.pushUndo()
-            self.stackPush(rpncalc_constants.q)
-        elif input == "electrical":
-            self.pushUndo()
-            self.stackPush(rpncalc_constants.e0)
-        elif input == "boltzmann":
-            self.pushUndo()
-            self.stackPush(rpncalc_constants.k)
-        elif input == "gravitation":
-            self.pushUndo()
-            self.stackPush(rpncalc_constants.G)
-
-    def operationInputProcessor(self, input):
-        if input == "+":
-            self.pushUndo()
-
-            (op1, op2) = self.getOperands(2)
-            expr = op1 + op2
-            self.stackPush(expr)
-        elif input == "-":
-            self.pushUndo()
-
-            if self.currentOperandLastChr() == "e":
-                self.currentOperand += "-"
-                self.currentOperandChanged()
-            else:
-                (op1, op2) = self.getOperands(2)
-                expr = op1 - op2
-                self.stackPush(expr)
-        elif input == "*":
-            self.pushUndo()
-
-            (op1, op2) = self.getOperands(2)
-            expr = op1 * op2
-            self.stackPush(expr)
-        elif input == "/":
-            self.pushUndo()
-
-            (op1, op2) = self.getOperands(2)
-            expr = op1 / op2
-            self.stackPush(expr)
-        elif input == "=":
-            self.pushUndo()
-
-            (op1) = self.getOperands(1)
-            expr = sympy.N(op1)
-            self.stackPush(expr)
-        elif input == "^":
-            self.pushUndo()
-
-            (op1, op2) = self.getOperands(2)
-            expr = op1 ** op2
-            self.stackPush(expr)
-        elif input == "10^x":
-            self.pushUndo()
-
-            (op1) = self.getOperands(1)
-            expr = 10 ** op1
-
-            self.stackPush(expr)
-        elif input == "x^2":
-            self.pushUndo()
-
-            (op1) = self.getOperands(1)
-            expr = op1 ** 2
-
-            self.stackPush(expr)
-        elif input == "neg":
-            self.pushUndo()
-
-            if self.currentOperandLastChr() == "e":
-                self.currentOperand += "-"
-                self.currentOperandChanged()
-            else:
-                (op1) = self.getOperands(1)
-                expr = op1 * -1
-                self.stackPush(expr)
-
-        elif input == "and":
-            self.pushUndo()
-
-            (op1, op2) = self.getOperands(2, (OperandType.Integer, OperandType.Integer)) # type verification tuple kept as reference, could be simplified as below
-            op1 = int(sympy.N(op1))
-            op2 = int(sympy.N(op2))
-            expr = op1 & op2
-            expr = sympy.S(expr)
-            self.stackPush(expr)
-        elif input == "nand":
-            self.pushUndo()
-
-            (op1, op2) = self.getOperands(2, OperandType.Integer)
-            op1 = int(sympy.N(op1))
-            op2 = int(sympy.N(op2))
-            expr = ~(op1 & op2)
-            expr = sympy.S(expr)
-            self.stackPush(expr)
-        elif input == "or":
-            self.pushUndo()
-
-            (op1, op2) = self.getOperands(2, OperandType.Integer)
-            op1 = int(sympy.N(op1))
-            op2 = int(sympy.N(op2))
-            expr = op1 | op2
-            expr = sympy.S(expr)
-            self.stackPush(expr)
-        elif input == "nor":
-            self.pushUndo()
-
-            (op1, op2) = self.getOperands(2, OperandType.Integer)
-            op1 = int(sympy.N(op1))
-            op2 = int(sympy.N(op2))
-            expr = ~(op1 | op2)
-            expr = sympy.S(expr)
-            self.stackPush(expr)
-        elif input == "xor":
-            self.pushUndo()
-
-            (op1, op2) = self.getOperands(2, OperandType.Integer)
-            op1 = int(sympy.N(op1))
-            op2 = int(sympy.N(op2))
-            expr = op1 ^ op2
-            expr = sympy.S(expr)
-            self.stackPush(expr)
-        elif input == "xnor":
-            self.pushUndo()
-
-            (op1, op2) = self.getOperands(2, OperandType.Integer)
-            op1 = int(sympy.N(op1))
-            op2 = int(sympy.N(op2))
-            expr = ~(op1 ^ op2)
-            expr = sympy.S(expr)
-            self.stackPush(expr)
-        elif input == "shl":
-            self.pushUndo()
-
-            (op1, op2) = self.getOperands(2, OperandType.Integer)
-            op1 = int(sympy.N(op1))
-            op2 = int(sympy.N(op2))
-            expr = op1 << op2
-            expr = sympy.S(expr)
-            self.stackPush(expr)
-        elif input == "shr":
-            self.pushUndo()
-
-            (op1, op2) = self.getOperands(2, OperandType.Integer)
-            op1 = int(sympy.N(op1))
-            op2 = int(sympy.N(op2))
-            expr = op1 >> op2
-            expr = sympy.S(expr)
-            self.stackPush(expr)
-        elif input == "not":
-            self.pushUndo()
-
-            (op1) = self.getOperands(1, OperandType.Integer)
-            op1 = int(sympy.N(op1))
-            expr = ~op1
-            expr = sympy.S(expr)
-            self.stackPush(expr)
-        elif input == "2cmp":
-            self.pushUndo()
-
-            (op1) = self.getOperands(1, OperandType.Integer)
-            op1 = int(sympy.N(op1))
-            expr = (~op1) + 1
-            expr = sympy.S(expr)
-            self.stackPush(expr)
-        elif input == "u8bit":
-            self.pushUndo()
-
-            (op1) = self.getOperands(1, OperandType.Integer)
-            op1 = int(sympy.N(op1))
-            expr = op1 & 0xff
-            expr = sympy.S(expr)
-            self.stackPush(expr)
-        elif input == "u16bit":
-            self.pushUndo()
-
-            (op1) = self.getOperands(1, OperandType.Integer)
-            op1 = int(sympy.N(op1))
-            expr = op1 & 0xffff
-            expr = sympy.S(expr)
-            self.stackPush(expr)
-        elif input == "Σ+":
-            self.pushUndo()
-
-            ops = self.getOperands(-1)
-            expr = ops[0]
-
-            for i in range(1, len(ops)):
-                expr = expr + ops[i]
-
-            self.stackPush(expr)
-
-        elif input == "Σ-":
-            self.pushUndo()
-
-            ops = self.getOperands(-1)
-            expr = ops[0]
-
-            for i in range(1, len(ops)):
-                expr = expr - ops[i]
-
-            self.stackPush(expr)
-
+        self.pushUndo()
+        expr = sympyBackend.constants[input]
+        self.stackPush(expr)
 
     def getOperands(self, nb=2, types=OperandType.All):
         nbAvailable = 0
@@ -617,8 +262,10 @@ class Engine:
                 if self.currentOperandValid() is False:
                     raise ExpressionNotValidException()
 
-                ops = ops + (sympy.S(self.currentOperand),)
-
+                if sympyBackend.features & Feature.StringConversion:
+                    ops = ops + (sympyBackend.stringToExpr(self.currentOperand),)
+                else:
+                    raise NotSupportedException()
 
             typesOk = True
             exposedExceptionNb = 0
@@ -738,7 +385,7 @@ class SimpleBeautifier:
             expr = None
             if self._symbolicMode is True:
                 if i.is_Float is True:
-                    expr = str(i.evalf(self.precision))
+                    expr = str(sympyBackend.eval(i, self.precision))
                 else:
                     expr = str(i)
                     expr = expr.replace("**", "^")
@@ -746,9 +393,9 @@ class SimpleBeautifier:
                     expr = expr.replace("sqrt", "√")
                     expr = expr.replace("log", "ln")
             else:
-                expr = str(i.evalf(self.precision))
+                expr = str(sympyBackend.eval(i, self.precision))
 
-            value = str(sympy.N(i))
+            value = str(sympyBackend.eval(i, self.precision))
 
             el = {"index": index, "expr": expr, "value": value}
             model.append(el)
