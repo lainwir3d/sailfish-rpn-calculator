@@ -1,14 +1,14 @@
 import sys
 import platform
+import threading
+from enum import Enum, IntEnum, unique
 
 (major, minor, micro, release, serial) = sys.version_info
 sys.path.append("/usr/share/harbour-rpncalc/lib/python" + str(major) + "." + str(minor) + "/site-packages/");
 
 import pyotherside
-from enum import Enum, IntEnum, unique
-
-import threading
 from rpncalc_common import *
+import rpncalc_mpmath_backend as mpmathBackend
 sympyBackend = None
 
 class Engine:
