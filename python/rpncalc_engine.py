@@ -28,6 +28,11 @@ class Engine:
         self._autoSimplify = True
         self._symbolicMode = True
 
+        self._backends = [mpmathBackend]
+        self._backends[0].trigUnit = self.trigUnit
+
+        self.beautifier.setBackends(self._backends)
+
         t = threading.Timer(0.1, self.loadEngine)
         t.start()
 
@@ -37,6 +42,7 @@ class Engine:
         global sympyBackend
         import rpncalc_sympy_backend as sympyBackend
         sympyBackend.trigUnit = self.trigUnit
+        self._backends.insert(0, sympyBackend)
 
         print("Engine loaded")
         self.engineLoaded = True
@@ -80,8 +86,8 @@ class Engine:
             elif type == "symbol":
                 self.pushUndo()
 
-                if sympyBackend.features & Feature.Symbolic:
-                    expr = sympyBackend.addSymbol(input)
+                if self._backends[0].features & Feature.Symbolic:
+                    expr = self._backends[0].addSymbol(input)
                 self.stackPush(expr)
             elif type == "constant":
                 self.constantInputProcessor(input)
@@ -106,7 +112,7 @@ class Engine:
     def stringExpressionValid(self, str):
         valid = True
         if str != "":
-            valid = sympyBackend.stringExpressionValid(str)
+            valid = self._backends[0].stringExpressionValid(str)
         return valid
 
     def currentOperandValid(self):
@@ -130,7 +136,8 @@ class Engine:
         else:
             print("Invalid unit")
 
-        sympyBackend.trigUnit = self.trigUnit
+        for b in self._backends:
+            b.trigUnit = self.trigUnit
 
     def pushUndo(self):
         self.undoStack = self.stack.copy()
@@ -147,8 +154,8 @@ class Engine:
                     raise ExpressionNotValidException()
 
                 expr = None
-                if sympyBackend.features & Feature.StringConversion:
-                    expr = sympyBackend.stringToExpr(self.currentOperand)
+                if self._backends[0].features & Feature.StringConversion:
+                    expr = self._backends[0].stringToExpr(self.currentOperand)
                 else:
                     raise NotSupportedException()
 
@@ -180,8 +187,8 @@ class Engine:
                     raise UndoErrorException()
 
                 expr = None
-                if sympyBackend.features & Feature.StringConversion:
-                    expr = sympyBackend.stringToExpr(self.undoCurrentOperand)
+                if self._backends[0].features & Feature.StringConversion:
+                    expr = self._backends[0].stringToExpr(self.undoCurrentOperand)
                 else:
                     raise NotSupportedException()
 
@@ -202,7 +209,7 @@ class Engine:
                 self.stackChanged()
 
     def functionInputProcessor(self, input):
-        o = sympyBackend.objs[input]
+        o = self._backends[0].objs[input]
 
         if o["undo"] is True:
             self.pushUndo()
@@ -219,7 +226,7 @@ class Engine:
             self.currentOperandChanged()
             return
 
-        o = sympyBackend.objs[input]
+        o = self._backends[0].objs[input]
 
         if o["undo"] is True:
             self.pushUndo()
@@ -232,7 +239,7 @@ class Engine:
     def constantInputProcessor(self, input):
 
         self.pushUndo()
-        expr = sympyBackend.constants[input]
+        expr = self._backends[0].constants[input]
         self.stackPush(expr)
 
     def getOperands(self, nb=2, types=OperandType.All):
@@ -262,8 +269,8 @@ class Engine:
                 if self.currentOperandValid() is False:
                     raise ExpressionNotValidException()
 
-                if sympyBackend.features & Feature.StringConversion:
-                    ops = ops + (sympyBackend.stringToExpr(self.currentOperand),)
+                if self._backends[0].features & Feature.StringConversion:
+                    ops = ops + (self._backends[0].stringToExpr(self.currentOperand),)
                 else:
                     raise NotSupportedException()
 
@@ -366,6 +373,7 @@ class SimpleBeautifier:
     def __init__(self):
         self.precision = 4
         self._symbolicMode = True
+        self._backends = None
 
     def setSymbolicMode(self, enabled):
         if enabled != self._symbolicMode:
@@ -373,6 +381,9 @@ class SimpleBeautifier:
 
     def setPrecision(self, prec):
         self.precision = prec
+
+    def setBackends(self, e):
+        self._backends = e
 
     def beautifyNumber(self, number):
         pass
@@ -383,19 +394,24 @@ class SimpleBeautifier:
         index = 1
         for i in stack:
             expr = None
-            if self._symbolicMode is True:
-                if i.is_Float is True:
-                    expr = str(sympyBackend.eval(i, self.precision))
-                else:
-                    expr = str(i)
-                    expr = expr.replace("**", "^")
-                    expr = expr.replace("pi", "π")
-                    expr = expr.replace("sqrt", "√")
-                    expr = expr.replace("log", "ln")
-            else:
-                expr = str(sympyBackend.eval(i, self.precision))
+            value= None
 
-            value = str(sympyBackend.eval(i, self.precision))
+            for b in self._backends:
+                try:
+                    if (self._symbolicMode is True) and (b.features & Feature.Symbolic is True):
+                        expr = b.exprToStr(i)
+                    else:
+                        expr = str(b.eval(i, self.precision))
+
+                    value = str(b.eval(i, self.precision))
+
+                except UnsupportedBackendExpressionException:
+                    if b is self._backends[-1]:
+                        raise UnsupportedBackendExpressionException()
+                    else:
+                        continue
+
+            value = str(b.eval(i, self.precision))
 
             el = {"index": index, "expr": expr, "value": value}
             model.append(el)

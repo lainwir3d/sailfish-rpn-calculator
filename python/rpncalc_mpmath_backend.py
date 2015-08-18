@@ -3,7 +3,7 @@ import mpmath
 
 #from rpncalc_sympy_backend_constants import constants
 
-features = 0
+features = Feature.StringConversion
 
 class Backend:
     objs={}
@@ -235,5 +235,14 @@ def stringExpressionValid(str):
 def stringToExpr(str):
     return mpmath.mpmathify(str)
 
+def exprToStr(expr, prec = 9):
+    try:
+        return eval(expr, prec)
+    except:
+        raise UnsupportedBackendExpressionException()
+
 def eval(expr, prec = 9):
-    return mpmath.nstr(expr, prec);
+    try:
+        return mpmath.nstr(expr, prec)
+    except:
+        raise UnsupportedBackendExpressionException()

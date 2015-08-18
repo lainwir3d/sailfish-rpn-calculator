@@ -241,8 +241,26 @@ def stringExpressionValid(str):
 def stringToExpr(str):
     return sympy.S(str)
 
+def exprToStr(expr, prec = 9):
+    try:
+        s = None
+        if expr.is_Float is True:
+            s = str(eval(expr, prec))
+        else:
+            s = str(expr)
+            s = s.replace("**", "^")
+            s = s.replace("pi", "π")
+            s = s.replace("sqrt", "√")
+            s = s.replace("log", "ln")
+        return s
+    except:
+        raise UnsupportedBackendExpressionException()
+
 def eval(expr, prec = 9):
-    return expr.evalf(prec);
+    try:
+        return expr.evalf(prec);
+    except:
+        raise UnsupportedBackendExpressionException()
 
 def addSymbol(s):
     return sympy.S(s)

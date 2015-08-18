@@ -89,12 +89,12 @@ Page {
 
             importModule('rpncalc_engine', function () {
                 console.log("Module successfully imported. Loading engine.");
-                popup.notify("Loading engine...");
+                newStackHandler([]);
             });
         }
 
         function engineLoadedHandler(){
-            popup.notify("Engine loaded.");
+            popup.notify("Symbolic engine loaded");
             page.engineLoaded = true;
 
             changeTrigonometricUnit(settings.angleUnit);
@@ -296,7 +296,7 @@ Page {
     OperandEditor {
         id: currentOperandEditor
 
-        anchors.bottom: unit.top
+        anchors.bottom: infosRow.top
         anchors.left: parent.left
         anchors.right: parent.right
         anchors.rightMargin: 10
@@ -324,19 +324,37 @@ Page {
         }
     }
 
-    Label {
-        id: unit
+    Row {
+        id: infosRow
 
         anchors.bottom: kbd.top
         anchors.right: parent.right
         anchors.rightMargin: 20
         anchors.bottomMargin: 10
 
-        text: settings.angleUnit
-        font.family: Theme.fontFamily
-        font.pixelSize: Theme.fontSizeExtraSmall
+        spacing: 10
 
-        color: Theme.secondaryColor
+        Label {
+            id: mode
+
+            text: !engineLoaded ? "Degraded" : settings.symbolicMode ? "Symbolic" : "Numeric"
+            font.family: Theme.fontFamily
+            font.pixelSize: Theme.fontSizeExtraSmall
+            //font.bold: !engineLoaded
+
+            color: !engineLoaded ? "red" : Theme.secondaryColor
+        }
+
+
+        Label {
+            id: unit
+
+            text: settings.angleUnit
+            font.family: Theme.fontFamily
+            font.pixelSize: Theme.fontSizeExtraSmall
+
+            color: Theme.secondaryColor
+        }
 
     }
 

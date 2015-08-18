@@ -42,8 +42,8 @@ Item {
             spacing: 20
             anchors.horizontalCenter: parent.horizontalCenter
             KeyboardButton {
-                actions: [{text: '√x', visual:'', engine:'sqrt', type:'function', enabled: engineLoaded},
-                {text: 'ˣ√y', visual:'', engine:'nthroot', type:'function', enabled: engineLoaded},
+                actions: [{text: '√x', visual:'', engine:'sqrt', type:'function', enabled: true},
+                {text: 'ˣ√y', visual:'', engine:'nthroot', type:'function', enabled: true},
                 {text: ' ', visual:'', engine:'', type:'', enabled: false}]
 
                 mode: keyboard.action
@@ -57,8 +57,8 @@ Item {
             }
 
             KeyboardButton {
-                actions: [{text: 'eˣ', visual:'', engine:'e^x', type:'function', enabled: engineLoaded},
-                {text: 'ln', visual:'', engine:'ln', type:'function', enabled: engineLoaded},
+                actions: [{text: 'eˣ', visual:'', engine:'e^x', type:'function', enabled: true},
+                {text: 'ln', visual:'', engine:'ln', type:'function', enabled: true},
                 {text: ' ', visual:'', engine:'', type:'', enabled: false}]
 
                 mode: keyboard.action
@@ -72,8 +72,8 @@ Item {
             }
 
             KeyboardButton {
-                actions: [{text: '10ˣ', visual:'', engine:'10^x', type:'operation', enabled: engineLoaded},
-                {text: 'log', visual:'', engine:'log', type:'function', enabled: engineLoaded},
+                actions: [{text: '10ˣ', visual:'', engine:'10^x', type:'operation', enabled: true},
+                {text: 'log', visual:'', engine:'log', type:'function', enabled: true},
                 {text: ' ', visual:'', engine:'', type:'', enabled: false}]
 
                 mode: keyboard.action
@@ -87,8 +87,8 @@ Item {
             }
 
             KeyboardButton {
-                actions: [{text: "yˣ", visual:'', engine:'^', type:'operation', enabled: engineLoaded},
-                {text: 'x²', visual:'', engine:'x^2', type:'operation', enabled: engineLoaded},
+                actions: [{text: "yˣ", visual:'', engine:'^', type:'operation', enabled: true},
+                {text: 'x²', visual:'', engine:'x^2', type:'operation', enabled: true},
                 {text: ' ', visual:'', engine:'', type:'', enabled: false}]
 
                 mode: keyboard.action
@@ -102,8 +102,8 @@ Item {
             }
 
             KeyboardButton {
-                actions: [{text: '1/x', visual:'', engine:'inv', type:'function', enabled: engineLoaded},
-                {text: 'x!', visual:'', engine:'factorial', type:'function', enabled: engineLoaded},
+                actions: [{text: '1/x', visual:'', engine:'inv', type:'function', enabled: true},
+                {text: 'x!', visual:'', engine:'factorial', type:'function', enabled: true},
                 {text: ' ', visual:'', engine:'', type:'', enabled: false}]
 
                 mode: keyboard.action
@@ -123,8 +123,8 @@ Item {
             anchors.horizontalCenter: parent.horizontalCenter
 
             KeyboardButton {
-                actions: [{text: 'Σ+', visual:'', engine:'addall', type:'operation', enabled: engineLoaded},
-                {text: 'Σ-', visual:'', engine:'suball', type:'operation', enabled: engineLoaded},
+                actions: [{text: 'Σ+', visual:'', engine:'addall', type:'operation', enabled: true},
+                {text: 'Σ-', visual:'', engine:'suball', type:'operation', enabled: true},
                 {text: ' ', visual:'', engine:'', type:'', enabled: false}]
 
                 mode: keyboard.action
@@ -153,8 +153,8 @@ Item {
             }
 
             KeyboardButton {
-                actions: [{text: 'sin', visual:'', engine:'sin', type:'function', enabled: engineLoaded},
-                {text: 'asin', visual:'', engine:'asin', type:'function', enabled: engineLoaded},
+                actions: [{text: 'sin', visual:'', engine:'sin', type:'function', enabled: true},
+                {text: 'asin', visual:'', engine:'asin', type:'function', enabled: true},
                 {text: ' ', visual:'', engine:'', type:'', enabled: false}]
 
                 mode: keyboard.action
@@ -168,8 +168,8 @@ Item {
             }
 
             KeyboardButton {
-                actions: [{text: 'cos', visual:'', engine:'cos', type:'function', enabled: engineLoaded},
-                {text: 'acos', visual:'', engine:'acos', type:'function', enabled: engineLoaded},
+                actions: [{text: 'cos', visual:'', engine:'cos', type:'function', enabled: true},
+                {text: 'acos', visual:'', engine:'acos', type:'function', enabled: true},
                 {text: ' ', visual:'', engine:'', type:'', enabled: false}]
 
                 mode: keyboard.action
@@ -183,8 +183,8 @@ Item {
             }
 
             KeyboardButton {
-                actions: [{text: 'tan', visual:'', engine:'tan', type:'function', enabled: engineLoaded},
-                {text: 'atan', visual:'', engine:'atan', type:'function', enabled: engineLoaded},
+                actions: [{text: 'tan', visual:'', engine:'tan', type:'function', enabled: true},
+                {text: 'atan', visual:'', engine:'atan', type:'function', enabled: true},
                 {text: ' ', visual:'', engine:'', type:'', enabled: false}]
 
                 mode: keyboard.action
@@ -205,7 +205,7 @@ Item {
 
             KeyboardButton {
                 width: buttonWidth*2 + 20
-                actions: [{text: 'ENTER', visual:'', engine:'enter', type:'stack', enabled: engineLoaded},
+                actions: [{text: 'ENTER', visual:'', engine:'enter', type:'stack', enabled: true},
                 {text: '=', visual:'', engine:'=', type:'operation', enabled: engineLoaded},
                 {text: 'simplify', visual:'', engine:'simplify', type:'function', enabled: engineLoaded}]
 
@@ -220,7 +220,7 @@ Item {
             }
 
             KeyboardButton {
-                actions: [{text: 'x↔y', visual:'', engine:'swap', type:'stack', enabled: engineLoaded},
+                actions: [{text: 'x↔y', visual:'', engine:'swap', type:'stack', enabled: true},
                     {text: '8bit', visual:'', engine:'u8bit', type:'operation', enabled: engineLoaded},
                     {text: '16bit', visual:'', engine:'u16bit', type:'operation', enabled: engineLoaded}]
 
@@ -251,9 +251,9 @@ Item {
             }
 
             KeyboardButton {
-                actions: [{text: 'DROP', visual:'', engine:'drop', type:'stack', enabled: engineLoaded},
-                {text: 'CLR', visual:'', engine:'clr', type:'stack', enabled: engineLoaded},
-                {text: 'UNDO', visual:'', engine:'undo', type:'stack', enabled: engineLoaded}]
+                actions: [{text: 'DROP', visual:'', engine:'drop', type:'stack', enabled: true},
+                {text: 'CLR', visual:'', engine:'clr', type:'stack', enabled: true},
+                {text: 'UNDO', visual:'', engine:'undo', type:'stack', enabled: true}]
 
                 mode: keyboard.action
 
@@ -272,8 +272,8 @@ Item {
             anchors.horizontalCenter: parent.horizontalCenter
 
             KeyboardButton {
-                actions: [{text: 'EEX', visual:'e', engine:'e', type:'exp', enabled: engineLoaded},
-                    {text: '%', visual:'', engine:'%', type:'function', enabled: engineLoaded},
+                actions: [{text: 'EEX', visual:'e', engine:'e', type:'exp', enabled: true},
+                    {text: '%', visual:'', engine:'%', type:'function', enabled: true},
                     {text: ' ', visual:'', engine:'', type:'', enabled: false}]
 
                 mode: keyboard.action
@@ -289,7 +289,7 @@ Item {
             KeyboardButton {
                 actions: [{text: '7', visual:'7', engine:'7', type:'number', enabled: true},
                 {text: ' ', visual:'', engine:'', type:'', enabled: false},
-                {text: 'x', visual:'', engine:'x', type:'symbol', enabled: true}]
+                {text: 'x', visual:'', engine:'x', type:'symbol', enabled: engineLoaded}]
 
                 mode: keyboard.action
 
@@ -304,7 +304,7 @@ Item {
             KeyboardButton {
                 actions: [{text: '8', visual:'8', engine:'8', type:'number', enabled: true},
                 {text: ' ', visual:'', engine:'', type:'', enabled: false},
-                {text: 'y', visual:'', engine:'y', type:'symbol', enabled: true}]
+                {text: 'y', visual:'', engine:'y', type:'symbol', enabled: engineLoaded}]
 
                 mode: keyboard.action
 
@@ -319,7 +319,7 @@ Item {
             KeyboardButton {
                 actions: [{text: '9', visual:'9', engine:'9', type:'number', enabled: true},
                 {text: ' ', visual:'', engine:'', type:'', enabled: false},
-                {text: 'z', visual:'', engine:'z', type:'symbol', enabled: true}]
+                {text: 'z', visual:'', engine:'z', type:'symbol', enabled: engineLoaded}]
 
                 mode: keyboard.action
 
@@ -332,7 +332,7 @@ Item {
             }
 
             KeyboardButton {
-                actions: [{text: '÷', visual:'', engine:'/', type:'operation', enabled: engineLoaded},
+                actions: [{text: '÷', visual:'', engine:'/', type:'operation', enabled: true},
                 {text: 'AND', visual:'', engine:'_and', type:'operation', enabled: engineLoaded},
                 {text: 'NAND', visual:'', engine:'_nand', type:'operation', enabled: engineLoaded}]
 
@@ -418,7 +418,7 @@ Item {
             }
 
             KeyboardButton {
-                actions: [{text: '×', visual:'', engine:'*', type:'operation', enabled: engineLoaded},
+                actions: [{text: '×', visual:'', engine:'*', type:'operation', enabled: true},
                 {text: 'OR', visual:'', engine:'_or', type:'operation', enabled: engineLoaded},
                 {text: 'NOR', visual:'', engine:'_nor', type:'operation', enabled: engineLoaded}]
 
@@ -504,7 +504,7 @@ Item {
             }
 
             KeyboardButton {
-                actions: [{text: '−', visual:'', engine:'-', type:'operation', enabled: engineLoaded},
+                actions: [{text: '−', visual:'', engine:'-', type:'operation', enabled: true},
                 {text: 'XOR', visual:'', engine:'_xor', type:'operation', enabled: engineLoaded},
                 {text: 'XNOR', visual:'', engine:'_xnor', type:'operation', enabled: engineLoaded}]
 
@@ -581,7 +581,7 @@ Item {
             }
 
             KeyboardButton {
-                actions: [{text: '+', visual:'', engine:'+', type:'operation', enabled: engineLoaded},
+                actions: [{text: '+', visual:'', engine:'+', type:'operation', enabled: true},
                 {text: 'NOT', visual:'', engine:'_not', type:'operation', enabled: engineLoaded},
                 {text: '2CMP', visual:'', engine:'_2cmp', type:'operation', enabled: engineLoaded}]
 

@@ -55,3 +55,10 @@ class FeatureNotSupportedException(Exception):
 
     def __str__(self):
         return "Feature not supported by Backend."
+
+class UnsupportedBackendExpressionException(Exception):
+    def __init__(self):
+        pass
+
+    def __str__(self):
+        return "Expression is not a supported backend type."
