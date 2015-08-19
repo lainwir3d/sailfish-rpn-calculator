@@ -89,6 +89,8 @@ Page {
 
             importModule('rpncalc_engine', function () {
                 console.log("Module successfully imported. Loading engine.");
+                changeTrigonometricUnit(settings.angleUnit);
+                changeReprFloatPrecision(settings.reprFloatPrecision);
                 newStackHandler([]);
             });
         }
