@@ -21,7 +21,6 @@ OTHER_FILES += \
     qml/elements/KeyboardButton.qml \
     qml/elements/Memory.qml \
     qml/elements/StdKeyboard.qml \
-    qml/engine.js \
     qml/elements/StackFlick.qml \
     TODO.txt \
     LICENSE.md \
