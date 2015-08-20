@@ -138,8 +138,8 @@ Item {
             }
 
             KeyboardButton {
-                actions: [{text: 'R↓', visual:'', engine:'R-', type:'stack', enabled: engineLoaded},
-                    {text: 'R↑', visual:'', engine:'R+', type:'stack', enabled: engineLoaded},
+                actions: [{text: 'R↓', visual:'', engine:'R-', type:'stack', enabled: true},
+                    {text: 'R↑', visual:'', engine:'R+', type:'stack', enabled: true},
                     {text: ' ', visual:'', engine:'', type:'', enabled: false}]
 
                 mode: keyboard.action
@@ -236,7 +236,7 @@ Item {
 
 
             KeyboardButton {
-                actions: [{text: '+/-', visual:'', engine:'neg', type:'operation', enabled: engineLoaded},
+                actions: [{text: '+/-', visual:'', engine:'neg', type:'operation', enabled: true},
                 {text: 'SHL', visual:'', engine:'shl', type:'operation', enabled: engineLoaded},
                 {text: 'SHR', visual:'', engine:'shr', type:'operation', enabled: engineLoaded}]
 

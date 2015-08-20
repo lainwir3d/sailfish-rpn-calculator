@@ -76,7 +76,7 @@ Backend.engineFunction("%", lambda op: op[0] * op[1] / 100)
 Backend.engineFunction("inv", lambda op: 1 / op, operands=1)
 Backend.engineFunction("sqrt", lambda op: mpmath.sqrt(op), operands=1)
 Backend.engineFunction("nthroot", lambda op: mpmath.root(op[0], op[1]))
-Backend.engineFunction("log", lambda op: mpmath.log(op[0], b=10), operands=1)
+Backend.engineFunction("log", lambda op: mpmath.log(op, b=10), operands=1)
 Backend.engineFunction("ln", lambda op: mpmath.log(op), operands=1)
 Backend.engineFunction("e^x", lambda op: mpmath.exp(op), operands=1)
 Backend.engineFunction("factorial", lambda op: mpmath.factorial(op), operands=1)
@@ -95,82 +95,6 @@ def suball(op):
         expr = expr - op[i]
     return expr
 
-#@Bitwise.engineFunction
-#def _and(op):
-#    res = int(op[0]) & int(op[1])
-#    return sympy.S(res)
-
-#@Bitwise.engineFunction
-#def _nand(op):
-#    res = int(op[0]) & int(op[1])
-#    res = ~res
-#    return sympy.S(res)
-
-#@Bitwise.engineFunction
-#def _or(op):
-#    res = int(op[0]) | int(op[1])
-#    return sympy.S(res)
-
-#@Bitwise.engineFunction
-#def _nor(op):
-#    res = int(op[0]) | int(op[1])
-#    res = ~res
-#    return sympy.S(res)
-
-#@Bitwise.engineFunction
-#def _and(op):
-#    res = int(op[0]) & int(op[1])
-#    return sympy.S(res)
-
-#@Bitwise.engineFunction
-#def _nand(op):
-#    res = int(op[0]) & int(op[1])
-#    res = ~res
-#    return sympy.S(res)
-
-#@Bitwise.engineFunction
-#def _xor(op):
-#    res = int(op[0]) ^ int(op[1])
-#    return sympy.S(res)
-
-#@Bitwise.engineFunction
-#def _xnor(op):
-#    res = int(op[0]) ^ int(op[1])
-#    res = ~res
-#    return sympy.S(res)
-
-#@Bitwise.engineFunction
-#def _shl(op):
-#    res = int(op[0]) << int(op[1])
-#    return sympy.S(res)
-
-#@Bitwise.engineFunction
-#def _shr(op):
-#    res = int(op[0]) >> int(op[1])
-#    return sympy.S(res)
-
-#@Bitwise.engineFunction(operands=1)
-#def _not(op):
-#    res = int(op)
-#    res = ~res
-#    return sympy.S(res)
-
-#@Bitwise.engineFunction(operands=1)
-#def _2cmp(op):
-#    res = int(op)
-#    res = ~res + 1
-#    return sympy.S(res)
-
-#@Bitwise.engineFunction(operands=1)
-#def u8bit(op):
-#    res = int(op) & 0xff
-#    return sympy.S(res)
-
-#@Bitwise.engineFunction(operands=1)
-#def u16bit(op):
-#    res = int(op) & 0xffff
-#    return sympy.S(res)
-
 @Backend.engineFunction(operands=1)
 def cos(op):
     op = convertToRadians(op)
@@ -178,8 +102,8 @@ def cos(op):
 
 @Backend.engineFunction(operands=1)
 def acos(op):
-    op = convertFromRadians(op)
-    return mpmath.acos(op)
+    expr = mpmath.acos(op)
+    return convertFromRadians(expr)
 
 @Backend.engineFunction(operands=1)
 def sin(op):
@@ -188,8 +112,8 @@ def sin(op):
 
 @Backend.engineFunction(operands=1)
 def asin(op):
-    op = convertFromRadians(op)
-    return mpmath.asin(op)
+    expr = mpmath.asin(op)
+    return convertFromRadians(expr)
 
 @Backend.engineFunction(operands=1)
 def tan(op):
@@ -198,8 +122,8 @@ def tan(op):
 
 @Backend.engineFunction(operands=1)
 def atan(op):
-    op = convertFromRadians(op)
-    return mpmath.atan(op)
+    expr = mpmath.atan(op)
+    return convertFromRadians(expr)
 
 
 def convertToRadians(expr):

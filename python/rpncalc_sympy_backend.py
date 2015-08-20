@@ -184,8 +184,8 @@ def cos(op):
 
 @Backend.engineFunction(operands=1)
 def acos(op):
-    op = convertFromRadians(op)
-    return sympy.acos(op)
+    expr = sympy.acos(op)
+    return convertFromRadians(expr)
 
 @Backend.engineFunction(operands=1)
 def sin(op):
@@ -194,8 +194,8 @@ def sin(op):
 
 @Backend.engineFunction(operands=1)
 def asin(op):
-    op = convertFromRadians(op)
-    return sympy.asin(op)
+    expr = sympy.asin(op)
+    return convertFromRadians(expr)
 
 @Backend.engineFunction(operands=1)
 def tan(op):
@@ -204,8 +204,8 @@ def tan(op):
 
 @Backend.engineFunction(operands=1)
 def atan(op):
-    op = convertFromRadians(op)
-    return sympy.atan(op)
+    expr = sympy.atan(op)
+    return convertFromRadians(expr)
 
 
 def convertToRadians(expr):
