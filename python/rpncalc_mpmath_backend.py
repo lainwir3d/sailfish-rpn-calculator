@@ -1,7 +1,7 @@
 from rpncalc_common import *
 import mpmath
 
-#from rpncalc_sympy_backend_constants import constants
+from rpncalc_mpmath_backend_constants import constants
 
 features = Feature.StringConversion
 

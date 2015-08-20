@@ -566,7 +566,7 @@ Item {
             }
 
             KeyboardButton {
-                actions: [{text: 'π', visual:'π', engine:'pi', type:'constant', enabled: engineLoaded},
+                actions: [{text: 'π', visual:'π', engine:'pi', type:'constant', enabled: true},
                     {text: 'k', visual:'', engine:'Boltzmann', type:'constant', enabled: engineLoaded},
                     {text: 'G', visual:'', engine:'Gravitation', type:'constant', enabled: engineLoaded}]
 

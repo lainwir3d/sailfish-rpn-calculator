@@ -108,6 +108,9 @@ class Engine:
         except WrongOperandsException as err:
             print(err)
             pyotherside.send("WrongOperandsException", err.expectedTypes, err.nb)
+        except BackendException as err:
+            print(err)
+            pyotherside.send("BackendException")
 
     def stringExpressionValid(self, str):
         valid = True
@@ -215,7 +218,12 @@ class Engine:
             self.pushUndo()
 
         ops = self.getOperands(o["operands"], o["operandTypes"])
-        expr = o["func"](ops)
+
+        try:
+            expr = o["func"](ops)
+        except:
+            self.stackPush(ops)
+            raise BackendException()
 
         self.stackPush(expr)
 
@@ -232,7 +240,12 @@ class Engine:
             self.pushUndo()
 
         ops = self.getOperands(o["operands"], o["operandTypes"])
-        expr = o["func"](ops)
+
+        try:
+            expr = o["func"](ops)
+        except:
+            self.stackPush(ops)
+            raise BackendException()
 
         self.stackPush(expr)
 
@@ -314,7 +327,15 @@ class Engine:
             self.stack.pop(0)
 
     def stackPush(self, expr):
-        self.stack.insert(0, expr)
+        try:
+            _ = (e for e in expr)  # check for iterable
+
+            for i in expr:
+                self.stack.insert(0, i)
+
+        except TypeError:
+            self.stack.insert(0, expr)
+
         self.clearCurrentOperand()
         self.stackChanged()
 

@@ -83,6 +83,7 @@ Page {
             setHandler('NotEnoughOperandsException', notEnoughOperandsExceptionHandler);
             setHandler('WrongOperandsException', wrongOperandsExceptionHandler);
             setHandler('ExpressionNotValidException', expressionNotValidExceptionHandler);
+            setHandler('BackendException', backendExceptionHandler);
             setHandler('EngineLoaded', engineLoadedHandler);
 
 
@@ -108,6 +109,10 @@ Page {
 
         function expressionNotValidExceptionHandler(){
             popup.notify("Expression not valid.");
+        }
+
+        function backendExceptionHandler(){
+            popup.notify("Error.");
         }
 
         function notEnoughOperandsExceptionHandler(nbExpected, nbAvailabled){

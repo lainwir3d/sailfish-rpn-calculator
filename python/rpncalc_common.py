@@ -62,3 +62,11 @@ class UnsupportedBackendExpressionException(Exception):
 
     def __str__(self):
         return "Expression is not a supported backend type."
+
+class BackendException(Exception):
+    def __init__(self):
+        pass
+
+    def __str__(self):
+        return "Backend returned an exception during computation."
+
