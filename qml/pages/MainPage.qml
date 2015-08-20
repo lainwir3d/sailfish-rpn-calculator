@@ -92,6 +92,8 @@ Page {
                 changeTrigonometricUnit(settings.angleUnit);
                 changeReprFloatPrecision(settings.reprFloatPrecision);
                 newStackHandler([]);
+
+                pageStack.pushAttached(Qt.resolvedUrl("Settings.qml"));
             });
         }
 
@@ -103,8 +105,6 @@ Page {
             changeReprFloatPrecision(settings.reprFloatPrecision);
             enableSymbolicMode(settings.symbolicMode);
             enableAutoSimplify(settings.autoSimplify);
-
-            pageStack.pushAttached(Qt.resolvedUrl("Settings.qml"));
         }
 
         function expressionNotValidExceptionHandler(){
