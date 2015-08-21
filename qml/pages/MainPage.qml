@@ -338,7 +338,7 @@ Page {
         anchors.rightMargin: 20
         anchors.bottomMargin: 10
 
-        spacing: 10
+        spacing: 15
 
         Label {
             id: mode
