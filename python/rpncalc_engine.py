@@ -419,12 +419,13 @@ class SimpleBeautifier:
 
             for b in self._backends:
                 try:
-                    if (self._symbolicMode is True) and (b.features & Feature.Symbolic is True):
+                    if (self._symbolicMode is True) and (b.features & Feature.Symbolic):
                         expr = b.exprToStr(i)
                     else:
                         expr = str(b.eval(i, self.precision))
 
                     value = str(b.eval(i, self.precision))
+                    break
 
                 except UnsupportedBackendExpressionException:
                     if b is self._backends[-1]:
