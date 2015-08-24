@@ -1,6 +1,6 @@
 Name: harbour-rpncalc
 Summary: A RPN Calculator for Sailfish
-Version: 2.0
+Version: 2.1
 Release: 1
 # The contents of the Group field should be one of the groups listed here:
 # http://gitorious.org/meego-developer-tools/spectacle/blobs/master/data/GROUPS
@@ -11,8 +11,7 @@ License: GPL
 # Usually this line does not need to be modified.
 Sources:
 - '%{name}-%{version}.tar.bz2'
-Description: "Read http://en.wikipedia.org/wiki/Reverse_Polish_notation if you want
-  to know more about RPN calculators."
+Description: "Full symbolic RPN calculator. Read http://en.wikipedia.org/wiki/Reverse_Polish_notation if you want to know more about RPN calculators."
 Configure: none
 # The qtc5 builder inserts macros to allow QtCreator to have fine
 # control over qmake/make execution
