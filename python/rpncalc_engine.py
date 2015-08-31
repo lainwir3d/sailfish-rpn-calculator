@@ -92,7 +92,7 @@ class Engine:
             elif type == "constant":
                 self.constantInputProcessor(input)
             elif type == "real":
-                if len(self.currentOperand) > 0 and '.' not in self.currentOperand:
+                if '.' not in self.currentOperand:
                     self.currentOperand += input
                     self.currentOperandChanged()
             elif type == "function":
