@@ -420,7 +420,7 @@ class SimpleBeautifier:
             for b in self._backends:
                 try:
                     if (self._symbolicMode is True) and (b.features & Feature.Symbolic):
-                        expr = b.exprToStr(i)
+                        expr = b.exprToStr(i, self.precision)
                     else:
                         expr = str(b.eval(i, self.precision))
 
@@ -432,8 +432,6 @@ class SimpleBeautifier:
                         raise UnsupportedBackendExpressionException()
                     else:
                         continue
-
-            value = str(b.eval(i, self.precision))
 
             el = {"index": index, "expr": expr, "value": value}
             model.append(el)
