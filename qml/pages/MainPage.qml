@@ -85,6 +85,7 @@ Page {
             setHandler('ExpressionNotValidException', expressionNotValidExceptionHandler);
             setHandler('BackendException', backendExceptionHandler);
             setHandler('EngineLoaded', engineLoadedHandler);
+            setHandler('symbolsPush', symbolsPushHandler);
 
 
             importModule('rpncalc_engine', function () {
@@ -214,6 +215,10 @@ Page {
 
         function pickStackOperand(idx){
             call("rpncalc_engine.engine.stackPick", [idx], function(){});
+        }
+
+        function symbolsPushHandler(pageName, symbols){
+            pageStack.push(Qt.resolvedUrl("SymbolPage.qml"), {"pageName": pageName, "symbols": symbols});
         }
     }
 

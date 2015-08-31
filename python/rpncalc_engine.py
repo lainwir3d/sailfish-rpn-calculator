@@ -97,6 +97,15 @@ class Engine:
                     self.currentOperandChanged()
             elif type == "function":
                 self.functionInputProcessor(input)
+            elif type == "dice":
+                pyotherside.send("symbolsPush", "Dices", [{"displayName": "d4", "name": "d4", "type": "function"},
+                    {"displayName": "d6", "name": "d6", "type": "function"},
+                    {"displayName": "d8", "name": "d8", "type": "function"},
+                    {"displayName": "d10", "name": "d10", "type": "function"},
+                    {"displayName": "d12", "name": "d12", "type": "function"},
+                    {"displayName": "d20", "name": "d20", "type": "function"},
+                    {"displayName": "d100", "name": "d100", "type": "function"}
+                    ])
             else:
                 print(type)
         except ExpressionNotValidException as err:

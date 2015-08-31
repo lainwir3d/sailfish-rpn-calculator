@@ -1,31 +1,12 @@
-2.0.1:
-  - Unlimited stack.
-  - Symbolic backend based on sympy.
-  - Option to enable symbolic mode or not.
-  - Real time sympy expression validation.
-  - Explicit error messages on missing / wrong operand and wrong expression.
-  - Precision option for stack display / evaluation.
-  - Each stack element is flickable individually if too large.
-  - Stack is now flickable in place instead of pull down menu style.
-  - Symplify expression function.
-  - Hide inactive buttons depending on sub-button activation (orange / blue).
-  - Settings page on left swipe.
-  - Cleaner code.
-
-2.1.0:
-  - Long press on stack value to display context menu :
-    - Pick
-    - Drop
-    - Copy to clipboard
-    - Display current trig unit under current expression
+2.1.2:
+  - Fix precision
+  - Allow entering ".4" instead of "0.4"
 
 Known bugs :
 
-  - Sympy engine is slow to load (~4 seconds).
   - Cover display wrongly if stack values too long.
   - Some characters are clipped if they are too tall ('µ' for example).
   - The app may become slow if the stack is too deep.
-
 
 Future updates :
   - Equation solving.

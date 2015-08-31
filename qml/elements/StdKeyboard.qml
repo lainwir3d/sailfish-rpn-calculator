@@ -527,11 +527,19 @@ Item {
             KeyboardButton {
                 actions: [{text: 'C', visual:'', engine:'', type:'', enabled: true},
                 {text: ' ', visual:'', engine:'', type:'', enabled: false},
-                {text: ' ', visual:'', engine:'', type:'', enabled: false}]
+                {text: 'dice', visual:'', engine:'dice', type:'dice', enabled: engineLoaded}]
 
                 mode: keyboard.action
 
-                onClicked: formulaPop()
+                onClicked: {
+                    if(keyboard.action == 0){
+                        formulaPop()
+                    }else{
+                        formulaPush(actions[keyboard.action].visual,
+                                    actions[keyboard.action].engine,
+                                    actions[keyboard.action].type);
+                    }
+                }
             }
 
             KeyboardButton {

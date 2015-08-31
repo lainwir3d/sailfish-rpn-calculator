@@ -36,7 +36,8 @@ OTHER_FILES += \
     qml/elements/Popup.qml \
     python/rpncalc_constants.py \
     qml/pages/Settings.qml \
-    qml/elements/OperandEditor.qml
+    qml/elements/OperandEditor.qml \
+    qml/pages/SymbolPage.qml
 
 python.path = /usr/share/$${TARGET}
 python.files = python
