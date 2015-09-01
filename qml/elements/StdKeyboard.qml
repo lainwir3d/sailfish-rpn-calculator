@@ -30,6 +30,8 @@ Item {
     property int buttonWidth: 85
     property int buttonHeigth: 80
 
+    property alias action: keyboard.action
+
     Column{
         id: keyboard
         anchors.horizontalCenter: parent.horizontalCenter

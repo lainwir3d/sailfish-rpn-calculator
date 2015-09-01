@@ -4,6 +4,7 @@ import Sailfish.Silica 1.0
 Page {
     id: symbolPage
 
+    property var mainPage: parent
     property string pageName: "Symbols"
     property var symbols: []
 
@@ -39,6 +40,12 @@ Page {
 
                 text: displayName
                 color: highlighted ? Theme.highlightColor : Theme.primaryColor
+            }
+
+            onClicked: {
+                mainPage.formulaPush(displayName, name, type);
+                mainPage.resetKeyboard();
+                pageStack.pop()
             }
         }
     }

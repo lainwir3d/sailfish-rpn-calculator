@@ -37,7 +37,8 @@ OTHER_FILES += \
     python/rpncalc_constants.py \
     qml/pages/Settings.qml \
     qml/elements/OperandEditor.qml \
-    qml/pages/SymbolPage.qml
+    qml/pages/SymbolPage.qml \
+    python/rpncalc_sympy_functions.py
 
 python.path = /usr/share/$${TARGET}
 python.files = python

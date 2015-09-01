@@ -218,7 +218,7 @@ Page {
         }
 
         function symbolsPushHandler(pageName, symbols){
-            pageStack.push(Qt.resolvedUrl("SymbolPage.qml"), {"pageName": pageName, "symbols": symbols});
+            pageStack.push(Qt.resolvedUrl("SymbolPage.qml"), {"mainPage": page, "pageName": pageName, "symbols": symbols});
         }
     }
 
@@ -250,6 +250,10 @@ Page {
 
     function formulaReset() {
         python.clearCurrentOperand();
+    }
+
+    function resetKeyboard() {
+        kbd.action = 0;
     }
 
     function formatNumber(n, maxsize){

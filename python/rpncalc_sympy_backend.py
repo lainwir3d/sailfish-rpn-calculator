@@ -1,6 +1,8 @@
 from rpncalc_common import *
 import sympy
+import dice
 
+import rpncalc_sympy_functions as functions
 from rpncalc_sympy_backend_constants import constants
 
 features = Feature.Symbolic | Feature.StringConversion
@@ -207,6 +209,10 @@ def atan(op):
     expr = sympy.atan(op)
     return convertFromRadians(expr)
 
+@Backend.engineFunction(operands=0)
+def d6(op):
+    expr = functions.d6(1)
+    return expr
 
 def convertToRadians(expr):
     newExpr = None

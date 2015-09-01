@@ -276,7 +276,9 @@ class Engine:
             if self.currentOperand != "":
                 nb += 1
 
-        if nb <= nbAvailable:
+        if nb == 0:
+            return ()
+        elif nb <= nbAvailable:
             ops = ()
             nbToPop = 0;
             rangeStart = nb;

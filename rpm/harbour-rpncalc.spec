@@ -71,6 +71,16 @@ cd mpmath-0.19
 python3 setup.py build
 cd ..
 
+tar xvf pyparsing-2.0.3.tar.gz
+cd pyparsing-2.0.3
+python3 setup.py build
+cd ..
+
+tar xvf dice-1.0.2.tar.gz
+cd dice-1.0.2
+python3 setup.py build
+cd ..
+
 cd ..
 # << build post
 
@@ -95,7 +105,15 @@ cd sympy-0.7.6
 python3 setup.py install --root=%{buildroot} --prefix=%{_datadir}/%{name}/
 cd ..
 
+cd pyparsing-2.0.3
+python3 setup.py install --root=%{buildroot} --prefix=%{_datadir}/%{name}/
+cd ..
+
 cd mpmath-0.19
+python3 setup.py install --root=%{buildroot} --prefix=%{_datadir}/%{name}/
+cd ..
+
+cd dice-1.0.2
 python3 setup.py install --root=%{buildroot} --prefix=%{_datadir}/%{name}/
 cd ..
 
