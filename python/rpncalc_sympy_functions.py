@@ -14,6 +14,13 @@ class d6(sympy.Function):
         elif isinstance(other, int):
             return d6(other * self.nb)
 
+    def __rmul__(self, other):
+        if isinstance(other, sympy.Number):
+            return d6(other * self.nb)
+        elif isinstance(other, int):
+            return d6(other * self.nb)
+
+
     def _eval_evalf(self, prec):
         return sympy.Integer(self.__int__())
 
