@@ -35,22 +35,39 @@ class Dice(sympy.Function):
             return super().__radd__(other)
 
     def __mul__(self, other):
-        if isinstance(other, sympy.Integer) or isinstance(other, int):
-            return self.__class__(self.nb * other)
+        value = self.nb * sympy.S(other)
+        if value % 1 == 0:
+            return self.__class__(int(value))
         else:
             return super().__mul__(other)
 
     def __rmul__(self, other):
-        if isinstance(other, sympy.Integer) or isinstance(other, int):
-            return self.__class__(other * self.nb)
+        value = sympy.S(other) * self.nb
+        if value % 1 == 0:
+            return self.__class__(int(value))
         else:
             return super().__rmul__(other)
-    
+
+    def __truediv__(self, other):
+        value = self.nb / sympy.S(other)
+        if value % 1 == 0:
+            return self.__class__(int(value))
+        else:
+            return super().__truediv__(other)
+
+    def __rtruediv__(self, other):
+        value = sympy.S(other) / self.nb
+        if value % 1 == 0:
+            return self.__class__(int(value))
+        else:
+            return super().__truediv__(other)
+
     def _eval_evalf(self, prec):
         return sympy.Integer(self.__int__())
 
     def __int__(self):
-        return dice.roll(str(self.nb) + self.__class__.diceString + "t")
+        toRoll = str(self.nb) + self.__class__.diceString + "t"
+        return dice.roll(toRoll)
 
     def __str__(self,*args):
         return str(self.nb) + self.__class__.diceString

@@ -73,7 +73,6 @@ Backend.engineFunction("=", lambda op: sympy.N(op), operands=1)
 
 Backend.engineFunction("+", lambda op: op[0] + op[1])
 Backend.engineFunction("-", lambda op: op[0] - op[1])
-Backend.engineFunction("/", lambda op: op[0] / op[1])
 Backend.engineFunction("^", lambda op: op[0] ** op[1])
 Backend.engineFunction("10^x", lambda op: 10 ** op, operands=1)
 Backend.engineFunction("x^2", lambda op: op ** 2, operands=1)
@@ -91,10 +90,19 @@ Backend.engineFunction("factorial", lambda op: sympy.factorial(op), operands=1)
 @Backend.engineFunction(operands=2)
 def mul(op):
     expr = None
-    if issubclass(type(op[1]), functions.Dice) and issubclass(type(op[0]), sympy.Integer):
+    if issubclass(type(op[1]), functions.Dice):
         expr = op[1] * op[0] # Force use of Dice __mul__ function
     else:
         expr = op[0] * op[1]
+    return expr
+
+@Backend.engineFunction(operands=2)
+def div(op):
+    expr = None
+    if issubclass(type(op[1]), functions.Dice):
+        expr = op[1] / op[0] # Force use of Dice __truediv__ function
+    else:
+        expr = op[0] / op[1]
     return expr
 
 @Backend.engineFunction(operands=-1)

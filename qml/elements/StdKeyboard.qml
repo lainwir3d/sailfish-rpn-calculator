@@ -334,7 +334,7 @@ Item {
             }
 
             KeyboardButton {
-                actions: [{text: '÷', visual:'', engine:'/', type:'operation', enabled: true},
+                actions: [{text: '÷', visual:'', engine:'div', type:'operation', enabled: true},
                 {text: 'AND', visual:'', engine:'_and', type:'operation', enabled: engineLoaded},
                 {text: 'NAND', visual:'', engine:'_nand', type:'operation', enabled: engineLoaded}]
 
