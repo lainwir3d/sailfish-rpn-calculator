@@ -420,7 +420,7 @@ Item {
             }
 
             KeyboardButton {
-                actions: [{text: '×', visual:'', engine:'*', type:'operation', enabled: true},
+                actions: [{text: '×', visual:'', engine:'mul', type:'operation', enabled: true},
                 {text: 'OR', visual:'', engine:'_or', type:'operation', enabled: engineLoaded},
                 {text: 'NOR', visual:'', engine:'_nor', type:'operation', enabled: engineLoaded}]
 

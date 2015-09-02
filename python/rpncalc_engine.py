@@ -252,7 +252,8 @@ class Engine:
 
         try:
             expr = o["func"](ops)
-        except:
+        except Exception as err:
+            print(err)
             self.stackPush(ops)
             raise BackendException()
 

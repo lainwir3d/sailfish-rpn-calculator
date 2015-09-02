@@ -73,7 +73,6 @@ Backend.engineFunction("=", lambda op: sympy.N(op), operands=1)
 
 Backend.engineFunction("+", lambda op: op[0] + op[1])
 Backend.engineFunction("-", lambda op: op[0] - op[1])
-Backend.engineFunction("*", lambda op: op[0] * op[1])
 Backend.engineFunction("/", lambda op: op[0] / op[1])
 Backend.engineFunction("^", lambda op: op[0] ** op[1])
 Backend.engineFunction("10^x", lambda op: 10 ** op, operands=1)
@@ -88,6 +87,15 @@ Backend.engineFunction("log", lambda op: sympy.log(op[0], 10), operands=1)
 Backend.engineFunction("ln", lambda op: sympy.log(op), operands=1)
 Backend.engineFunction("e^x", lambda op: sympy.exp(op), operands=1)
 Backend.engineFunction("factorial", lambda op: sympy.factorial(op), operands=1)
+
+@Backend.engineFunction(operands=2)
+def mul(op):
+    expr = None
+    if issubclass(type(op[1]), functions.Dice) and issubclass(type(op[0]), sympy.Integer):
+        expr = op[1] * op[0] # Force use of Dice __mul__ function
+    else:
+        expr = op[0] * op[1]
+    return expr
 
 @Backend.engineFunction(operands=-1)
 def addall(op):
@@ -210,8 +218,38 @@ def atan(op):
     return convertFromRadians(expr)
 
 @Backend.engineFunction(operands=0)
+def d4(op):
+    expr = functions.d4(1)
+    return expr
+
+@Backend.engineFunction(operands=0)
 def d6(op):
     expr = functions.d6(1)
+    return expr
+
+@Backend.engineFunction(operands=0)
+def d8(op):
+    expr = functions.d8(1)
+    return expr
+
+@Backend.engineFunction(operands=0)
+def d10(op):
+    expr = functions.d10(1)
+    return expr
+
+@Backend.engineFunction(operands=0)
+def d12(op):
+    expr = functions.d12(1)
+    return expr
+
+@Backend.engineFunction(operands=0)
+def d20(op):
+    expr = functions.d20(1)
+    return expr
+
+@Backend.engineFunction(operands=0)
+def d100(op):
+    expr = functions.d100(1)
     return expr
 
 def convertToRadians(expr):
