@@ -123,7 +123,7 @@ rm -rf %{buildroot}/%{_datadir}/%{name}/bin
 cd ..
 
 cp /usr/lib/libpython3.4m.so.1.0 %{buildroot}/%{_datadir}/%{name}/lib/
-cp /lib/libutil-2.15.so %{buildroot}/%{_datadir}/%{name}/lib/libutil.so.1
+cp /lib/libutil.so.1 %{buildroot}/%{_datadir}/%{name}/lib/libutil.so.1
 # << install post
 
 desktop-file-install --delete-original       \
