@@ -427,7 +427,6 @@ class SimpleBeautifier:
         index = 1
         for i in stack:
             expr = None
-            value= None
 
             for b in self._backends:
                 try:
@@ -436,7 +435,6 @@ class SimpleBeautifier:
                     else:
                         expr = str(b.eval(i, self.precision))
 
-                    value = str(b.eval(i, self.precision))
                     break
 
                 except UnsupportedBackendExpressionException:
@@ -445,7 +443,7 @@ class SimpleBeautifier:
                     else:
                         continue
 
-            el = {"index": index, "expr": expr, "value": value}
+            el = {"index": index, "expr": expr}
             model.append(el)
             index += 1
 
