@@ -66,8 +66,19 @@ class Dice(sympy.Function):
         return sympy.Integer(self.__int__())
 
     def __int__(self):
-        toRoll = str(self.nb) + self.__class__.diceString + "t"
-        return dice.roll(toRoll)
+        factor = str(self.nb)
+
+        sign = None
+        if factor[0] == "-":
+            sign = -1
+            factor = factor[1:len(factor)]
+        else:
+            sign = 1
+
+        toRoll = factor + self.__class__.diceString + "t"
+        result = dice.roll(toRoll)
+
+        return sympy.S(result * sign)
 
     def __str__(self,*args):
         return str(self.nb) + self.__class__.diceString
