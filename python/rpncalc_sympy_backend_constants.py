@@ -3,18 +3,27 @@ from sympy import N, S, pi, Function, Number, NumberSymbol, Symbol
 class Constants():
 
     constants = {}
+    constantsArray = []
 
     @classmethod
     def addConstant(*args):
         if len(args) == 2:
+            name = args[1].__qualname__
+            symbol = str(args[1]())
+
             Constants.constants[args[1].__qualname__] = args[1]()
+            Constants.constantsArray.append({"displayName": name + " (" + symbol + ")", "name": name, "type": "constant"})
+
             return args[1]
-        elif len(args) == 3:
-            Constants.constants[args[1]] = args[2]
+        elif len(args) == 4:
+            Constants.constants[args[1]] = args[3]
+            Constants.constantsArray.append({"displayName": args[1] + " (" + args[2] + ")", "name": args[1], "type": "constant"})
+
 
 constants = Constants.constants
+constantsArray = Constants.constantsArray
 
-Constants.addConstant("pi", pi)
+Constants.addConstant("pi", "π", pi)
 
 @Constants.addConstant
 class Celerity(NumberSymbol):

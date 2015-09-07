@@ -3,7 +3,7 @@ import sympy
 import dice
 
 import rpncalc_sympy_functions as functions
-from rpncalc_sympy_backend_constants import constants
+from rpncalc_sympy_backend_constants import constants, constantsArray
 
 features = Feature.Symbolic | Feature.StringConversion
 

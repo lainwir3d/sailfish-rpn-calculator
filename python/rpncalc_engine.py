@@ -106,6 +106,8 @@ class Engine:
                     {"displayName": "d20", "name": "d20", "type": "function"},
                     {"displayName": "d100", "name": "d100", "type": "function"}
                     ])
+            elif type == "constantList":
+                pyotherside.send("symbolsPush", "Constants", self._backends[0].constantsArray)
             else:
                 print(type)
         except ExpressionNotValidException as err:

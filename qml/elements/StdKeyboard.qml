@@ -547,8 +547,8 @@ Item {
             KeyboardButton {
                 text: "0"
                 actions: [{text: '0', visual:'0', engine:'0', type:'number', enabled: true},
-                    {text: 'c', visual:'', engine:'Celerity', type:'constant', enabled: engineLoaded},
-                    {text: 'µ₀', visual:'', engine:'Magnetic', type:'constant', enabled: engineLoaded}]
+                    {text: ' ', visual:'', engine:'', type:'', enabled: false},
+                    {text: ' ', visual:'', engine:'', type:'', enabled: false}]
 
                 mode: keyboard.action
 
@@ -562,8 +562,8 @@ Item {
 
             KeyboardButton {
                 actions: [{text: '.', visual:'.', engine:'.', type:'real', enabled: true},
-                    {text: 'q', visual:'', engine:'ElementaryCharge', type:'constant', enabled: engineLoaded},
-                    {text: 'ε₀', visual:'', engine:'Electrical', type:'constant', enabled: engineLoaded}]
+                    {text: ' ', visual:'', engine:'', type:'', enabled: false},
+                    {text: ' ', visual:'', engine:'', type:'', enabled: false}]
 
                 mode: keyboard.action
 
@@ -577,8 +577,8 @@ Item {
 
             KeyboardButton {
                 actions: [{text: 'π', visual:'π', engine:'pi', type:'constant', enabled: true},
-                    {text: 'k', visual:'', engine:'Boltzmann', type:'constant', enabled: engineLoaded},
-                    {text: 'G', visual:'', engine:'Gravitation', type:'constant', enabled: engineLoaded}]
+                    {text: ' ', visual:'', engine:'', type:'', enabled: false},
+                    {text: 'const', visual:'', engine:'constantList', type:'constantList', enabled: engineLoaded}]
 
                 mode: keyboard.action
 
