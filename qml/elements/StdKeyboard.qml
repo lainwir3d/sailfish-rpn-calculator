@@ -528,8 +528,9 @@ Item {
 
             KeyboardButton {
                 actions: [{text: 'C', visual:'', engine:'', type:'', enabled: true},
-                {text: ' ', visual:'', engine:'', type:'', enabled: false},
-                {text: 'dice', visual:'', engine:'dice', type:'dice', enabled: engineLoaded}]
+                {text: 'dice', visual:'', engine:'dice', type:'dice', enabled: engineLoaded},
+                {text: ' ', visual:'', engine:'', type:'', enabled: false}]
+
 
                 mode: keyboard.action
 
