@@ -29,6 +29,8 @@ BuildRequires:  pkgconfig(Qt5Core)
 BuildRequires:  pkgconfig(Qt5Qml)
 BuildRequires:  pkgconfig(Qt5Quick)
 BuildRequires:  desktop-file-utils
+BuildRequires:  python3-base
+BuildRequires:  python3-devel
 
 %description
 Full symbolic RPN calculator. Read http://en.wikipedia.org/wiki/Reverse_Polish_notation if you want to know more about RPN calculators.
