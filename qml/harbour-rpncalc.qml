@@ -36,12 +36,20 @@ import "elements"
 
 ApplicationWindow
 {
-    initialPage: MainPage { id:calculator }
+    id: root
+
+    initialPage: MainPage { id:calculator; currentStack: root.currentStack ;currentOperand: root.currentOperand; currentOperandValid: root.currentOperandValid; engineLoaded: root.engineLoaded}
     cover: Qt.resolvedUrl("cover/CoverPage.qml")
+
+    property string currentOperand: ''
+    property bool currentOperandValid: true
+    property var currentStack: []
+
+    property bool engineLoaded: false
 
     Memory {
         id: memory
-        stack: calculator.currentStack
+        stack: currentStack
     }
 
     Python {
@@ -72,7 +80,7 @@ ApplicationWindow
 
         function engineLoadedHandler(){
             calculator.notification.notify("Symbolic engine loaded");
-            calculator.engineLoaded = true;
+            engineLoaded = true;
 
             changeTrigonometricUnit(settings.angleUnit);
             changeReprFloatPrecision(settings.reprFloatPrecision);
@@ -139,8 +147,8 @@ ApplicationWindow
 
 
         function currentOperandHandler(operand, valid){
-            calculator.currentOperand = operand;
-            calculator.currentOperandValid = valid;
+            currentOperand = operand;
+            currentOperandValid = valid;
         }
 
         function newStackHandler(stack){
@@ -157,7 +165,7 @@ ApplicationWindow
                 calculator.screen.view.positionViewAtEnd();
             }
 
-            calculator.currentStack = stack;
+            currentStack = stack;
         }
 
 

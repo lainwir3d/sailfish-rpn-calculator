@@ -29,12 +29,13 @@ import "../elements"
 Page {
     id: page
 
+    // should be set from python engine in the parent
     property string currentOperand: ''
     property bool currentOperandValid: true
     property var currentStack: []
-
     property bool engineLoaded: false
 
+    // View properties. Python engine might access this
     property alias screen: calcScreen
     property alias notification: popup
 
