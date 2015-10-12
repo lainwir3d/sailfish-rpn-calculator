@@ -38,14 +38,50 @@ ApplicationWindow
 {
     id: root
 
-    initialPage: MainPage { id:calculator; currentStack: root.currentStack ;currentOperand: root.currentOperand; currentOperandValid: root.currentOperandValid; engineLoaded: root.engineLoaded}
+    initialPage: portraitView
     cover: Qt.resolvedUrl("cover/CoverPage.qml")
 
     property string currentOperand: ''
+
     property bool currentOperandValid: true
     property var currentStack: []
 
     property bool engineLoaded: false
+
+    Component {
+        id: portraitView
+
+        MainPage {
+            currentStack: root.currentStack
+            currentOperand: root.currentOperand
+            currentOperandValid: root.currentOperandValid
+            engineLoaded: root.engineLoaded
+        }
+    }
+
+    Component {
+        id: wideLandscapeview
+
+        WideLandscape {
+            currentStack: root.currentStack
+            currentOperand: root.currentOperand
+            currentOperandValid: root.currentOperandValid
+            engineLoaded: root.engineLoaded
+        }
+    }
+
+    onDeviceOrientationChanged: {
+
+        if(deviceOrientation & Orientation.LandscapeMask){
+            if((orientation & Orientation.PortraitMask) && (Screen.sizeCategory > Screen.Medium)){
+                pageStack.replaceAbove(0, wideLandscapeview);
+            }
+        }else{
+            if(orientation & Orientation.LandscapeMask){
+                pageStack.replaceAbove(0, portraitView);
+            }
+        }
+    }
 
     Memory {
         id: memory
@@ -79,8 +115,8 @@ ApplicationWindow
         }
 
         function engineLoadedHandler(){
-            calculator.notification.notify("Symbolic engine loaded");
-            engineLoaded = true;
+            pageStack.currentPage.notification.notify("Symbolic engine loaded");
+            root.engineLoaded = true;
 
             changeTrigonometricUnit(settings.angleUnit);
             changeReprFloatPrecision(settings.reprFloatPrecision);
@@ -89,22 +125,22 @@ ApplicationWindow
         }
 
         function expressionNotValidExceptionHandler(){
-            calculator.notification.notify("Expression not valid.");
+            pageStack.currentPage.notification.notify("Expression not valid.");
         }
 
         function backendExceptionHandler(){
-            calculator.notification.notify("Error.");
+            pageStack.currentPage.notification.notify("Error.");
         }
 
         function notEnoughOperandsExceptionHandler(nbExpected, nbAvailabled){
-            calculator.notification.notify("Not enough operands. Expecting " + nbExpected + ".");
+            pageStack.currentPage.notification.notify("Not enough operands. Expecting " + nbExpected + ".");
         }
 
         function wrongOperandsExceptionHandler(expectedOperands, nb){
             if(nb > 0){
-                calculator.notification.notify("Wrongs operands. Expected " + nb + " " + operandTypeToString(expectedOperands) + ".");
+                pageStack.currentPage.notification.notify("Wrongs operands. Expected " + nb + " " + operandTypeToString(expectedOperands) + ".");
             }else{
-                calculator.notification.notify("Wrongs operands. Expected " + operandTypeToString(expectedOperands) + ".");
+                pageStack.currentPage.notification.notify("Wrongs operands. Expected " + operandTypeToString(expectedOperands) + ".");
             }
         }
 
@@ -147,8 +183,8 @@ ApplicationWindow
 
 
         function currentOperandHandler(operand, valid){
-            currentOperand = operand;
-            currentOperandValid = valid;
+            root.currentOperand = operand;
+            root.currentOperandValid = valid;
         }
 
         function newStackHandler(stack){
@@ -156,13 +192,13 @@ ApplicationWindow
             var i=0;
             for(i=stack.length-1; i>=0 ; i--){
                 memory.append({isLastItem: i == stack.length ? true : false, value: stack[i]["expr"]})
-                calculator.screen.view.positionViewAtEnd();
+                pageStack.currentPage.screen.view.positionViewAtEnd();
             }
 
             //fill in first 10 of stack
             for(i=memory.count; i<1 ; i++){
                 memory.insert(0, {isLastItem: i == stack.length ? true : false, value: ""});
-                calculator.screen.view.positionViewAtEnd();
+                pageStack.currentPage.screen.view.positionViewAtEnd();
             }
 
             currentStack = stack;

@@ -59,7 +59,7 @@ CoverBackground {
                     Label {
                         width: parent.width - stack_2_id.width - 4
                         horizontalAlignment: Text.AlignRight
-                        text: calculator.currentStack.length > 2 ? calculator.currentStack[2]['expr'] : ""
+                        text: root.currentStack.length > 2 ? root.currentStack[2]['expr'] : ""
                     }
                 }
                 Row{
@@ -73,7 +73,7 @@ CoverBackground {
                     Label {
                         width: parent.width - stack_1_id.width - 4
                         horizontalAlignment: Text.AlignRight
-                        text: calculator.currentStack.length > 1 ? calculator.currentStack[1]['expr'] : ""
+                        text: root.currentStack.length > 1 ? root.currentStack[1]['expr'] : ""
                     }
                 }
                 Row{
@@ -87,7 +87,7 @@ CoverBackground {
                     Label {
                         width: parent.width - stack_0_id.width - 4
                         horizontalAlignment: Text.AlignRight
-                        text: calculator.currentStack.length > 0 ? calculator.currentStack[0]['expr'] : ""
+                        text: root.currentStack.length > 0 ? root.currentStack[0]['expr'] : ""
                     }
                 }
         }

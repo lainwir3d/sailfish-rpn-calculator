@@ -29,8 +29,11 @@ import "../elements"
 Page {
     id: page
 
+    allowedOrientations: Orientation.LandscapeMask
+
     // should be set from python engine in the parent
-    property string currentOperand: ''
+    property string currentOperand: root.currentOperand
+
     property bool currentOperandValid: true
     property var currentStack: []
     property bool engineLoaded: false
@@ -129,14 +132,6 @@ Page {
         Clipboard.text = value;
     }
 
-    Item {
-        id: heightMeasurement
-        anchors.bottom: currentOperandEditor.top
-        anchors.top: parent.top
-
-        visible: false
-    }
-
     Popup {
         id: popup
         z: 10
@@ -144,93 +139,112 @@ Page {
         timeout: 3000
     }
 
-    CalcScreen {
-        id: calcScreen
+    Item {
+        id: leftSide
 
-        anchors.bottom: currentOperandEditor.top
         anchors.left: parent.left
-        anchors.right: parent.right
+        anchors.top: parent.top
+        anchors.bottom: parent.bottom
+        anchors.margins: Theme.paddingSmall
 
-        // Don't why I need 10 here... without it GlassItem is displayed too low
-        height: heightMeasurement.height + 10 > contentHeight ? contentHeight : heightMeasurement.height + 10
+        width: parent.width / 2
 
-        clip: true
+        Item {
+            id: heightMeasurement
+            anchors.bottom: currentOperandEditor.top
+            anchors.top: parent.top
 
-        model: memory
-    }
+            visible: false
+        }
 
-    OperandEditor {
-        id: currentOperandEditor
+        CalcScreen {
+            id: calcScreen
 
-        anchors.bottom: infosRow.top
-        anchors.left: parent.left
-        anchors.right: parent.right
-        anchors.rightMargin: 10
-        anchors.leftMargin: 10
+            anchors.left: parent.left
+            anchors.right: parent.right
+            anchors.bottom: currentOperandEditor.top
 
-        operand: page.currentOperand
-        operandInvalid: page.currentOperandValid ? false : true  // <= lol
+            // Don't know why I need 10 here... without it GlassItem is displayed too low
+            height: heightMeasurement.height + 10 > contentHeight ? contentHeight : heightMeasurement.height + 10
 
-        backButton.onClicked: {
-            formulaPop();
-            /*
-            if(settings.vibration()){
-                vibration.start();
+            clip: true
+
+            model: memory
+        }
+
+        OperandEditor {
+            id: currentOperandEditor
+
+            anchors.bottom: infosRow.top
+            anchors.left: parent.left
+            anchors.right: parent.right
+
+            anchors.leftMargin: 10
+
+            operand: page.currentOperand
+            operandInvalid: page.currentOperandValid ? false : true  // <= lol
+
+            backButton.onClicked: {
+                formulaPop();
+                /*
+                if(settings.vibration()){
+                    vibration.start();
+                }
+                */
             }
-            */
-        }
 
-        backButton.onPressAndHold: {
-            formulaReset();
-            /*
-            if(settings.vibration()){
-                vibration.start();
+            backButton.onPressAndHold: {
+                formulaReset();
+                /*
+                if(settings.vibration()){
+                    vibration.start();
+                }
+                */
             }
-            */
-        }
-    }
-
-    Row {
-        id: infosRow
-
-        anchors.bottom: kbd.top
-        anchors.right: parent.right
-        anchors.rightMargin: 20
-        anchors.bottomMargin: 10
-
-        spacing: 15
-
-        Label {
-            id: mode
-
-            text: !page.engineLoaded ? "Degraded" : settings.symbolicMode ? "Symbolic" : "Numeric"
-            font.family: Theme.fontFamily
-            font.pixelSize: Theme.fontSizeExtraSmall
-            //font.bold: !engineLoaded
-
-            color: !page.engineLoaded ? "red" : Theme.secondaryColor
         }
 
+        Row {
+            id: infosRow
 
-        Label {
-            id: unit
+            anchors.bottom: parent.bottom
+            anchors.right: parent.right
+            anchors.margins: Theme.paddingSmall
 
-            text: settings.angleUnit
-            font.family: Theme.fontFamily
-            font.pixelSize: Theme.fontSizeExtraSmall
+            spacing: Theme.paddingSmall
 
-            color: Theme.secondaryColor
+            Label {
+                id: mode
+
+                text: !page.engineLoaded ? "Degradedaaa" : settings.symbolicMode ? "Symbolic" : "Numeric"
+                font.family: Theme.fontFamily
+                font.pixelSize: Theme.fontSizeExtraSmall
+                //font.bold: !engineLoaded
+
+                color: !page.engineLoaded ? "red" : Theme.secondaryColor
+            }
+
+
+            Label {
+                id: unit
+
+                text: settings.angleUnit
+                font.family: Theme.fontFamily
+                font.pixelSize: Theme.fontSizeExtraSmall
+
+                color: Theme.secondaryColor
+            }
+
         }
-
     }
 
     StdKeyboard {
         id: kbd
-        anchors.bottom: parent.bottom
-        anchors.horizontalCenter: parent.horizontalCenter
-        anchors.bottomMargin: 20
 
-        width: parent.width
+        anchors.top: parent.top
+        anchors.bottom: parent.bottom
+        anchors.right: parent.right
+        anchors.left: leftSide.right
+        anchors.margins: Theme.paddingSmall
     }
 }
 

@@ -38,7 +38,8 @@ OTHER_FILES += \
     qml/pages/Settings.qml \
     qml/elements/OperandEditor.qml \
     qml/pages/SymbolPage.qml \
-    python/rpncalc_sympy_functions.py
+    python/rpncalc_sympy_functions.py \
+    qml/pages/WideLandscape.qml
 
 python.path = /usr/share/$${TARGET}
 python.files = python
