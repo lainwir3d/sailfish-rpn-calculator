@@ -230,13 +230,14 @@ Page {
         anchors.left: parent.left
         anchors.right: parent.right
         anchors.bottom: parent.bottom
-        anchors.bottomMargin: Theme.paddingSmall
+        anchors.margins: Theme.paddingMedium
+        anchors.bottomMargin: Theme.paddingLarge
 
         columnSpacing: Theme.paddingSmall
-        rowSpacing: Theme.paddingMedium
+        rowSpacing: Theme.paddingLarge
 
-        buttonWidth: (width - (rowSpacing * 5)) / 5
-        buttonHeigth: buttonWidth * 3/4
+        buttonWidth: (width - (rowSpacing * 4)) / 5
+        buttonHeigth: buttonWidth * 16/17
     }
 }
 
