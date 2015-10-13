@@ -38,7 +38,7 @@ ApplicationWindow
 {
     id: root
 
-    initialPage: portraitView
+    initialPage: (deviceOrientation & Orientation.LandscapeMask) && (Screen.sizeCategory > Screen.Medium) ? wideLandscapeView : portraitView
     cover: Qt.resolvedUrl("cover/CoverPage.qml")
 
     property string currentOperand: ''
@@ -60,7 +60,7 @@ ApplicationWindow
     }
 
     Component {
-        id: wideLandscapeview
+        id: wideLandscapeView
 
         WideLandscape {
             currentStack: root.currentStack
@@ -74,7 +74,7 @@ ApplicationWindow
 
         if(deviceOrientation & Orientation.LandscapeMask){
             if((orientation & Orientation.PortraitMask) && (Screen.sizeCategory > Screen.Medium)){
-                pageStack.replaceAbove(0, wideLandscapeview);
+                pageStack.replaceAbove(0, wideLandscapeView);
             }
         }else{
             if(orientation & Orientation.LandscapeMask){
@@ -234,7 +234,7 @@ ApplicationWindow
         }
 
         function symbolsPushHandler(pageName, symbols){
-            pageStack.push(Qt.resolvedUrl("SymbolPage.qml"), {"mainPage": page, "pageName": pageName, "symbols": symbols});
+            pageStack.push(Qt.resolvedUrl("pages/SymbolPage.qml"), {"mainPage": pageStack.currentPage, "pageName": pageName, "symbols": symbols});
         }
     }
 }

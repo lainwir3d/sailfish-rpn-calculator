@@ -5,6 +5,8 @@ import io.thp.pyotherside 1.3
 Page {
     id :settingsPage
 
+    allowedOrientations: Screen.sizeCategory > Screen.Medium ? Orientation.All : Orientation.Portrait
+
     PageHeader {
         id: header
         title: "Settings"

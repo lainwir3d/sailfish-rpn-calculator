@@ -24,6 +24,8 @@ import QtQuick 2.0
 import Sailfish.Silica 1.0
 
 Item {
+    id: kbdItem
+
     width: parent.width
     height: keyboard.height + 5
 
@@ -32,16 +34,19 @@ Item {
 
     property alias action: keyboard.action
 
+    property int rowSpacing: Theme.paddingMedium
+    property alias columnSpacing: keyboard.spacing
+
     Column{
         id: keyboard
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.bottom: parent.bottom
-        spacing: 5
+        spacing: Theme.paddingSmall
 
         property int action: 0
 
         Row{
-            spacing: 20
+            spacing: kbdItem.rowSpacing
             anchors.horizontalCenter: parent.horizontalCenter
             KeyboardButton {
                 actions: [{text: '√x', visual:'', engine:'sqrt', type:'function', enabled: true},
@@ -121,7 +126,7 @@ Item {
         }
 
         Row{
-            spacing: 20
+            spacing: kbdItem.rowSpacing
             anchors.horizontalCenter: parent.horizontalCenter
 
             KeyboardButton {
@@ -202,11 +207,11 @@ Item {
         }
 
         Row{
-            spacing: 20
+            spacing: kbdItem.rowSpacing
             anchors.horizontalCenter: parent.horizontalCenter
 
             KeyboardButton {
-                width: buttonWidth*2 + 20
+                width: buttonWidth*2 + parent.spacing
                 actions: [{text: 'ENTER', visual:'', engine:'enter', type:'stack', enabled: true},
                 {text: '=', visual:'', engine:'=', type:'operation', enabled: engineLoaded},
                 {text: 'simplify', visual:'', engine:'simplify', type:'function', enabled: engineLoaded}]
@@ -270,7 +275,7 @@ Item {
 
 
         Row{
-            spacing: 20
+            spacing: kbdItem.rowSpacing
             anchors.horizontalCenter: parent.horizontalCenter
 
             KeyboardButton {
@@ -352,7 +357,7 @@ Item {
         }
 
         Row{
-            spacing: 20
+            spacing: kbdItem.rowSpacing
             anchors.horizontalCenter: parent.horizontalCenter
 
             KeyboardButton {
@@ -438,7 +443,7 @@ Item {
         }
 
         Row{
-            spacing: 20
+            spacing: kbdItem.rowSpacing
             anchors.horizontalCenter: parent.horizontalCenter
 
             KeyboardButton {
@@ -522,8 +527,8 @@ Item {
 
         }
 
-        Row{
-            spacing: 20
+        Row {
+            spacing: kbdItem.rowSpacing
             anchors.horizontalCenter: parent.horizontalCenter
 
             KeyboardButton {

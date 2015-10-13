@@ -4,6 +4,8 @@ import Sailfish.Silica 1.0
 Page {
     id: symbolPage
 
+    allowedOrientations: Screen.sizeCategory > Screen.Medium ? Orientation.All : Orientation.Portrait
+
     property var mainPage: parent
     property string pageName: "Symbols"
     property var symbols: []

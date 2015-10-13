@@ -226,11 +226,17 @@ Page {
 
     StdKeyboard {
         id: kbd
-        anchors.bottom: parent.bottom
-        anchors.horizontalCenter: parent.horizontalCenter
-        anchors.bottomMargin: 20
 
-        width: parent.width
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.bottom: parent.bottom
+        anchors.bottomMargin: Theme.paddingSmall
+
+        columnSpacing: Theme.paddingSmall
+        rowSpacing: Theme.paddingMedium
+
+        buttonWidth: (width - (rowSpacing * 5)) / 5
+        buttonHeigth: buttonWidth * 3/4
     }
 }
 

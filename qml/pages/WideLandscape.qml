@@ -146,6 +146,7 @@ Page {
         anchors.top: parent.top
         anchors.bottom: parent.bottom
         anchors.margins: Theme.paddingSmall
+        anchors.topMargin: 0
 
         width: parent.width / 2
 
@@ -165,7 +166,7 @@ Page {
             anchors.bottom: currentOperandEditor.top
 
             // Don't know why I need 10 here... without it GlassItem is displayed too low
-            height: heightMeasurement.height + 10 > contentHeight ? contentHeight : heightMeasurement.height + 10
+            height: heightMeasurement.height + Theme.paddingMedium > contentHeight ? contentHeight : heightMeasurement.height + Theme.paddingMedium
 
             clip: true
 
@@ -180,6 +181,7 @@ Page {
             anchors.right: parent.right
 
             anchors.leftMargin: 10
+            anchors.rightMargin: 10
 
             operand: page.currentOperand
             operandInvalid: page.currentOperandValid ? false : true  // <= lol
@@ -215,7 +217,7 @@ Page {
             Label {
                 id: mode
 
-                text: !page.engineLoaded ? "Degradedaaa" : settings.symbolicMode ? "Symbolic" : "Numeric"
+                text: !page.engineLoaded ? "Degraded" : settings.symbolicMode ? "Symbolic" : "Numeric"
                 font.family: Theme.fontFamily
                 font.pixelSize: Theme.fontSizeExtraSmall
                 //font.bold: !engineLoaded
@@ -244,7 +246,13 @@ Page {
         anchors.bottom: parent.bottom
         anchors.right: parent.right
         anchors.left: leftSide.right
-        anchors.margins: Theme.paddingSmall
+        anchors.margins: Theme.paddingMedium
+
+        columnSpacing: Theme.paddingSmall
+        rowSpacing: Theme.paddingMedium
+
+        buttonWidth: (width - (rowSpacing * 5)) / 5
+        buttonHeigth: buttonWidth * 3/4
     }
 }
 
