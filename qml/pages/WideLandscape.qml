@@ -246,13 +246,13 @@ Page {
         anchors.bottom: parent.bottom
         anchors.right: parent.right
         anchors.left: leftSide.right
-        anchors.margins: Theme.paddingMedium
+        anchors.margins: Theme.paddingLarge
 
         columnSpacing: Theme.paddingSmall
-        rowSpacing: Theme.paddingMedium
+        rowSpacing: Theme.paddingLarge
 
         buttonWidth: (width - (rowSpacing * 5)) / 5
-        buttonHeigth: buttonWidth * 3/4
+        buttonHeigth: buttonWidth * 16/17
     }
 }
 

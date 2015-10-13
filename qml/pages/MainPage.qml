@@ -234,7 +234,7 @@ Page {
         anchors.bottomMargin: Theme.paddingLarge
 
         columnSpacing: Theme.paddingSmall
-        rowSpacing: Theme.paddingLarge
+        rowSpacing: Screen.sizeCategory > Screen.Medium ? Theme.paddingLarge * 2 : Theme.paddingLarge
 
         buttonWidth: (width - (rowSpacing * 4)) / 5
         buttonHeigth: buttonWidth * 16/17
