@@ -63,8 +63,8 @@ cd ..
 #python3 setup.py build
 #cd ..
 
-tar xvf sympy-0.7.6.tar.gz
-cd sympy-0.7.6
+tar xvf sympy-0.7.6.1.tar.gz
+cd sympy-0.7.6.1
 python3 setup.py build
 cd ..
 
@@ -103,7 +103,7 @@ cd ..
 #python3 setup.py install --root=%{buildroot} --prefix=%{_datadir}/%{name}/
 #cd ..
 
-cd sympy-0.7.6
+cd sympy-0.7.6.1
 python3 setup.py install --root=%{buildroot} --prefix=%{_datadir}/%{name}/
 cd ..
 
