@@ -29,7 +29,7 @@ import "../elements"
 Page {
     id: page
 
-    allowedOrientations: Orientation.LandscapeMask
+    allowedOrientations: Orientation.All
 
     // should be set from python engine in the parent
     property string currentOperand: root.currentOperand
@@ -210,9 +210,10 @@ Page {
 
             anchors.bottom: parent.bottom
             anchors.right: parent.right
-            anchors.margins: Theme.paddingSmall
+            anchors.margins: Theme.paddingMedium
+            anchors.rightMargin: Theme.paddingMedium + 10
 
-            spacing: Theme.paddingSmall
+            spacing: Theme.paddingMedium
 
             Label {
                 id: mode
@@ -242,16 +243,19 @@ Page {
     StdKeyboard {
         id: kbd
 
+        property bool landscape: orientation & Orientation.LandscapeMask
+
         anchors.top: parent.top
         anchors.bottom: parent.bottom
         anchors.right: parent.right
         anchors.left: leftSide.right
-        anchors.margins: Theme.paddingLarge
+        anchors.margins: landscape ? Theme.paddingLarge : Theme.paddingMedium
+        anchors.bottomMargin: Theme.paddingLarge
 
         columnSpacing: Theme.paddingSmall
-        rowSpacing: Theme.paddingLarge
+        rowSpacing: landscape ? Theme.paddingLarge : Theme.paddingMedium
 
-        buttonWidth: (width - (rowSpacing * 5)) / 5
+        buttonWidth: (width - (rowSpacing * (landscape ? 5 : 4))) / 5
         buttonHeigth: buttonWidth * 16/17
     }
 }

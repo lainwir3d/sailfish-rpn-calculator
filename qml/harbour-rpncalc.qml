@@ -38,7 +38,7 @@ ApplicationWindow
 {
     id: root
 
-    initialPage: (deviceOrientation & Orientation.LandscapeMask) && (Screen.sizeCategory > Screen.Medium) ? wideLandscapeView : portraitView
+    initialPage: (Screen.sizeCategory > Screen.Medium) ? wideLandscapeView : portraitView
     cover: Qt.resolvedUrl("cover/CoverPage.qml")
 
     property string currentOperand: ''
@@ -71,7 +71,7 @@ ApplicationWindow
     }
 
     onDeviceOrientationChanged: {
-
+/*
         if(deviceOrientation & Orientation.LandscapeMask){
             if((orientation & Orientation.PortraitMask) && (Screen.sizeCategory > Screen.Medium)){
                 pageStack.replaceAbove(0, wideLandscapeView);
@@ -81,6 +81,7 @@ ApplicationWindow
                 pageStack.replaceAbove(0, portraitView);
             }
         }
+*/
     }
 
     Memory {
