@@ -10,6 +10,7 @@ SettingsManager::SettingsManager(QObject *parent) :
     if(settings->value("reprFloatPrecision") == QVariant()) settings->setValue("reprFloatPrecision", 9);
 
     if(settings->value("symbolicMode") == QVariant()) settings->setValue("symbolicMode", true);
+    if(settings->value("rationalMode") == QVariant()) settings->setValue("rationalMode", true);
     if(settings->value("autoSimplify") == QVariant()) settings->setValue("autoSimplify", true);
 
 }
@@ -59,5 +60,13 @@ void SettingsManager::setSymbolicMode(bool enabled)
     if(enabled != symbolicMode()){
         settings->setValue("symbolicMode", enabled);
         emit symbolicModeChanged();
+    }
+}
+
+void SettingsManager::setRationalMode(bool enabled)
+{
+    if(enabled != rationalMode()){
+        settings->setValue("rationalMode", enabled);
+        emit rationalModeChanged();
     }
 }

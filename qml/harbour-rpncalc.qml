@@ -48,6 +48,25 @@ ApplicationWindow
 
     property bool engineLoaded: false
 
+    Connections {
+        target: settings
+        onAngleUnitChanged: {
+            python.changeTrigonometricUnit(settings.angleUnit);
+        }
+        onReprFloatPrecisionChanged: {
+            python.changeReprFloatPrecision(settings.reprFloatPrecision);
+        }
+        onAutoSimplifyChanged: {
+            python.enableAutoSimplify(settings.autoSimplify);
+        }
+        onSymbolicModeChanged: {
+            python.enableSymbolicMode(settings.symbolicMode);
+        }
+        onRationalModeChanged: {
+            python.enableRationalMode(settings.rationalMode);
+        }
+    }
+
     Component {
         id: portraitView
 
@@ -147,6 +166,10 @@ ApplicationWindow
 
         function enableSymbolicMode(enabled){
             call("rpncalc_engine.engine.setSymbolicMode", [enabled], function (){});
+        }
+
+        function enableRationalMode(enabled){
+            call("rpncalc_engine.engine.setRationalMode", [enabled], function (){});
         }
 
         function enableAutoSimplify(enabled){

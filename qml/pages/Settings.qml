@@ -98,6 +98,15 @@ Page {
                 }
             }
 
+            TextSwitch {
+                text: "Rational mode"
+                checked: settings.rationalMode
+
+                onCheckedChanged: {
+                    settings.rationalMode = checked;
+                }
+            }
+
             /* Not functionnal
             TextSwitch {
                 text: "Auto simplify expression"

@@ -27,6 +27,7 @@ class Engine:
 
         self._autoSimplify = True
         self._symbolicMode = True
+        self._rationalMode = True
 
         self._backends = [mpmathBackend]
         self._backends[0].trigUnit = self.trigUnit
@@ -55,6 +56,11 @@ class Engine:
             self._symbolicMode = enabled
             self.beautifier.setSymbolicMode(enabled)
             self.stackChanged()
+
+    def setRationalMode(self, enabled):
+        if self._rationalMode != enabled:
+            self._rationalMode = enabled
+            self.beautifier.setRationalMode(enabled)
 
     def setAutoSimplify(self, enabled):
         if self._autoSimplify != enabled:
@@ -169,7 +175,10 @@ class Engine:
 
                 expr = None
                 if self._backends[0].features & Feature.StringConversion:
-                    expr = self._backends[0].stringToExpr(self.currentOperand)
+                    if self._backends[0].features & Feature.Rational:
+                        expr = self._backends[0].stringToExpr(self.currentOperand, self._rationalMode)
+                    else:
+                        expr = self._backends[0].stringToExpr(self.currentOperand)
                 else:
                     raise NotSupportedException()
 
@@ -202,7 +211,10 @@ class Engine:
 
                 expr = None
                 if self._backends[0].features & Feature.StringConversion:
-                    expr = self._backends[0].stringToExpr(self.undoCurrentOperand)
+                    if self._backends[0].features & Feature.Rational:
+                        expr = self._backends[0].stringToExpr(self.undoCurrentOperand, self._rationalMode)
+                    else:
+                        expr = self._backends[0].stringToExpr(self.undoCurrentOperand)
                 else:
                     raise NotSupportedException()
 
@@ -297,7 +309,10 @@ class Engine:
                     raise ExpressionNotValidException()
 
                 if self._backends[0].features & Feature.StringConversion:
-                    ops = ops + (self._backends[0].stringToExpr(self.currentOperand),)
+                    if self._backends[0].features & Feature.Rational:
+                        ops = ops + (self._backends[0].stringToExpr(self.currentOperand, self._rationalMode),)
+                    else:
+                        ops = ops + (self._backends[0].stringToExpr(self.currentOperand),)
                 else:
                     raise NotSupportedException()
 
@@ -408,11 +423,17 @@ class SimpleBeautifier:
     def __init__(self):
         self.precision = 4
         self._symbolicMode = True
+        self._rationalMode = True
         self._backends = None
 
     def setSymbolicMode(self, enabled):
         if enabled != self._symbolicMode:
             self._symbolicMode = enabled
+
+    def setRationalMode(self, enabled):
+        if enabled != self._rationalMode:
+            self._rationalMode = enabled
+
 
     def setPrecision(self, prec):
         self.precision = prec

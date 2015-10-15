@@ -13,6 +13,7 @@ class TrigUnit(IntEnum):
 class Feature(IntEnum):
     Symbolic = 1
     StringConversion = 2
+    Rational = 4
 
 class NotEnoughOperandsException(Exception):
     def __init__(self, nbRequested, nbAvailable):

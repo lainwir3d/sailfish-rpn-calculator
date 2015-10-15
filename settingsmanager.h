@@ -12,6 +12,8 @@ class SettingsManager : public QObject
     Q_PROPERTY(int reprFloatPrecision READ reprFloatPrecision WRITE setReprFloatPrecision NOTIFY reprFloatPrecisionChanged())
     Q_PROPERTY(bool autoSimplify READ autoSimplify WRITE setAutoSimplify NOTIFY autoSimplifyChanged)
     Q_PROPERTY(bool symbolicMode READ symbolicMode WRITE setSymbolicMode NOTIFY symbolicModeChanged)
+    Q_PROPERTY(bool rationalMode READ rationalMode WRITE setRationalMode NOTIFY rationalModeChanged)
+
 
 public:
     explicit SettingsManager(QObject *parent = 0);
@@ -29,6 +31,9 @@ public:
     bool symbolicMode() { return settings->value("symbolicMode").toBool(); }
     void setSymbolicMode(bool enabled);
 
+    bool rationalMode() { return settings->value("rationalMode").toBool(); }
+    void setRationalMode(bool enabled);
+
 private:
     QSettings * settings;
 
@@ -37,6 +42,7 @@ signals:
     void reprFloatPrecisionChanged();
     void autoSimplifyChanged();
     void symbolicModeChanged();
+    void rationalModeChanged();
 
 public slots:
 

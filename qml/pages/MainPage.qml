@@ -53,22 +53,6 @@ Page {
     }
     */
 
-    Connections {
-        target: settings
-        onAngleUnitChanged: {
-            python.changeTrigonometricUnit(settings.angleUnit);
-        }
-        onReprFloatPrecisionChanged: {
-            python.changeReprFloatPrecision(settings.reprFloatPrecision);
-        }
-        onAutoSimplifyChanged: {
-            python.enableAutoSimplify(settings.autoSimplify);
-        }
-        onSymbolicModeChanged: {
-            python.enableSymbolicMode(settings.symbolicMode);
-        }
-    }
-
     function formulaPush(visual, engine, type) {
         python.processInput(engine, type);
     }
@@ -199,6 +183,15 @@ Page {
         anchors.bottomMargin: 10
 
         spacing: 15
+
+        Label {
+            text: !page.engineLoaded ? "IEEE754" : settings.rationalMode ? "Rational" : "IEEE754"
+            font.family: Theme.fontFamily
+            font.pixelSize: Theme.fontSizeExtraSmall
+            //font.bold: !engineLoaded
+
+            color: !page.engineLoaded ? "red" : Theme.secondaryColor
+        }
 
         Label {
             id: mode

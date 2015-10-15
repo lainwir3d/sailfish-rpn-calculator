@@ -5,7 +5,7 @@ import dice
 import rpncalc_sympy_functions as functions
 from rpncalc_sympy_backend_constants import constants, constantsArray
 
-features = Feature.Symbolic | Feature.StringConversion
+features = Feature.Symbolic | Feature.StringConversion | Feature.Rational
 
 class OperandType(IntEnum):
     All = 0
@@ -290,14 +290,21 @@ def stringExpressionValid(str):
         print(err)
         return False
 
-def stringToExpr(str):
-    return sympy.S(str)
+def stringToExpr(str, autoRational = False):
+    if autoRational is True:
+        tmp = sympy.S(str, rational=True)
+    else:
+        tmp = sympy.S(str)
+
+    return tmp
 
 def exprToStr(expr, prec = 9):
     try:
         s = None
         if expr.is_Float is True:
             s = str(eval(expr, prec))
+        elif (expr.is_Rational is True):
+            s = str(expr.evalf(prec))
         else:
             s = str(expr)
             s = s.replace("**", "^")
