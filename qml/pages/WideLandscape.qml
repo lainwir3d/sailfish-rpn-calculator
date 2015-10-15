@@ -283,7 +283,7 @@ Page {
             anchors.left: parent.left
             anchors.top: parent.top
 
-            height: trigQSetting.height + precQSetting.height + symbQSetting.height + rationalQSetting.height
+            height: trigQSetting.height + precQSetting.height + symbQSetting.height + rationalQSetting.height + Theme.paddingSmall
 
             ComboBox{
                 id: trigQSetting
