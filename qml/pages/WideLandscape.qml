@@ -238,7 +238,6 @@ Page {
 
         property bool landscape: orientation & Orientation.LandscapeMask
 
-        anchors.top: parent.top
         anchors.bottom: parent.bottom
         anchors.right: parent.right
         anchors.left: leftSide.right
@@ -250,6 +249,126 @@ Page {
 
         buttonWidth: (width - (rowSpacing * (landscape ? 5 : 4))) / 5
         buttonHeigth: buttonWidth * 16/17
+    }
+
+    SilicaFlickable {
+        id: quickSettings
+
+        property bool landscape: orientation & Orientation.LandscapeMask
+
+        anchors.top: parent.top
+        anchors.bottom: kbd.top
+        anchors.right: parent.right
+        anchors.left: leftSide.right
+
+        anchors.margins: landscape ? Theme.paddingLarge : Theme.paddingMedium
+        anchors.leftMargin: Theme.paddingSmall
+
+        contentHeight: column.height
+        contentWidth: width
+
+        clip: true
+
+        VerticalScrollDecorator {
+            flickable: quickSettings
+            anchors.margins: Theme.paddingMedium
+        }
+
+        Column {
+            id: column
+
+            spacing: Theme.paddingSmall
+
+            anchors.right: parent.right
+            anchors.left: parent.left
+            anchors.top: parent.top
+
+            height: trigQSetting.height + precQSetting.height + symbQSetting.height + rationalQSetting.height
+
+            ComboBox{
+                id: trigQSetting
+
+                label: "Trigonometric unit"
+                currentIndex: settings.angleUnit == "Degree" ? 1 : settings.angleUnit == "Gradient" ? 2 : 0
+
+                menu: ContextMenu {
+                    MenuItem { text: "Radian" }
+                    MenuItem { text: "Degree" }
+                    MenuItem { text: "Gradient" }
+                }
+
+                onCurrentItemChanged: {
+                    settings.angleUnit = currentItem.text;
+                }
+            }
+
+            ComboBox{
+                id: precQSetting
+
+                label: "Stack view precision"
+                currentIndex: settings.reprFloatPrecision - 1
+
+                menu: ContextMenu {
+                    MenuItem { text: "1"; }
+                    MenuItem { text: "2"; }
+                    MenuItem { text: "3"; }
+                    MenuItem { text: "4"; }
+                    MenuItem { text: "5"; }
+                    MenuItem { text: "6"; }
+                    MenuItem { text: "7"; }
+                    MenuItem { text: "8"; }
+                    MenuItem { text: "9"; }
+                    MenuItem { text: "10"; }
+                    MenuItem { text: "11"; }
+                    MenuItem { text: "12"; }
+                    MenuItem { text: "13"; }
+                    MenuItem { text: "14"; }
+                    MenuItem { text: "15"; }
+                    MenuItem { text: "16"; }
+                    MenuItem { text: "17"; }
+                    MenuItem { text: "18"; }
+                    MenuItem { text: "19"; }
+                    MenuItem { text: "20"; }
+                    MenuItem { text: "21"; }
+                    MenuItem { text: "22"; }
+                    MenuItem { text: "23"; }
+                    MenuItem { text: "24"; }
+                    MenuItem { text: "25"; }
+                    MenuItem { text: "26"; }
+                    MenuItem { text: "27"; }
+                    MenuItem { text: "28"; }
+                    MenuItem { text: "29"; }
+                    MenuItem { text: "30"; }
+
+                }
+
+                onCurrentItemChanged: {
+                    settings.reprFloatPrecision = Number(currentItem.text);
+                }
+            }
+
+            TextSwitch {
+                id: symbQSetting
+
+                text: "Symbolic mode"
+                checked: settings.symbolicMode
+
+                onCheckedChanged: {
+                    settings.symbolicMode = checked;
+                }
+            }
+
+            TextSwitch {
+                id: rationalQSetting
+
+                text: "Rational mode"
+                checked: settings.rationalMode
+
+                onCheckedChanged: {
+                    settings.rationalMode = checked;
+                }
+            }
+        }
     }
 }
 
