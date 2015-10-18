@@ -444,29 +444,34 @@ class SimpleBeautifier:
     def beautifyNumber(self, number):
         pass
 
+    def beautifyElement(self, el, index=-1):
+        expr = None
+
+        for b in self._backends:
+            try:
+                if (self._symbolicMode is True) and (b.features & Feature.Symbolic):
+                    expr = b.exprToStr(el, self.precision)
+                else:
+                    expr = str(b.eval(el, self.precision))
+
+                break
+
+            except UnsupportedBackendExpressionException:
+                if b is self._backends[-1]:
+                    raise UnsupportedBackendExpressionException()
+                else:
+                    continue
+
+        stackEl = {"index": index, "expr": expr}
+        return stackEl
+
     def beautifyStack(self, stack):
         model = []
 
         index = 1
         for i in stack:
-            expr = None
+            el = self.beautifyElement(i, index)
 
-            for b in self._backends:
-                try:
-                    if (self._symbolicMode is True) and (b.features & Feature.Symbolic):
-                        expr = b.exprToStr(i, self.precision)
-                    else:
-                        expr = str(b.eval(i, self.precision))
-
-                    break
-
-                except UnsupportedBackendExpressionException:
-                    if b is self._backends[-1]:
-                        raise UnsupportedBackendExpressionException()
-                    else:
-                        continue
-
-            el = {"index": index, "expr": expr}
             model.append(el)
             index += 1
 

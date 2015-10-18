@@ -116,6 +116,7 @@ ApplicationWindow
 
             setHandler('currentOperand', currentOperandHandler);
             setHandler('newStack', newStackHandler);
+            setHandler('stackPushOne', stackPushOneHandler());
             setHandler('NotEnoughOperandsException', notEnoughOperandsExceptionHandler);
             setHandler('WrongOperandsException', wrongOperandsExceptionHandler);
             setHandler('ExpressionNotValidException', expressionNotValidExceptionHandler);
@@ -226,6 +227,11 @@ ApplicationWindow
             }
 
             currentStack = stack;
+        }
+
+        function stackPushOneHandler(member){
+            //memory.append({isLastItem: false, value: member["expr"]});
+            //pageStack.currentPage.screen.view.positionViewAtEnd();
         }
 
 
