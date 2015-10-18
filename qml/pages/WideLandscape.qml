@@ -272,6 +272,7 @@ Page {
         VerticalScrollDecorator {
             flickable: quickSettings
             anchors.margins: Theme.paddingMedium
+            opacity: parent.draggingVertically || parent.flickingVertically ? 1.0 : parent.contentHeight > parent.height ? 0.3 : 0.0
         }
 
         Column {
