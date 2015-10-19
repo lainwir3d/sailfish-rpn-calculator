@@ -94,7 +94,7 @@ class Engine:
 
                 if self._backends[0].features & Feature.Symbolic:
                     expr = self._backends[0].addSymbol(input)
-                self.stackPush(expr)
+                self.stackPush(expr) # nothing to pop
             elif type == "constant":
                 self.constantInputProcessor(input)
             elif type == "real":
@@ -186,7 +186,7 @@ class Engine:
                 expr = self.stack[0]
 
             if expr is not None:
-                self.stackPush(expr)
+                self.stackPush(expr) # nothing to pop
         elif input == "swap":
 
             if len(self.stack) > 1:
@@ -220,7 +220,7 @@ class Engine:
 
             self.stack = self.undoStack.copy()
             if expr is not None:
-                self.stackPush(expr)
+                self.stackPush(expr, notify=False) # do not notify, full stack change below
 
             self.undoCurrentOperand = ""
             self.currentOperandChanged()
@@ -240,15 +240,21 @@ class Engine:
         if o["undo"] is True:
             self.pushUndo()
 
-        ops = self.getOperands(o["operands"], o["operandTypes"])
+        nbOperands = o["operands"]
+        ops = self.getOperands(nbOperands, o["operandTypes"])
+
+        nbToPop = nbOperands
+        if self.currentOperand != "":
+            if nbToPop > 0:
+                nbToPop = nbToPop - 1
 
         try:
             expr = o["func"](ops)
         except:
-            self.stackPush(ops)
+            self.stackPush(ops, notify=False) # operation failed, UI stack should be in good shape
             raise BackendException()
 
-        self.stackPush(expr)
+        self.stackPush(expr, pop=nbToPop)
 
     def operationInputProcessor(self, input):
 
@@ -262,22 +268,28 @@ class Engine:
         if o["undo"] is True:
             self.pushUndo()
 
-        ops = self.getOperands(o["operands"], o["operandTypes"])
+        nbOperands = o["operands"]
+        ops = self.getOperands(nbOperands, o["operandTypes"])
+
+        nbToPop = nbOperands
+        if self.currentOperand != "":
+            if nbToPop > 0:
+                nbToPop = nbToPop - 1
 
         try:
             expr = o["func"](ops)
         except Exception as err:
             print(err)
-            self.stackPush(ops)
+            self.stackPush(ops, notify=False) # operation failed, UI stack should be in good shape
             raise BackendException()
 
-        self.stackPush(expr)
+        self.stackPush(expr, pop=nbToPop)
 
     def constantInputProcessor(self, input):
 
         self.pushUndo()
         expr = self._backends[0].constants[input]
-        self.stackPush(expr)
+        self.stackPush(expr) # nothing to pop
 
     def getOperands(self, nb=2, types=OperandType.All):
         nbAvailable = 0
@@ -355,7 +367,7 @@ class Engine:
         for i in range(0, nb):
             self.stack.pop(0)
 
-    def stackPush(self, expr):
+    def stackPush(self, expr, notify=True, pop=0):
         try:
             _ = (e for e in expr)  # check for iterable
 
@@ -366,17 +378,20 @@ class Engine:
             self.stack.insert(0, expr)
 
         self.clearCurrentOperand()
-        self.stackChanged()
+
+        if notify is True:
+            el = self.beautifier.beautifyElement(expr, len(self.stack))
+            pyotherside.send("stackPopPush", pop, el)
 
     def stackDropFirst(self):
         if len(self.stack) > 0:
             self.stack.pop(0)
-            self.stackChanged()
+            pyotherside.send("stackPop", 1)
 
     def stackDropAll(self):
         if len(self.stack) > 0:
             self.stack.clear()
-            self.stackChanged()
+            pyotherside.send("stackPop", -1)
 
     def stackDrop(self, idx):
         if len(self.stack) > int(idx):

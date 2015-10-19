@@ -116,7 +116,8 @@ ApplicationWindow
 
             setHandler('currentOperand', currentOperandHandler);
             setHandler('newStack', newStackHandler);
-            setHandler('stackPushOne', stackPushOneHandler());
+            setHandler('stackPopPush', stackPopPushHandler);
+            setHandler('stackPop', stackPopHandler);
             setHandler('NotEnoughOperandsException', notEnoughOperandsExceptionHandler);
             setHandler('WrongOperandsException', wrongOperandsExceptionHandler);
             setHandler('ExpressionNotValidException', expressionNotValidExceptionHandler);
@@ -217,23 +218,46 @@ ApplicationWindow
             var i=0;
             for(i=stack.length-1; i>=0 ; i--){
                 memory.append({isLastItem: i == stack.length ? true : false, value: stack[i]["expr"]})
-                pageStack.currentPage.screen.view.positionViewAtEnd();
             }
 
-            //fill in first 10 of stack
-            for(i=memory.count; i<1 ; i++){
-                memory.insert(0, {isLastItem: i == stack.length ? true : false, value: ""});
-                pageStack.currentPage.screen.view.positionViewAtEnd();
-            }
+            updateFakeFirstElements();
+
+            pageStack.currentPage.screen.view.positionViewAtEnd();
 
             currentStack = stack;
         }
 
-        function stackPushOneHandler(member){
-            //memory.append({isLastItem: false, value: member["expr"]});
-            //pageStack.currentPage.screen.view.positionViewAtEnd();
+        function stackPopPushHandler(pop, el){
+            if(pop > 0){
+                memory.remove(memory.count - pop, pop);
+            }else if(pop < 0){
+                memory.clear();
+            }
+
+            memory.append({isLastItem: true, value: el["expr"]});
+            updateFakeFirstElements();
+            pageStack.currentPage.screen.view.positionViewAtEnd();
         }
 
+        function stackPopHandler(nb){
+            if(nb > 0){
+                memory.remove(memory.count - nb, nb);
+            }else if(nb < 0){
+                memory.clear();
+            }
+
+            updateFakeFirstElements();
+        }
+
+        function updateFakeFirstElements(){
+            if(memory.count == 0){
+                memory.insert(0, {isLastItem: true, value: ""});
+            }else{
+                if(memory.get(0).value == ""){
+                    memory.remove(0);
+                }
+            }
+        }
 
         function processInput(input, type){
             call("rpncalc_engine.engine.processInput", [input, type], function (){});
