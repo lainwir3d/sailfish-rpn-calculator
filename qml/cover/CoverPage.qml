@@ -59,7 +59,7 @@ CoverBackground {
                     Label {
                         width: parent.width - stack_2_id.width - 4
                         horizontalAlignment: Text.AlignRight
-                        text: root.currentStack.length > 2 ? root.currentStack[2]['expr'] : ""
+                        text: root.memoryModel.count > 2 ? root.memoryModel.get(root.memoryModel.count - 3).value : ""
                     }
                 }
                 Row{
@@ -73,7 +73,7 @@ CoverBackground {
                     Label {
                         width: parent.width - stack_1_id.width - 4
                         horizontalAlignment: Text.AlignRight
-                        text: root.currentStack.length > 1 ? root.currentStack[1]['expr'] : ""
+                        text: root.memoryModel.count > 1 ? root.memoryModel.get(root.memoryModel.count - 2).value : ""
                     }
                 }
                 Row{
@@ -87,7 +87,7 @@ CoverBackground {
                     Label {
                         width: parent.width - stack_0_id.width - 4
                         horizontalAlignment: Text.AlignRight
-                        text: root.currentStack.length > 0 ? root.currentStack[0]['expr'] : ""
+                        text: root.memoryModel.count > 0 ? root.memoryModel.get(root.memoryModel.count - 1).value : ""
                     }
                 }
         }

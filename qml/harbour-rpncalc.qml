@@ -47,6 +47,7 @@ ApplicationWindow
     property var currentStack: []
 
     property bool engineLoaded: false
+    property alias memoryModel: memory
 
     Connections {
         target: settings
