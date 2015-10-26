@@ -7,7 +7,7 @@ Name:       harbour-rpncalc
 
 # >> macros
 %define __provides_exclude_from ^%{_datadir}/.*$
-%define __requires_exclude ^libc|libpython3.4m|python|env|libutil.*$
+%define __requires_exclude ^libc|libdl|libm|libpthread|libpython3.4m|python|env|libutil.*$
 # << macros
 
 %{!?qtc_qmake:%define qtc_qmake %qmake}
