@@ -264,20 +264,39 @@ Page {
 
             height: trigQSetting.height + precQSetting.height + symbQSetting.height + rationalQSetting.height + Theme.paddingSmall
 
-            ComboBox{
+            BackgroundItem {
                 id: trigQSetting
 
-                label: "Trigonometric unit"
-                currentIndex: settings.angleUnit == "Degree" ? 1 : settings.angleUnit == "Gradient" ? 2 : 0
+                width: precQSetting.width
+                height: Theme.itemSizeSmall
 
-                menu: ContextMenu {
-                    MenuItem { text: "Radian" }
-                    MenuItem { text: "Degree" }
-                    MenuItem { text: "Gradient" }
+                Label {
+                    id: lb
+                    text: "Trigonometric unit:"
+                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.left: parent.left
+                    anchors.leftMargin: Theme.paddingLarge * 2
+
+                    color: trigQSetting.highlighted ? Theme.highlightColor : Theme.primaryColor
                 }
 
-                onCurrentItemChanged: {
-                    settings.angleUnit = currentItem.text;
+                Label {
+                    text: settings.angleUnit
+                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.left: lb.right
+                    anchors.leftMargin: Theme.paddingSmall
+
+                    color: Theme.highlightColor
+                }
+
+                onClicked: {
+                    if(settings.angleUnit == "Radian"){
+                        settings.angleUnit = "Degree";
+                    }else if(settings.angleUnit == "Degree"){
+                        settings.angleUnit = "Gradient";
+                    }else if(settings.angleUnit == "Gradient"){
+                        settings.angleUnit = "Radian";
+                    }
                 }
             }
 
