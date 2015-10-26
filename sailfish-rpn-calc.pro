@@ -27,7 +27,6 @@ OTHER_FILES += \
     README.md \
     rpm/RPNCalc.yaml \
     qml/pages/MainPage.qml \
-    harbour-rpncalc.png \
     harbour-rpncalc.desktop \
     qml/cover/harbour-rpncalc.png \
     qml/harbour-rpncalc.qml \
@@ -39,7 +38,11 @@ OTHER_FILES += \
     qml/elements/OperandEditor.qml \
     qml/pages/SymbolPage.qml \
     python/rpncalc_sympy_functions.py \
-    qml/pages/WideLandscape.qml
+    qml/pages/WideLandscape.qml \
+	icons/86x86/apps/harbour-rpncalc.png \
+	icons/108x108/apps/harbour-rpncalc.png \
+	icons/128x128/apps/harbour-rpncalc.png \
+	icons/256x256/apps/harbour-rpncalc.png
 
 python.path = /usr/share/$${TARGET}
 python.files = python
@@ -48,9 +51,11 @@ python.files = python
 #libs.files = libs/i686/lib
 #libs.files = libs/armv7l/lib
 
+appicons.path = /usr/share/icons/hicolor
+appicons.files = icons/*
 
 #INSTALLS += python libs
-INSTALLS += python
+INSTALLS += appicons python
 
 HEADERS += \
     settingsmanager.h
