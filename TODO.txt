@@ -1,32 +1,22 @@
-2.1.2:
-  - Fix precision
-  - Allow entering ".4" instead of "0.4"
-
 Known bugs :
-
   - Cover display wrongly if stack values too long.
   - Some characters are clipped if they are too tall ('µ' for example).
-  - The app may become slow if the stack is too deep.
 
 Future updates :
   - Equation solving.
   - Full sympy expression editor with virtual keyboard.
   - Ability to "UNDO" multiple times.
-  - More effective stack change to fix big stack depth performance problem.
 
 "Long term" updates:
 
   - Function pretty view on stack element long press.
   - Documented functions.
-  - Landscape mode
-  - Tablet mode
   - tap on stack to include in expression when keyboard open ?
   - tap on expression to evaluate ?
   - Auto simplify option ? use kernS if no simplify
   - quick precision with blue button + orange button + number ?
   - option to change screen font size
   - vibration ?
-  - symbol page ?
   - switcher de pile
   - save stack
 
