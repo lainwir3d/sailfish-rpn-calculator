@@ -11,51 +11,28 @@ TARGET = harbour-rpncalc
 CONFIG += sailfishapp
 
 SOURCES += \
-    src/harbour-rpncalc.cpp \
-    settingsmanager.cpp
+    src/harbour-rpncalc.cpp
+
+include(../rpn-calc.pri)
 
 OTHER_FILES += \
-    qml/cover/CoverPage.qml \
     rpm/sailfish-rpn-calc.spec \
+    rpm/RPNCalc.yaml \
+    rpm/harbour-rpncalc.spec \
+    harbour-rpncalc.desktop \
+    qml/cover/CoverPage.qml \
     qml/elements/CalcScreen.qml \
     qml/elements/KeyboardButton.qml \
     qml/elements/Memory.qml \
     qml/elements/StdKeyboard.qml \
     qml/elements/StackFlick.qml \
-    TODO.txt \
-    LICENSE.md \
-    README.md \
-    rpm/RPNCalc.yaml \
     qml/pages/MainPage.qml \
-    harbour-rpncalc.desktop \
     qml/cover/harbour-rpncalc.png \
     qml/harbour-rpncalc.qml \
-    python/rpncalc_engine.py \
-    rpm/harbour-rpncalc.spec \
     qml/elements/Popup.qml \
-    python/rpncalc_constants.py \
     qml/pages/Settings.qml \
     qml/elements/OperandEditor.qml \
     qml/pages/SymbolPage.qml \
-    python/rpncalc_sympy_functions.py \
-    qml/pages/WideLandscape.qml \
-	icons/86x86/apps/harbour-rpncalc.png \
-	icons/108x108/apps/harbour-rpncalc.png \
-	icons/128x128/apps/harbour-rpncalc.png \
-	icons/256x256/apps/harbour-rpncalc.png
+    qml/pages/WideLandscape.qml
 
-python.path = /usr/share/$${TARGET}
-python.files = python
-
-#libs.path = /usr/share/$${TARGET}
-#libs.files = libs/i686/lib
-#libs.files = libs/armv7l/lib
-
-appicons.path = /usr/share/icons/hicolor
-appicons.files = icons/*
-
-#INSTALLS += python libs
-INSTALLS += appicons python
-
-HEADERS += \
-    settingsmanager.h
+include("../linux.pri")

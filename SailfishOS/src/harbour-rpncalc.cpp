@@ -1,7 +1,7 @@
 #include <QtQuick>
 
 #include <sailfishapp.h>
-#include <settingsmanager.h>
+#include <../common/src/settingsmanager.h>
 
 int main(int argc, char *argv[])
 {
