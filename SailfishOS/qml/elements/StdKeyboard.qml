@@ -15,6 +15,10 @@ Item {
     property int rowSpacing: Theme.paddingMedium
     property alias columnSpacing: keyboard.spacing
 
+    property color keyboardButtonBorderColor: "white"
+    property int keyboardButtonFontSize
+    property int keyboardButtonSecondaryFontSize
+
     Column{
         id: keyboard
         anchors.horizontalCenter: parent.horizontalCenter
@@ -32,6 +36,9 @@ Item {
                 {text: ' ', visual:'', engine:'', type:'', enabled: false}]
 
                 mode: keyboard.action
+                rectBorderColor: keyboardButtonBorderColor
+                fontSize: keyboardButtonFontSize
+                secondaryFontSize: keyboardButtonSecondaryFontSize
 
                 onClicked: {
                     formulaPush(actions[keyboard.action].visual,
@@ -47,6 +54,9 @@ Item {
                 {text: ' ', visual:'', engine:'', type:'', enabled: false}]
 
                 mode: keyboard.action
+                rectBorderColor: keyboardButtonBorderColor
+                fontSize: keyboardButtonFontSize
+                secondaryFontSize: keyboardButtonSecondaryFontSize
 
                 onClicked: {
                     formulaPush(actions[keyboard.action].visual,
@@ -62,6 +72,9 @@ Item {
                 {text: ' ', visual:'', engine:'', type:'', enabled: false}]
 
                 mode: keyboard.action
+                rectBorderColor: keyboardButtonBorderColor
+                fontSize: keyboardButtonFontSize
+                secondaryFontSize: keyboardButtonSecondaryFontSize
 
                 onClicked: {
                     formulaPush(actions[keyboard.action].visual,
@@ -77,6 +90,9 @@ Item {
                 {text: ' ', visual:'', engine:'', type:'', enabled: false}]
 
                 mode: keyboard.action
+                rectBorderColor: keyboardButtonBorderColor
+                fontSize: keyboardButtonFontSize
+                secondaryFontSize: keyboardButtonSecondaryFontSize
 
                 onClicked: {
                     formulaPush(actions[keyboard.action].visual,
@@ -92,6 +108,9 @@ Item {
                 {text: ' ', visual:'', engine:'', type:'', enabled: false}]
 
                 mode: keyboard.action
+                rectBorderColor: keyboardButtonBorderColor
+                fontSize: keyboardButtonFontSize
+                secondaryFontSize: keyboardButtonSecondaryFontSize
 
                 onClicked: {
                     formulaPush(actions[keyboard.action].visual,
@@ -113,6 +132,9 @@ Item {
                 {text: ' ', visual:'', engine:'', type:'', enabled: false}]
 
                 mode: keyboard.action
+                rectBorderColor: keyboardButtonBorderColor
+                fontSize: keyboardButtonFontSize
+                secondaryFontSize: keyboardButtonSecondaryFontSize
 
                 onClicked: {
                     formulaPush(actions[keyboard.action].visual,
@@ -128,6 +150,9 @@ Item {
                     {text: ' ', visual:'', engine:'', type:'', enabled: false}]
 
                 mode: keyboard.action
+                rectBorderColor: keyboardButtonBorderColor
+                fontSize: keyboardButtonFontSize
+                secondaryFontSize: keyboardButtonSecondaryFontSize
 
                 onClicked: {
                     formulaPush(actions[keyboard.action].visual,
@@ -143,6 +168,9 @@ Item {
                 {text: ' ', visual:'', engine:'', type:'', enabled: false}]
 
                 mode: keyboard.action
+                rectBorderColor: keyboardButtonBorderColor
+                fontSize: keyboardButtonFontSize
+                secondaryFontSize: keyboardButtonSecondaryFontSize
 
                 onClicked: {
                     formulaPush(actions[keyboard.action].visual,
@@ -158,6 +186,9 @@ Item {
                 {text: ' ', visual:'', engine:'', type:'', enabled: false}]
 
                 mode: keyboard.action
+                rectBorderColor: keyboardButtonBorderColor
+                fontSize: keyboardButtonFontSize
+                secondaryFontSize: keyboardButtonSecondaryFontSize
 
                 onClicked: {
                     formulaPush(actions[keyboard.action].visual,
@@ -173,6 +204,9 @@ Item {
                 {text: ' ', visual:'', engine:'', type:'', enabled: false}]
 
                 mode: keyboard.action
+                rectBorderColor: keyboardButtonBorderColor
+                fontSize: keyboardButtonFontSize
+                secondaryFontSize: keyboardButtonSecondaryFontSize
 
                 onClicked: {
                     formulaPush(actions[keyboard.action].visual,
@@ -195,6 +229,9 @@ Item {
                 {text: 'simplify', visual:'', engine:'simplify', type:'function', enabled: engineLoaded}]
 
                 mode: keyboard.action
+                rectBorderColor: keyboardButtonBorderColor
+                fontSize: keyboardButtonFontSize
+                secondaryFontSize: keyboardButtonSecondaryFontSize
 
                 onClicked: {
                     formulaPush(actions[keyboard.action].visual,
@@ -210,6 +247,9 @@ Item {
                     {text: '16bit', visual:'', engine:'u16bit', type:'operation', enabled: engineLoaded}]
 
                 mode: keyboard.action
+                rectBorderColor: keyboardButtonBorderColor
+                fontSize: keyboardButtonFontSize
+                secondaryFontSize: keyboardButtonSecondaryFontSize
 
                 onClicked: {
                     formulaPush(actions[keyboard.action].visual,
@@ -226,6 +266,9 @@ Item {
                 {text: 'SHR', visual:'', engine:'shr', type:'operation', enabled: engineLoaded}]
 
                 mode: keyboard.action
+                rectBorderColor: keyboardButtonBorderColor
+                fontSize: keyboardButtonFontSize
+                secondaryFontSize: keyboardButtonSecondaryFontSize
 
                 onClicked: {
                     formulaPush(actions[keyboard.action].visual,
@@ -241,6 +284,9 @@ Item {
                 {text: 'UNDO', visual:'', engine:'undo', type:'stack', enabled: true}]
 
                 mode: keyboard.action
+                rectBorderColor: keyboardButtonBorderColor
+                fontSize: keyboardButtonFontSize
+                secondaryFontSize: keyboardButtonSecondaryFontSize
 
                 onClicked: {
                     formulaPush(actions[keyboard.action].visual,
@@ -262,6 +308,9 @@ Item {
                     {text: ' ', visual:'', engine:'', type:'', enabled: false}]
 
                 mode: keyboard.action
+                rectBorderColor: keyboardButtonBorderColor
+                fontSize: keyboardButtonFontSize
+                secondaryFontSize: keyboardButtonSecondaryFontSize
 
                 onClicked: {
                     formulaPush(actions[keyboard.action].visual,
@@ -277,6 +326,9 @@ Item {
                 {text: 'x', visual:'', engine:'x', type:'symbol', enabled: engineLoaded}]
 
                 mode: keyboard.action
+                rectBorderColor: keyboardButtonBorderColor
+                fontSize: keyboardButtonFontSize
+                secondaryFontSize: keyboardButtonSecondaryFontSize
 
                 onClicked: {
                     formulaPush(actions[keyboard.action].visual,
@@ -292,6 +344,9 @@ Item {
                 {text: 'y', visual:'', engine:'y', type:'symbol', enabled: engineLoaded}]
 
                 mode: keyboard.action
+                rectBorderColor: keyboardButtonBorderColor
+                fontSize: keyboardButtonFontSize
+                secondaryFontSize: keyboardButtonSecondaryFontSize
 
                 onClicked: {
                     formulaPush(actions[keyboard.action].visual,
@@ -307,6 +362,9 @@ Item {
                 {text: 'z', visual:'', engine:'z', type:'symbol', enabled: engineLoaded}]
 
                 mode: keyboard.action
+                rectBorderColor: keyboardButtonBorderColor
+                fontSize: keyboardButtonFontSize
+                secondaryFontSize: keyboardButtonSecondaryFontSize
 
                 onClicked: {
                     formulaPush(actions[keyboard.action].visual,
@@ -322,6 +380,9 @@ Item {
                 {text: 'NAND', visual:'', engine:'_nand', type:'operation', enabled: engineLoaded}]
 
                 mode: keyboard.action
+                rectBorderColor: keyboardButtonBorderColor
+                fontSize: keyboardButtonFontSize
+                secondaryFontSize: keyboardButtonSecondaryFontSize
 
                 onClicked: {
                     formulaPush(actions[keyboard.action].visual,
@@ -343,6 +404,9 @@ Item {
                 rectOpacity: keyboard.action == 1 ? 0.7 : 0.3
 
                 mode: keyboard.action
+                rectBorderColor: keyboardButtonBorderColor
+                fontSize: keyboardButtonFontSize
+                secondaryFontSize: keyboardButtonSecondaryFontSize
 
                 actions: [{text: '', visual:'', engine:'', type:'', enabled: true},
                 {text: ' ', visual:'', engine:'', type:'', enabled: true},
@@ -363,6 +427,9 @@ Item {
                 {text: ' ', visual:'', engine:'', type:'', enabled: false}]
 
                 mode: keyboard.action
+                rectBorderColor: keyboardButtonBorderColor
+                fontSize: keyboardButtonFontSize
+                secondaryFontSize: keyboardButtonSecondaryFontSize
 
                 onClicked: {
                     formulaPush(actions[keyboard.action].visual,
@@ -378,6 +445,9 @@ Item {
                 {text: ' ', visual:'', engine:'', type:'', enabled: false}]
 
                 mode: keyboard.action
+                rectBorderColor: keyboardButtonBorderColor
+                fontSize: keyboardButtonFontSize
+                secondaryFontSize: keyboardButtonSecondaryFontSize
 
                 onClicked: {
                     formulaPush(actions[keyboard.action].visual,
@@ -393,6 +463,9 @@ Item {
                 {text: ' ', visual:'', engine:'', type:'', enabled: false}]
 
                 mode: keyboard.action
+                rectBorderColor: keyboardButtonBorderColor
+                fontSize: keyboardButtonFontSize
+                secondaryFontSize: keyboardButtonSecondaryFontSize
 
                 onClicked: {
                     formulaPush(actions[keyboard.action].visual,
@@ -408,6 +481,9 @@ Item {
                 {text: 'NOR', visual:'', engine:'_nor', type:'operation', enabled: engineLoaded}]
 
                 mode: keyboard.action
+                rectBorderColor: keyboardButtonBorderColor
+                fontSize: keyboardButtonFontSize
+                secondaryFontSize: keyboardButtonSecondaryFontSize
 
                 onClicked: {
                     formulaPush(actions[keyboard.action].visual,
@@ -433,6 +509,9 @@ Item {
                 {text: ' ', visual:'', engine:'', type:'', enabled: true}]
 
                 mode: keyboard.action
+                rectBorderColor: keyboardButtonBorderColor
+                fontSize: keyboardButtonFontSize
+                secondaryFontSize: keyboardButtonSecondaryFontSize
 
                 onClicked: {
                     if(keyboard.action == 0){
@@ -449,6 +528,9 @@ Item {
                     {text: ' ', visual:'', engine:'', type:'', enabled: false}]
 
                 mode: keyboard.action
+                rectBorderColor: keyboardButtonBorderColor
+                fontSize: keyboardButtonFontSize
+                secondaryFontSize: keyboardButtonSecondaryFontSize
 
                 onClicked: {
                     formulaPush(actions[keyboard.action].visual,
@@ -464,6 +546,9 @@ Item {
                     {text: ' ', visual:'', engine:'', type:'', enabled: false}]
 
                 mode: keyboard.action
+                rectBorderColor: keyboardButtonBorderColor
+                fontSize: keyboardButtonFontSize
+                secondaryFontSize: keyboardButtonSecondaryFontSize
 
                 onClicked: {
                     formulaPush(actions[keyboard.action].visual,
@@ -479,6 +564,9 @@ Item {
                     {text: ' ', visual:'', engine:'', type:'', enabled: false}]
 
                 mode: keyboard.action
+                rectBorderColor: keyboardButtonBorderColor
+                fontSize: keyboardButtonFontSize
+                secondaryFontSize: keyboardButtonSecondaryFontSize
 
                 onClicked: {
                     formulaPush(actions[keyboard.action].visual,
@@ -494,6 +582,9 @@ Item {
                 {text: 'XNOR', visual:'', engine:'_xnor', type:'operation', enabled: engineLoaded}]
 
                 mode: keyboard.action
+                rectBorderColor: keyboardButtonBorderColor
+                fontSize: keyboardButtonFontSize
+                secondaryFontSize: keyboardButtonSecondaryFontSize
 
                 onClicked: {
                     formulaPush(actions[keyboard.action].visual,
@@ -514,8 +605,10 @@ Item {
                 {text: 'dice', visual:'', engine:'dice', type:'dice', enabled: engineLoaded},
                 {text: ' ', visual:'', engine:'', type:'', enabled: false}]
 
-
                 mode: keyboard.action
+                rectBorderColor: keyboardButtonBorderColor
+                fontSize: keyboardButtonFontSize
+                secondaryFontSize: keyboardButtonSecondaryFontSize
 
                 onClicked: {
                     if(keyboard.action == 0){
@@ -535,6 +628,9 @@ Item {
                     {text: ' ', visual:'', engine:'', type:'', enabled: false}]
 
                 mode: keyboard.action
+                rectBorderColor: keyboardButtonBorderColor
+                fontSize: keyboardButtonFontSize
+                secondaryFontSize: keyboardButtonSecondaryFontSize
 
                 onClicked: {
                     formulaPush(actions[keyboard.action].visual,
@@ -550,6 +646,9 @@ Item {
                     {text: ' ', visual:'', engine:'', type:'', enabled: false}]
 
                 mode: keyboard.action
+                rectBorderColor: keyboardButtonBorderColor
+                fontSize: keyboardButtonFontSize
+                secondaryFontSize: keyboardButtonSecondaryFontSize
 
                 onClicked: {
                     formulaPush(actions[keyboard.action].visual,
@@ -565,6 +664,9 @@ Item {
                     {text: 'const', visual:'', engine:'constantList', type:'constantList', enabled: engineLoaded}]
 
                 mode: keyboard.action
+                rectBorderColor: keyboardButtonBorderColor
+                fontSize: keyboardButtonFontSize
+                secondaryFontSize: keyboardButtonSecondaryFontSize
 
                 onClicked: {
                     formulaPush(actions[keyboard.action].visual,
@@ -580,6 +682,9 @@ Item {
                 {text: '2CMP', visual:'', engine:'_2cmp', type:'operation', enabled: engineLoaded}]
 
                 mode: keyboard.action
+                rectBorderColor: keyboardButtonBorderColor
+                fontSize: keyboardButtonFontSize
+                secondaryFontSize: keyboardButtonSecondaryFontSize
 
                 onClicked: {
                     formulaPush(actions[keyboard.action].visual,

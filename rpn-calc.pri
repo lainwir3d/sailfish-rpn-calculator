@@ -14,13 +14,15 @@ HEADERS += \
     ../common/src/settingsmanager.h
 
 OTHER_FILES += \
-    common/icons/86x86/apps/harbour-rpncalc.png \
-    common/icons/108x108/apps/harbour-rpncalc.png \
-    common/icons/128x128/apps/harbour-rpncalc.png \
-    common/icons/256x256/apps/harbour-rpncalc.png \
-    common/python/rpncalc_sympy_functions.py \
-    common/python/rpncalc_constants.py \
-    common/python/rpncalc_engine.py \
-    TODO.txt \
-    LICENSE.md \
-    README.md
+    ../common/icons/86x86/apps/harbour-rpncalc.png \
+    ../common/icons/108x108/apps/harbour-rpncalc.png \
+    ../common/icons/128x128/apps/harbour-rpncalc.png \
+    ../common/icons/256x256/apps/harbour-rpncalc.png \
+    ../common/python/rpncalc_sympy_functions.py \
+    ../common/python/rpncalc_constants.py \
+    ../common/python/rpncalc_engine.py \
+    ../common/qml/elements/KeyboardButton.qml \
+    ../common/qml/elements/Memory.qml \
+    ../TODO.txt \
+    ../LICENSE \
+    ../README

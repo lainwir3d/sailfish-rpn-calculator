@@ -22,8 +22,6 @@ OTHER_FILES += \
     harbour-rpncalc.desktop \
     qml/cover/CoverPage.qml \
     qml/elements/CalcScreen.qml \
-    qml/elements/KeyboardButton.qml \
-    qml/elements/Memory.qml \
     qml/elements/StdKeyboard.qml \
     qml/elements/StackFlick.qml \
     qml/pages/MainPage.qml \

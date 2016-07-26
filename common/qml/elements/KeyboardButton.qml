@@ -8,9 +8,12 @@ MouseArea {
     height: buttonHeigth
 
     property string rectColor: "transparent"
-    property variant rectBorderColor: Theme.secondaryColor
+    property color rectBorderColor: "white"
     property int rectBorderWidth: 1
     property real rectOpacity: 1
+
+    property int fontSize: mainLabel.font.pixelSize
+    property int secondaryFontSize: fontSize / 2
 
     property string text;
     property variant actions: [{text: ' ', visual:'', engine:'', type:'', enabled: false},
@@ -30,10 +33,10 @@ MouseArea {
         anchors.top: parent.top
         anchors.left: parent.left
         width: parent.width / 2
-        height: Theme.fontSizeTiny.height
+        height: secondaryFontSize.height
 
         horizontalAlignment: Text.AlignLeft
-        font.pixelSize: Theme.fontSizeTiny - 2
+        font.pixelSize: secondaryFontSize - 2
 
         color: "orange"
         text: actions[1].text
@@ -45,10 +48,10 @@ MouseArea {
         anchors.top: parent.top
         anchors.right: parent.right
         width: parent.width / 2
-        height: Theme.fontSizeTiny.height
+        height: secondaryFontSize.height
 
         horizontalAlignment: Text.AlignRight
-        font.pixelSize: Theme.fontSizeTiny - 2
+        font.pixelSize: secondaryFontSize - 2
 
         color: "lightblue"
         text: actions[2].text
@@ -68,10 +71,13 @@ MouseArea {
     }
 
     Label{
+        id: mainLabel
         //anchors.fill: parent
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.verticalCenter: rect.verticalCenter
         text: actions[0].text
+
+        font.pixelSize: fontSize
     }
 
     /*

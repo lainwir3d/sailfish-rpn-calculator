@@ -209,6 +209,10 @@ Page {
 
         buttonWidth: (width - (rowSpacing * 4)) / 5
         buttonHeigth: buttonWidth * 16/17
+
+        keyboardButtonBorderColor: Theme.secondaryColor
+        keyboardButtonFontSize: Theme.fontSizeMedium
+        keyboardButtonSecondaryFontSize: Theme.fontSizeTiny
     }
 }
 
