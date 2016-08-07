@@ -22,12 +22,10 @@ OTHER_FILES += \
     harbour-rpncalc.desktop \
     qml/cover/CoverPage.qml \
     qml/elements/CalcScreen.qml \
-    qml/elements/StdKeyboard.qml \
     qml/elements/StackFlick.qml \
     qml/pages/MainPage.qml \
     qml/cover/harbour-rpncalc.png \
     qml/harbour-rpncalc.qml \
-    qml/elements/Popup.qml \
     qml/pages/Settings.qml \
     qml/elements/OperandEditor.qml \
     qml/pages/SymbolPage.qml \

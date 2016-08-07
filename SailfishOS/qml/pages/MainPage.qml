@@ -104,6 +104,11 @@ Page {
         z: 10
 
         timeout: 3000
+
+        padding: Theme.paddingSmall
+
+        defaultColor: Theme.secondaryHighlightColor
+        labelMargin: Theme.paddingSmall
     }
 
     CalcScreen {

@@ -12,7 +12,7 @@ Item {
 
     property alias action: keyboard.action
 
-    property int rowSpacing: Theme.paddingMedium
+    property int rowSpacing: 10
     property alias columnSpacing: keyboard.spacing
 
     property color keyboardButtonBorderColor: "white"

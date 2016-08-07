@@ -4,11 +4,19 @@ import Sailfish.Silica 1.0
 MouseArea {
     id: popup
     anchors.top: parent.top
+
+    property int padding: 5
+    property int labelMargin: 5
+
     width: parent.width
-    height: message.paintedHeight + Theme.paddingSmall
+    height: message.paintedHeight + padding
+
     property alias title: message.text
     property alias timeout: hideTimer.interval
     property alias background: bg.color
+
+    property color defaultColor: "cyan"
+
     visible: opacity > 0
     opacity: 0.0
 
@@ -45,7 +53,7 @@ MouseArea {
         if (color && (typeof(color) != "undefined"))
             bg.color = color
         else
-            bg.color = Theme.rgba(Theme.secondaryHighlightColor, 0.9)
+            bg.color = Theme.rgba(defaultColor, 0.9)
         show()
     }
 
@@ -54,9 +62,9 @@ MouseArea {
         anchors.verticalCenter: popup.verticalCenter
         font.pixelSize: 32
         anchors.left: parent.left
-        anchors.leftMargin: Theme.paddingSmall
+        anchors.leftMargin: labelMargin
         anchors.right: parent.right
-        anchors.rightMargin: Theme.paddingSmall
+        anchors.rightMargin: labelMargin
         horizontalAlignment: Text.AlignHCenter
         elide: Text.ElideRight
         wrapMode: Text.Wrap
