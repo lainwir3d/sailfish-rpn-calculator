@@ -13,6 +13,13 @@ Item{
 
     property int flickableSize: width - flickable.anchors.rightMargin - backBtn.width - 10
 
+    property string backIcon: ""
+
+    property int fontSize: 10
+    property string fontFamily: "helvetica"
+
+    property int horizontalScrollPadding: 5
+
 /*
     IconButton{
         id: kbdBtn
@@ -56,7 +63,7 @@ Item{
     Flickable {
         id: flickable
 
-        height: Theme.fontSizeExtraLarge
+        height: fontSize
 
         width: operandEditor.flickableSize
 
@@ -77,7 +84,7 @@ Item{
         }
 
         HorizontalScrollDecorator{
-            height: Math.round(Theme.paddingSmall/4)
+            height: Math.round(horizontalScrollPadding/4)
 
             opacity: 0.5    // always visible
         }
@@ -88,7 +95,7 @@ Item{
             anchors.verticalCenter: parent.verticalCenter
 
             width: Math.max(operandLabel.paintedWidth, operandEditor.flickableSize)
-            height: Theme.fontSizeExtraLarge + 10
+            height: fontSize + 10
 
             Label {
                 id: operandLabel
@@ -96,12 +103,12 @@ Item{
                 anchors.right: parent.right
                 anchors.verticalCenter: parent.verticalCenter
 
-                height: Theme.fontSizeExtraLarge + 10
+                height: fontSize + 10
 
                 horizontalAlignment: Text.AlignRight
                 verticalAlignment: Text.AlignVCenter
-                font.family: Theme.fontFamily
-                font.pixelSize: Theme.fontSizeExtraLarge
+                font.family: fontFamily
+                font.pixelSize: fontSize
                 truncationMode: TruncationMode.Fade
 
                 color: operandEditor.operandInvalid ? "red" : "white"
@@ -115,14 +122,19 @@ Item{
         }
     }
 
-    IconButton{
+    MouseArea{
         id: backBtn
 
         anchors.right: parent.right
         anchors.verticalCenter: parent.verticalCenter
 
         width: height
-        height: Theme.fontSizeExtraLarge + 10
-        icon.source: "image://Theme/icon-l-backspace"
+        height: fontSize + 10
+
+        Image {
+            anchors.fill: parent
+
+            source: backIcon
+        }
     }
 }

@@ -26,7 +26,6 @@ OTHER_FILES += \
     qml/cover/harbour-rpncalc.png \
     qml/harbour-rpncalc.qml \
     qml/pages/Settings.qml \
-    qml/elements/OperandEditor.qml \
     qml/pages/SymbolPage.qml \
     qml/pages/WideLandscape.qml
 

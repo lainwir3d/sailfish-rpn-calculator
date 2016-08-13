@@ -135,35 +135,40 @@ Item{
                 }
             }
 
-            IconButton{
+            Image{
                 id: dropBtn
 
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.right: parent.right
                 anchors.rightMargin: 10
 
+
                 width: height
                 height: root.fontSize + 10
 
                 visible: invertedIndex === 1
 
-                icon.source: dropIcon
+                source: dropIcon
 
-                onClicked: {
-                    stackDropFirst();
-                    /*
-                    if(settings.vibration()){
-                        vibration.start();
+                MouseArea{
+                    anchors.fill: parent
+
+                    onClicked: {
+                        stackDropFirst();
+                        /*
+                        if(settings.vibration()){
+                            vibration.start();
+                        }
+                        */
                     }
-                    */
-                }
-                onPressAndHold: {
-                    stackDropAll();
-                    /*
-                    if(settings.vibration()){
-                        longVibration.start();
+                    onPressAndHold: {
+                        stackDropAll();
+                        /*
+                        if(settings.vibration()){
+                            longVibration.start();
+                        }
+                        */
                     }
-                    */
                 }
             }
         }

@@ -138,6 +138,12 @@ Page {
         operand: page.currentOperand
         operandInvalid: page.currentOperandValid ? false : true  // <= lol
 
+        backIcon: "image://Theme/icon-l-backspace"
+
+        fontSize: Theme.fontSizeExtraLarge
+        fontFamily: Theme.fontFamily
+        horizontalScrollPadding: Theme.paddingSmall
+
         backButton.onClicked: {
             formulaPop();
             /*
