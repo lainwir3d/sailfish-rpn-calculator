@@ -22,7 +22,6 @@ OTHER_FILES += \
     harbour-rpncalc.desktop \
     qml/cover/CoverPage.qml \
     qml/elements/CalcScreen.qml \
-    qml/elements/StackFlick.qml \
     qml/pages/MainPage.qml \
     qml/cover/harbour-rpncalc.png \
     qml/harbour-rpncalc.qml \

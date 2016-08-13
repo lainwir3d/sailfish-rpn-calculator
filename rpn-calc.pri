@@ -25,6 +25,7 @@ OTHER_FILES += \
     ../common/qml/elements/Memory.qml \
     ../common/qml/elements/StdKeyboard.qml \
     ../common/qml/elements/Popup.qml \
+    ../common/qml/elements/StackFlick.qml \
     ../TODO.txt \
     ../LICENSE \
     ../README

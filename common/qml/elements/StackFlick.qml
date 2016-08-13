@@ -13,6 +13,13 @@ Item{
 
     property alias highlighted : bg.highlighted
 
+    property int fontSize: 10
+    property string fontFamily: "helvetica"
+
+    property int horizontalScrollPadding: 5
+
+    property string dropIcon: ""
+
     signal pressAndHold()
     signal clicked()
 
@@ -32,7 +39,7 @@ Item{
             id: bg
 
             width: parent.width
-            height: Theme.fontSizeExtraLarge
+            height: root.fontSize
 
             property int flickableSize: bg.width - 10 - idLabel.width - 10 - flickable.anchors.rightMargin - (dropBtn.visible ? dropBtn.width + 10 : 0)
 
@@ -43,12 +50,12 @@ Item{
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.leftMargin: 10
 
-                height: Theme.fontSizeExtraLarge + 10
+                height: root.fontSize + 10
 
                 horizontalAlignment: Text.AlignLeft
                 verticalAlignment: Text.AlignVCenter
-                font.family: Theme.fontFamily
-                font.pixelSize: Theme.fontSizeExtraLarge
+                font.family: root.fontFamily
+                font.pixelSize: root.fontSize
 
                 text: String(invertedIndex) + ":"
             }
@@ -56,7 +63,7 @@ Item{
             Flickable {
                 id: flickable
 
-                height: Theme.fontSizeExtraLarge
+                height: root.fontSize
 
                 width: bg.flickableSize
 
@@ -70,7 +77,7 @@ Item{
                 clip: true
 
                 HorizontalScrollDecorator{
-                    height: Math.round(Theme.paddingSmall/4)
+                    height: Math.round(horizontalScrollPadding/4)
 
                     opacity: 0.5    // always visible
                 }
@@ -81,7 +88,7 @@ Item{
                     anchors.verticalCenter: parent.verticalCenter
 
                     width: Math.max(valueLabel.paintedWidth, bg.flickableSize)
-                    height: Theme.fontSizeExtraLarge + 10
+                    height: root.fontSize + 10
 
                     Label {
                         id: valueLabel
@@ -89,12 +96,12 @@ Item{
                         anchors.right: parent.right
                         anchors.verticalCenter: parent.verticalCenter
 
-                        height: Theme.fontSizeExtraLarge + 10
+                        height: root.fontSize + 10
 
                         horizontalAlignment: Text.AlignRight
                         verticalAlignment: Text.AlignVCenter
-                        font.family: Theme.fontFamily
-                        font.pixelSize: Theme.fontSizeExtraLarge
+                        font.family: root.fontFamily
+                        font.pixelSize: root.fontSize
                         truncationMode: TruncationMode.Fade
 
                         text: value
@@ -136,11 +143,11 @@ Item{
                 anchors.rightMargin: 10
 
                 width: height
-                height: Theme.fontSizeExtraLarge + 10
+                height: root.fontSize + 10
 
                 visible: invertedIndex === 1
 
-                icon.source: "image://Theme/icon-l-backspace"
+                icon.source: dropIcon
 
                 onClicked: {
                     stackDropFirst();

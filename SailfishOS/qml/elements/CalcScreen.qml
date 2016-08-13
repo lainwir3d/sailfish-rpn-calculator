@@ -53,6 +53,12 @@ Item{
 
                 width: view.width
 
+                fontSize: Theme.fontSizeExtraLarge
+                fontFamily: Theme.fontFamily
+                horizontalScrollPadding: Theme.paddingSmall
+
+                dropIcon: "image://Theme/icon-l-backspace"
+
                 onPressAndHold: {
                     if (!view.contextMenu)
                         view.contextMenu = contextMenuComponent.createObject(view);
