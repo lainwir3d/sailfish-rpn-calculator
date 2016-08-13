@@ -16,7 +16,7 @@ Item{
     property int fontSize: 10
     property string fontFamily: "helvetica"
 
-    property int horizontalScrollPadding: 5
+    property Component elementScrollDecorator: Item{}
 
     property string dropIcon: ""
 
@@ -76,10 +76,8 @@ Item{
 
                 clip: true
 
-                HorizontalScrollDecorator{
-                    height: Math.round(horizontalScrollPadding/4)
-
-                    opacity: 0.5    // always visible
+                Loader {
+                    sourceComponent: elementScrollDecorator
                 }
 
                 Item {

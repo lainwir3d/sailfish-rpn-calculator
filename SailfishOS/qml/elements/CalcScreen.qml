@@ -55,9 +55,14 @@ Item{
 
                 fontSize: Theme.fontSizeExtraLarge
                 fontFamily: Theme.fontFamily
-                horizontalScrollPadding: Theme.paddingSmall
 
                 dropIcon: "image://Theme/icon-l-backspace"
+
+                elementScrollDecorator: HorizontalScrollDecorator{
+                    height: Math.round(Theme.paddingSmall/4)
+
+                    opacity: 0.5    // always visible
+                }
 
                 onPressAndHold: {
                     if (!view.contextMenu)

@@ -144,6 +144,12 @@ Page {
         fontFamily: Theme.fontFamily
         horizontalScrollPadding: Theme.paddingSmall
 
+        elementScrollDecorator: HorizontalScrollDecorator{
+            height: Math.round(Theme.paddingSmall/4)
+
+            opacity: 0.5    // always visible
+        }
+
         backButton.onClicked: {
             formulaPop();
             /*
