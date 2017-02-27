@@ -1,5 +1,5 @@
 import QtQuick 2.0
-import Sailfish.Silica 1.0
+import QtQuick.Controls 1.4
 
 Item{
     id: operandEditor
@@ -19,6 +19,7 @@ Item{
     property string fontFamily: "helvetica"
 
     property Component elementScrollDecorator: Item{}
+    property int horizontalScrollPadding: 10
 
 /*
     IconButton{
@@ -107,7 +108,7 @@ Item{
                 verticalAlignment: Text.AlignVCenter
                 font.family: fontFamily
                 font.pixelSize: fontSize
-                truncationMode: TruncationMode.Fade
+                //truncationMode: TruncationMode.Fade
 
                 color: operandEditor.operandInvalid ? "red" : "white"
 

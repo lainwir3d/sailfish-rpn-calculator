@@ -1,5 +1,5 @@
 import QtQuick 2.0
-import Sailfish.Silica 1.0
+import QtQuick.Controls 1.4
 
 MouseArea {
     id: popup
@@ -21,7 +21,7 @@ MouseArea {
     opacity: 0.0
 
     Behavior on opacity {
-        FadeAnimation {}
+        //FadeAnimation {}
     }
 
     Rectangle {
@@ -53,7 +53,7 @@ MouseArea {
         if (color && (typeof(color) != "undefined"))
             bg.color = color
         else
-            bg.color = Theme.rgba(defaultColor, 0.9)
+            bg.color = Qt.rgba(defaultColor.r, defaultColor.g, defaultColor.b , 0.9)
         show()
     }
 

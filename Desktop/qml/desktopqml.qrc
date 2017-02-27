@@ -1,0 +1,10 @@
+<RCC>
+    <qresource prefix="/">
+        <file>rpncalc.qml</file>
+        <file>pages/MainPage.qml</file>
+        <file>pages/Settings.qml</file>
+        <file>pages/SymbolPage.qml</file>
+        <file>pages/WideLandscape.qml</file>
+        <file>elements/CalcScreen.qml</file>
+    </qresource>
+</RCC>

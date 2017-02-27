@@ -1,0 +1,12 @@
+<RCC>
+    <qresource prefix="/">
+        <file>elements/KeyboardButton.qml</file>
+        <file>elements/Memory.qml</file>
+        <file>elements/OperandEditor.qml</file>
+        <file>elements/Popup.qml</file>
+        <file>elements/StackFlick.qml</file>
+        <file>elements/StdKeyboard.qml</file>
+        <file>elements/CustomBackgroundItem.qml</file>
+        <file>elements/PythonGlue.qml</file>
+    </qresource>
+</RCC>

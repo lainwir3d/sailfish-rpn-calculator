@@ -30,3 +30,6 @@ OTHER_FILES += \
     ../TODO.txt \
     ../LICENSE \
     ../README
+
+RESOURCES += \
+    $$PWD/common/qml/commonqml.qrc

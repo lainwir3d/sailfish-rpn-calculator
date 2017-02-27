@@ -1,5 +1,5 @@
 import QtQuick 2.0
-import Sailfish.Silica 1.0
+import QtQuick.Controls 1.4
 
 Item{
     id: root
@@ -35,7 +35,7 @@ Item{
 
         spacing: 10
 
-        BackgroundItem {
+        CustomBackgroundItem {
             id: bg
 
             width: parent.width
@@ -100,7 +100,7 @@ Item{
                         verticalAlignment: Text.AlignVCenter
                         font.family: root.fontFamily
                         font.pixelSize: root.fontSize
-                        truncationMode: TruncationMode.Fade
+                        //truncationMode: TruncationMode.Fade
 
                         text: value
                     }
@@ -146,26 +146,24 @@ Item{
 
                 visible: invertedIndex === 1
 
-                source: dropIcon
+                //source: dropIcon
 
                 MouseArea{
                     anchors.fill: parent
 
                     onClicked: {
                         stackDropFirst();
-                        /*
+
                         if(settings.vibration()){
-                            vibration.start();
+                        //    vibration.start();
                         }
-                        */
+
                     }
                     onPressAndHold: {
                         stackDropAll();
-                        /*
                         if(settings.vibration()){
-                            longVibration.start();
+                            //longVibration.start();
                         }
-                        */
                     }
                 }
             }
