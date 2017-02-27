@@ -104,8 +104,11 @@ Item {
 
         padding: paddingSmall
 
-        defaultColor: secondaryHighlightColor
+        defaultColor: "black"
+        rectOpacity: 0.4
         labelMargin: marginSmall
+
+        pixelSize: 12
     }
 
     CalcScreen {

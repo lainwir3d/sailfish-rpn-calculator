@@ -70,75 +70,105 @@ Item
     }
 
     StackView {
-            id: stackView
-            anchors.fill:parent
-            initialItem: portraitView
+        id: stackView
+        anchors.fill:parent
+        initialItem: portraitView
 
-            delegate: StackViewDelegate {
-                function getTransition(properties)
-                {
-                    var transitionName = properties.enterItem.transitionName ? properties.enterItem.transitionName : properties.exitItem.transitionName ? properties.exitItem.transitionName : properties.name;
-                    return this[transitionName];
+        delegate: StackViewDelegate {
+            function getTransition(properties)
+            {
+                var transitionName = properties.enterItem.transitionName ? properties.enterItem.transitionName : properties.exitItem.transitionName ? properties.exitItem.transitionName : properties.name;
+                return this[transitionName];
+            }
+
+            function transitionFinished(properties)
+            {
+                properties.exitItem.x = 0;
+                properties.exitItem.y = 0;
+
+                properties.exitItem.opacity = 1
+            }
+
+            pushTransition: StackViewTransition {
+                PropertyAnimation {
+                    target: enterItem
+                    property: "x"
+                    from: target.width
+                    to: 0
+                    duration: 300
                 }
-
-                function transitionFinished(properties)
-                {
-                    properties.exitItem.x = 0;
-                    properties.exitItem.y = 0;
-
-                    properties.exitItem.opacity = 1
+                PropertyAnimation {
+                    target: exitItem
+                    property: "x"
+                    from: 0
+                    to: -target.width
+                    duration: 300
                 }
+            }
 
-                pushTransition: StackViewTransition {
-                    PropertyAnimation {
-                        target: enterItem
-                        property: "x"
-                        from: target.width
-                        to: 0
-                        duration: 300
-                    }
-                    PropertyAnimation {
-                        target: exitItem
-                        property: "x"
-                        from: 0
-                        to: -target.width
-                        duration: 300
-                    }
+            popTransition: StackViewTransition {
+                PropertyAnimation {
+                    target: enterItem
+                    property: "x"
+                    from: -target.width
+                    to: 0
+                    duration: 300
                 }
-
-                popTransition: StackViewTransition {
-                    PropertyAnimation {
-                        target: enterItem
-                        property: "x"
-                        from: -target.width
-                        to: 0
-                        duration: 300
-                    }
-                    PropertyAnimation {
-                        target: exitItem
-                        property: "x"
-                        from: 0
-                        to: target.width
-                        duration: 300
-                    }
+                PropertyAnimation {
+                    target: exitItem
+                    property: "x"
+                    from: 0
+                    to: target.width
+                    duration: 300
                 }
+            }
 
-                replaceTransition: fadeTransition
+            replaceTransition: fadeTransition
 
-                property Component fadeTransition: StackViewTransition {
-                    PropertyAnimation {
-                        target: enterItem
-                        property: "opacity"
-                        from: 0
-                        to: target.opacity
-                        duration: 300
-                    }
-                    PropertyAnimation {
-                        target: exitItem
-                        property: "opacity"
-                        from: target.opacity
-                        to: 0
-                        duration: 300
+            property Component fadeTransition: StackViewTransition {
+                PropertyAnimation {
+                    target: enterItem
+                    property: "opacity"
+                    from: 0
+                    to: target.opacity
+                    duration: 300
+                }
+                PropertyAnimation {
+                    target: exitItem
+                    property: "opacity"
+                    from: target.opacity
+                    to: 0
+                    duration: 300
+                }
+            }
+        }
+    }
+
+    Image {
+            id: background
+            anchors.fill: parent
+            z:-1
+
+            source: Qt.resolvedUrl("qrc:///bg.jpg")
+
+            visible: false
+        }
+
+        FastBlur{
+            anchors.fill: background
+            source: background
+            radius: 64
+
+            z:-1
+
+            MouseArea {
+                anchors.fill: parent
+
+                acceptedButtons: Qt.RightButton
+
+                onClicked: {
+                    if(stackView.depth > 1){
+                        stackView.pop();
                     }
                 }
             }
@@ -172,8 +202,6 @@ Item
         id: memory
         stack: currentStack
     }
-
-
 
     PythonGlue {
         id: python

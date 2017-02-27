@@ -16,6 +16,10 @@ MouseArea {
     property alias background: bg.color
 
     property color defaultColor: "cyan"
+    property color textColor: "white"
+
+    property real rectOpacity: 0.9
+    property int pixelSize: 32
 
     visible: opacity > 0
     opacity: 0.0
@@ -53,21 +57,26 @@ MouseArea {
         if (color && (typeof(color) != "undefined"))
             bg.color = color
         else
-            bg.color = Qt.rgba(defaultColor.r, defaultColor.g, defaultColor.b , 0.9)
+            bg.color = Qt.rgba(defaultColor.r, defaultColor.g, defaultColor.b , rectOpacity)
         show()
     }
 
     Label {
         id: message
+
         anchors.verticalCenter: popup.verticalCenter
-        font.pixelSize: 32
+
         anchors.left: parent.left
         anchors.leftMargin: labelMargin
         anchors.right: parent.right
         anchors.rightMargin: labelMargin
+
         horizontalAlignment: Text.AlignHCenter
         elide: Text.ElideRight
         wrapMode: Text.Wrap
+
+        font.pixelSize: popup.pixelSize
+        color: textColor
     }
 
     onClicked: hide()

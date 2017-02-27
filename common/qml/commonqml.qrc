@@ -8,5 +8,6 @@
         <file>elements/StdKeyboard.qml</file>
         <file>elements/CustomBackgroundItem.qml</file>
         <file>elements/PythonGlue.qml</file>
+        <file>elements/CustomGlassItem.qml</file>
     </qresource>
 </RCC>

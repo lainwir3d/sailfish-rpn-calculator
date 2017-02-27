@@ -1,4 +1,6 @@
 import QtQuick 2.0
+import QtQuick.Controls 1.4
+import "../elements"
 
 Item{
     id: calcScreen
@@ -8,8 +10,8 @@ Item{
 
     property alias view: listView
 
-    /*
-    GlassItem {
+
+    CustomGlassItem {
         id: divider
 
         anchors.top: parent.top
@@ -17,17 +19,17 @@ Item{
 
         objectName: "menuitem"
 
-        height: Theme.paddingLarge
+        height: 3
         width: parent.width
 
-        color: Theme.highlightColor
+        color: "lightblue"
         opacity : (listView.height >= listView.contentHeight) || listView.atYBeginning ? 0.0 : 1.0
 
         Behavior on opacity { NumberAnimation {duration: 500} }
 
-        cache: false
+        //cache: false
     }
-    */
+
 
     ListView {
         id: listView
@@ -150,8 +152,8 @@ Item{
         }
     }
 
-    /*
-    GlassItem {
+
+    CustomGlassItem {
         id: divider2
 
         anchors.top: listView.bottom
@@ -160,15 +162,15 @@ Item{
 
         objectName: "menuitem"
 
-        height: Theme.paddingLarge
+        height: 3
         width: parent.width
 
-        color: Theme.highlightColor
+        color: "lightblue"
         opacity: listView.atYEnd ? 0.0 : 1.0
 
         Behavior on opacity { NumberAnimation {duration: 500} }
 
-        cache: false
+        //cache: false
     }
-    */
+
 }
