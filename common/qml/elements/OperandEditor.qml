@@ -17,6 +17,8 @@ Item{
 
     property int fontSize: 10
     property string fontFamily: "helvetica"
+    property color fontColor: "black"
+    property color invalidFontColor: "red"
 
     property Component elementScrollDecorator: Item{}
     property int horizontalScrollPadding: 10
@@ -110,7 +112,7 @@ Item{
                 font.pixelSize: fontSize
                 //truncationMode: TruncationMode.Fade
 
-                color: operandEditor.operandInvalid ? "red" : "white"
+                color: operandEditor.operandInvalid ? operandEditor.invalidFontColor : operandEditor.fontColor
 
                 text: ""
 

@@ -189,6 +189,6 @@ Python {
     }
 
     function symbolsPushHandler(pageName, symbols){
-        stackObj.push(Qt.resolvedUrl("pages/SymbolPage.qml"), {"mainPage": stackObj.currentPage, "pageName": pageName, "symbols": symbols});
+        stackObj.push(Qt.resolvedUrl("qrc:///pages/SymbolPage.qml"), {"mainPage": stackObj.currentPage, "pageName": pageName, "symbols": symbols});
     }
 }

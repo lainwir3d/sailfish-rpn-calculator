@@ -14,9 +14,13 @@ Item {
     property int rowSpacing: 10
     property alias columnSpacing: keyboard.spacing
 
+    property color keyboardButtonFontColor: "black"
+    property color keyboardButtonLeftFontColor: "orange"
+    property color keyboardButtonRightFontColor: "lightblue"
+
     property color keyboardButtonBorderColor: "white"
-    property int keyboardButtonFontSize
-    property int keyboardButtonSecondaryFontSize
+    property int keyboardButtonFontSize: 11
+    property int keyboardButtonSecondaryFontSize: 8
 
     Column{
         id: keyboard
@@ -39,6 +43,10 @@ Item {
                 fontSize: keyboardButtonFontSize
                 secondaryFontSize: keyboardButtonSecondaryFontSize
 
+                fontColor: kbdItem.keyboardButtonFontColor
+                fontColorLeftOption: kbdItem.keyboardButtonLeftFontColor
+                fontColorRightOption: kbdItem.keyboardButtonRightFontColor
+
                 onClicked: {
                     formulaPush(actions[keyboard.action].visual,
                                 actions[keyboard.action].engine,
@@ -56,6 +64,10 @@ Item {
                 rectBorderColor: keyboardButtonBorderColor
                 fontSize: keyboardButtonFontSize
                 secondaryFontSize: keyboardButtonSecondaryFontSize
+
+                fontColor: kbdItem.keyboardButtonFontColor
+                fontColorLeftOption: kbdItem.keyboardButtonLeftFontColor
+                fontColorRightOption: kbdItem.keyboardButtonRightFontColor
 
                 onClicked: {
                     formulaPush(actions[keyboard.action].visual,
@@ -75,6 +87,10 @@ Item {
                 fontSize: keyboardButtonFontSize
                 secondaryFontSize: keyboardButtonSecondaryFontSize
 
+                fontColor: kbdItem.keyboardButtonFontColor
+                fontColorLeftOption: kbdItem.keyboardButtonLeftFontColor
+                fontColorRightOption: kbdItem.keyboardButtonRightFontColor
+
                 onClicked: {
                     formulaPush(actions[keyboard.action].visual,
                                 actions[keyboard.action].engine,
@@ -93,6 +109,10 @@ Item {
                 fontSize: keyboardButtonFontSize
                 secondaryFontSize: keyboardButtonSecondaryFontSize
 
+                fontColor: kbdItem.keyboardButtonFontColor
+                fontColorLeftOption: kbdItem.keyboardButtonLeftFontColor
+                fontColorRightOption: kbdItem.keyboardButtonRightFontColor
+
                 onClicked: {
                     formulaPush(actions[keyboard.action].visual,
                                 actions[keyboard.action].engine,
@@ -110,6 +130,10 @@ Item {
                 rectBorderColor: keyboardButtonBorderColor
                 fontSize: keyboardButtonFontSize
                 secondaryFontSize: keyboardButtonSecondaryFontSize
+
+                fontColor: kbdItem.keyboardButtonFontColor
+                fontColorLeftOption: kbdItem.keyboardButtonLeftFontColor
+                fontColorRightOption: kbdItem.keyboardButtonRightFontColor
 
                 onClicked: {
                     formulaPush(actions[keyboard.action].visual,
@@ -135,6 +159,10 @@ Item {
                 fontSize: keyboardButtonFontSize
                 secondaryFontSize: keyboardButtonSecondaryFontSize
 
+                fontColor: kbdItem.keyboardButtonFontColor
+                fontColorLeftOption: kbdItem.keyboardButtonLeftFontColor
+                fontColorRightOption: kbdItem.keyboardButtonRightFontColor
+
                 onClicked: {
                     formulaPush(actions[keyboard.action].visual,
                                 actions[keyboard.action].engine,
@@ -152,6 +180,10 @@ Item {
                 rectBorderColor: keyboardButtonBorderColor
                 fontSize: keyboardButtonFontSize
                 secondaryFontSize: keyboardButtonSecondaryFontSize
+
+                fontColor: kbdItem.keyboardButtonFontColor
+                fontColorLeftOption: kbdItem.keyboardButtonLeftFontColor
+                fontColorRightOption: kbdItem.keyboardButtonRightFontColor
 
                 onClicked: {
                     formulaPush(actions[keyboard.action].visual,
@@ -171,6 +203,10 @@ Item {
                 fontSize: keyboardButtonFontSize
                 secondaryFontSize: keyboardButtonSecondaryFontSize
 
+                fontColor: kbdItem.keyboardButtonFontColor
+                fontColorLeftOption: kbdItem.keyboardButtonLeftFontColor
+                fontColorRightOption: kbdItem.keyboardButtonRightFontColor
+
                 onClicked: {
                     formulaPush(actions[keyboard.action].visual,
                                 actions[keyboard.action].engine,
@@ -189,6 +225,10 @@ Item {
                 fontSize: keyboardButtonFontSize
                 secondaryFontSize: keyboardButtonSecondaryFontSize
 
+                fontColor: kbdItem.keyboardButtonFontColor
+                fontColorLeftOption: kbdItem.keyboardButtonLeftFontColor
+                fontColorRightOption: kbdItem.keyboardButtonRightFontColor
+
                 onClicked: {
                     formulaPush(actions[keyboard.action].visual,
                                 actions[keyboard.action].engine,
@@ -206,6 +246,10 @@ Item {
                 rectBorderColor: keyboardButtonBorderColor
                 fontSize: keyboardButtonFontSize
                 secondaryFontSize: keyboardButtonSecondaryFontSize
+
+                fontColor: kbdItem.keyboardButtonFontColor
+                fontColorLeftOption: kbdItem.keyboardButtonLeftFontColor
+                fontColorRightOption: kbdItem.keyboardButtonRightFontColor
 
                 onClicked: {
                     formulaPush(actions[keyboard.action].visual,
@@ -232,6 +276,10 @@ Item {
                 fontSize: keyboardButtonFontSize
                 secondaryFontSize: keyboardButtonSecondaryFontSize
 
+                fontColor: kbdItem.keyboardButtonFontColor
+                fontColorLeftOption: kbdItem.keyboardButtonLeftFontColor
+                fontColorRightOption: kbdItem.keyboardButtonRightFontColor
+
                 onClicked: {
                     formulaPush(actions[keyboard.action].visual,
                                 actions[keyboard.action].engine,
@@ -249,6 +297,10 @@ Item {
                 rectBorderColor: keyboardButtonBorderColor
                 fontSize: keyboardButtonFontSize
                 secondaryFontSize: keyboardButtonSecondaryFontSize
+
+                fontColor: kbdItem.keyboardButtonFontColor
+                fontColorLeftOption: kbdItem.keyboardButtonLeftFontColor
+                fontColorRightOption: kbdItem.keyboardButtonRightFontColor
 
                 onClicked: {
                     formulaPush(actions[keyboard.action].visual,
@@ -269,6 +321,10 @@ Item {
                 fontSize: keyboardButtonFontSize
                 secondaryFontSize: keyboardButtonSecondaryFontSize
 
+                fontColor: kbdItem.keyboardButtonFontColor
+                fontColorLeftOption: kbdItem.keyboardButtonLeftFontColor
+                fontColorRightOption: kbdItem.keyboardButtonRightFontColor
+
                 onClicked: {
                     formulaPush(actions[keyboard.action].visual,
                                 actions[keyboard.action].engine,
@@ -286,6 +342,10 @@ Item {
                 rectBorderColor: keyboardButtonBorderColor
                 fontSize: keyboardButtonFontSize
                 secondaryFontSize: keyboardButtonSecondaryFontSize
+
+                fontColor: kbdItem.keyboardButtonFontColor
+                fontColorLeftOption: kbdItem.keyboardButtonLeftFontColor
+                fontColorRightOption: kbdItem.keyboardButtonRightFontColor
 
                 onClicked: {
                     formulaPush(actions[keyboard.action].visual,
@@ -311,6 +371,10 @@ Item {
                 fontSize: keyboardButtonFontSize
                 secondaryFontSize: keyboardButtonSecondaryFontSize
 
+                fontColor: kbdItem.keyboardButtonFontColor
+                fontColorLeftOption: kbdItem.keyboardButtonLeftFontColor
+                fontColorRightOption: kbdItem.keyboardButtonRightFontColor
+
                 onClicked: {
                     formulaPush(actions[keyboard.action].visual,
                                 actions[keyboard.action].engine,
@@ -328,6 +392,10 @@ Item {
                 rectBorderColor: keyboardButtonBorderColor
                 fontSize: keyboardButtonFontSize
                 secondaryFontSize: keyboardButtonSecondaryFontSize
+
+                fontColor: kbdItem.keyboardButtonFontColor
+                fontColorLeftOption: kbdItem.keyboardButtonLeftFontColor
+                fontColorRightOption: kbdItem.keyboardButtonRightFontColor
 
                 onClicked: {
                     formulaPush(actions[keyboard.action].visual,
@@ -347,6 +415,10 @@ Item {
                 fontSize: keyboardButtonFontSize
                 secondaryFontSize: keyboardButtonSecondaryFontSize
 
+                fontColor: kbdItem.keyboardButtonFontColor
+                fontColorLeftOption: kbdItem.keyboardButtonLeftFontColor
+                fontColorRightOption: kbdItem.keyboardButtonRightFontColor
+
                 onClicked: {
                     formulaPush(actions[keyboard.action].visual,
                                 actions[keyboard.action].engine,
@@ -365,6 +437,10 @@ Item {
                 fontSize: keyboardButtonFontSize
                 secondaryFontSize: keyboardButtonSecondaryFontSize
 
+                fontColor: kbdItem.keyboardButtonFontColor
+                fontColorLeftOption: kbdItem.keyboardButtonLeftFontColor
+                fontColorRightOption: kbdItem.keyboardButtonRightFontColor
+
                 onClicked: {
                     formulaPush(actions[keyboard.action].visual,
                                 actions[keyboard.action].engine,
@@ -382,6 +458,10 @@ Item {
                 rectBorderColor: keyboardButtonBorderColor
                 fontSize: keyboardButtonFontSize
                 secondaryFontSize: keyboardButtonSecondaryFontSize
+
+                fontColor: kbdItem.keyboardButtonFontColor
+                fontColorLeftOption: kbdItem.keyboardButtonLeftFontColor
+                fontColorRightOption: kbdItem.keyboardButtonRightFontColor
 
                 onClicked: {
                     formulaPush(actions[keyboard.action].visual,
@@ -407,6 +487,10 @@ Item {
                 fontSize: keyboardButtonFontSize
                 secondaryFontSize: keyboardButtonSecondaryFontSize
 
+                fontColor: kbdItem.keyboardButtonFontColor
+                fontColorLeftOption: kbdItem.keyboardButtonLeftFontColor
+                fontColorRightOption: kbdItem.keyboardButtonRightFontColor
+
                 actions: [{text: '', visual:'', engine:'', type:'', enabled: true},
                 {text: ' ', visual:'', engine:'', type:'', enabled: true},
                 {text: ' ', visual:'', engine:'', type:'', enabled: true}]
@@ -430,6 +514,10 @@ Item {
                 fontSize: keyboardButtonFontSize
                 secondaryFontSize: keyboardButtonSecondaryFontSize
 
+                fontColor: kbdItem.keyboardButtonFontColor
+                fontColorLeftOption: kbdItem.keyboardButtonLeftFontColor
+                fontColorRightOption: kbdItem.keyboardButtonRightFontColor
+
                 onClicked: {
                     formulaPush(actions[keyboard.action].visual,
                                 actions[keyboard.action].engine,
@@ -447,6 +535,10 @@ Item {
                 rectBorderColor: keyboardButtonBorderColor
                 fontSize: keyboardButtonFontSize
                 secondaryFontSize: keyboardButtonSecondaryFontSize
+
+                fontColor: kbdItem.keyboardButtonFontColor
+                fontColorLeftOption: kbdItem.keyboardButtonLeftFontColor
+                fontColorRightOption: kbdItem.keyboardButtonRightFontColor
 
                 onClicked: {
                     formulaPush(actions[keyboard.action].visual,
@@ -466,6 +558,10 @@ Item {
                 fontSize: keyboardButtonFontSize
                 secondaryFontSize: keyboardButtonSecondaryFontSize
 
+                fontColor: kbdItem.keyboardButtonFontColor
+                fontColorLeftOption: kbdItem.keyboardButtonLeftFontColor
+                fontColorRightOption: kbdItem.keyboardButtonRightFontColor
+
                 onClicked: {
                     formulaPush(actions[keyboard.action].visual,
                                 actions[keyboard.action].engine,
@@ -483,6 +579,10 @@ Item {
                 rectBorderColor: keyboardButtonBorderColor
                 fontSize: keyboardButtonFontSize
                 secondaryFontSize: keyboardButtonSecondaryFontSize
+
+                fontColor: kbdItem.keyboardButtonFontColor
+                fontColorLeftOption: kbdItem.keyboardButtonLeftFontColor
+                fontColorRightOption: kbdItem.keyboardButtonRightFontColor
 
                 onClicked: {
                     formulaPush(actions[keyboard.action].visual,
@@ -512,6 +612,10 @@ Item {
                 fontSize: keyboardButtonFontSize
                 secondaryFontSize: keyboardButtonSecondaryFontSize
 
+                fontColor: kbdItem.keyboardButtonFontColor
+                fontColorLeftOption: kbdItem.keyboardButtonLeftFontColor
+                fontColorRightOption: kbdItem.keyboardButtonRightFontColor
+
                 onClicked: {
                     if(keyboard.action == 0){
                         keyboard.action = 2;
@@ -531,6 +635,10 @@ Item {
                 fontSize: keyboardButtonFontSize
                 secondaryFontSize: keyboardButtonSecondaryFontSize
 
+                fontColor: kbdItem.keyboardButtonFontColor
+                fontColorLeftOption: kbdItem.keyboardButtonLeftFontColor
+                fontColorRightOption: kbdItem.keyboardButtonRightFontColor
+
                 onClicked: {
                     formulaPush(actions[keyboard.action].visual,
                                 actions[keyboard.action].engine,
@@ -548,6 +656,10 @@ Item {
                 rectBorderColor: keyboardButtonBorderColor
                 fontSize: keyboardButtonFontSize
                 secondaryFontSize: keyboardButtonSecondaryFontSize
+
+                fontColor: kbdItem.keyboardButtonFontColor
+                fontColorLeftOption: kbdItem.keyboardButtonLeftFontColor
+                fontColorRightOption: kbdItem.keyboardButtonRightFontColor
 
                 onClicked: {
                     formulaPush(actions[keyboard.action].visual,
@@ -567,6 +679,10 @@ Item {
                 fontSize: keyboardButtonFontSize
                 secondaryFontSize: keyboardButtonSecondaryFontSize
 
+                fontColor: kbdItem.keyboardButtonFontColor
+                fontColorLeftOption: kbdItem.keyboardButtonLeftFontColor
+                fontColorRightOption: kbdItem.keyboardButtonRightFontColor
+
                 onClicked: {
                     formulaPush(actions[keyboard.action].visual,
                                 actions[keyboard.action].engine,
@@ -584,6 +700,10 @@ Item {
                 rectBorderColor: keyboardButtonBorderColor
                 fontSize: keyboardButtonFontSize
                 secondaryFontSize: keyboardButtonSecondaryFontSize
+
+                fontColor: kbdItem.keyboardButtonFontColor
+                fontColorLeftOption: kbdItem.keyboardButtonLeftFontColor
+                fontColorRightOption: kbdItem.keyboardButtonRightFontColor
 
                 onClicked: {
                     formulaPush(actions[keyboard.action].visual,
@@ -609,6 +729,10 @@ Item {
                 fontSize: keyboardButtonFontSize
                 secondaryFontSize: keyboardButtonSecondaryFontSize
 
+                fontColor: kbdItem.keyboardButtonFontColor
+                fontColorLeftOption: kbdItem.keyboardButtonLeftFontColor
+                fontColorRightOption: kbdItem.keyboardButtonRightFontColor
+
                 onClicked: {
                     if(keyboard.action == 0){
                         formulaPop()
@@ -631,6 +755,10 @@ Item {
                 fontSize: keyboardButtonFontSize
                 secondaryFontSize: keyboardButtonSecondaryFontSize
 
+                fontColor: kbdItem.keyboardButtonFontColor
+                fontColorLeftOption: kbdItem.keyboardButtonLeftFontColor
+                fontColorRightOption: kbdItem.keyboardButtonRightFontColor
+
                 onClicked: {
                     formulaPush(actions[keyboard.action].visual,
                                 actions[keyboard.action].engine,
@@ -648,6 +776,10 @@ Item {
                 rectBorderColor: keyboardButtonBorderColor
                 fontSize: keyboardButtonFontSize
                 secondaryFontSize: keyboardButtonSecondaryFontSize
+
+                fontColor: kbdItem.keyboardButtonFontColor
+                fontColorLeftOption: kbdItem.keyboardButtonLeftFontColor
+                fontColorRightOption: kbdItem.keyboardButtonRightFontColor
 
                 onClicked: {
                     formulaPush(actions[keyboard.action].visual,
@@ -667,6 +799,10 @@ Item {
                 fontSize: keyboardButtonFontSize
                 secondaryFontSize: keyboardButtonSecondaryFontSize
 
+                fontColor: kbdItem.keyboardButtonFontColor
+                fontColorLeftOption: kbdItem.keyboardButtonLeftFontColor
+                fontColorRightOption: kbdItem.keyboardButtonRightFontColor
+
                 onClicked: {
                     formulaPush(actions[keyboard.action].visual,
                                 actions[keyboard.action].engine,
@@ -684,6 +820,10 @@ Item {
                 rectBorderColor: keyboardButtonBorderColor
                 fontSize: keyboardButtonFontSize
                 secondaryFontSize: keyboardButtonSecondaryFontSize
+
+                fontColor: kbdItem.keyboardButtonFontColor
+                fontColorLeftOption: kbdItem.keyboardButtonLeftFontColor
+                fontColorRightOption: kbdItem.keyboardButtonRightFontColor
 
                 onClicked: {
                     formulaPush(actions[keyboard.action].visual,

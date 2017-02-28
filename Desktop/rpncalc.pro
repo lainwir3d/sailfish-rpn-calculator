@@ -23,7 +23,6 @@ OTHER_FILES += \
     rpm/harbour-rpncalc.spec \
     harbour-rpncalc.desktop \
     qml/cover/CoverPage.qml \
-    qml/elements/CalcScreen.qml \
     qml/pages/MainPage.qml \
     qml/cover/harbour-rpncalc.png \
     qml/rpncalc.qml \

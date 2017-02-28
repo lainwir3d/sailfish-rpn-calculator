@@ -15,6 +15,7 @@ Item{
 
     property int fontSize: 10
     property string fontFamily: "helvetica"
+    property color fontColor: "black"
 
     property Component elementScrollDecorator: Item{}
 
@@ -58,6 +59,7 @@ Item{
                 font.pixelSize: root.fontSize
 
                 text: String(invertedIndex) + ":"
+                color: root.fontColor
             }
 
             Flickable {
@@ -103,6 +105,7 @@ Item{
                         //truncationMode: TruncationMode.Fade
 
                         text: value
+                        color: root.fontColor
                     }
 
                     MouseArea {

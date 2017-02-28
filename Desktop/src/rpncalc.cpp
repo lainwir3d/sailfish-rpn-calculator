@@ -37,7 +37,7 @@ int main(int argc, char *argv[])
     view.show();
 #else
     view.setWidth(275);
-    view.setHeight(418);
+    view.setHeight(500);
     view.setResizeMode(QQuickView::SizeRootObjectToView);
     view.show();
 #endif

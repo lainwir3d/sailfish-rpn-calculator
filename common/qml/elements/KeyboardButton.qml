@@ -14,6 +14,9 @@ MouseArea {
 
     property int fontSize: mainLabel.font.pixelSize
     property int secondaryFontSize: fontSize / 2
+    property color fontColor: "black"
+    property color fontColorLeftOption: "orange"
+    property color fontColorRightOption: "lightblue"
 
     property string text;
     property variant actions: [{text: ' ', visual:'', engine:'', type:'', enabled: false},
@@ -38,7 +41,7 @@ MouseArea {
         horizontalAlignment: Text.AlignLeft
         font.pixelSize: secondaryFontSize - 2
 
-        color: "orange"
+        color: buttonRect.fontColorLeftOption
         text: actions[1].text
     }
 
@@ -53,7 +56,7 @@ MouseArea {
         horizontalAlignment: Text.AlignRight
         font.pixelSize: secondaryFontSize - 2
 
-        color: "lightblue"
+        color: buttonRect.fontColorRightOption
         text: actions[2].text
     }
 
@@ -78,6 +81,7 @@ MouseArea {
         text: actions[0].text
 
         font.pixelSize: fontSize
+        color: buttonRect.fontColor
     }
 
     /*

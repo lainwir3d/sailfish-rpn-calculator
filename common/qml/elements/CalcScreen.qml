@@ -1,5 +1,5 @@
 import QtQuick 2.0
-import QtQuick.Controls 1.4
+import Qt.labs.controls 1.0
 import "../elements"
 
 Item{
@@ -9,6 +9,13 @@ Item{
     property alias model: listView.model
 
     property alias view: listView
+
+    property color fontColor: "black"
+    property color glassItemColor: "lightblue"
+    property int fontSize: 12
+    property string fontFamily: "helvetica"
+
+    property string dropIconPath: ""
 
 
     CustomGlassItem {
@@ -22,7 +29,7 @@ Item{
         height: 3
         width: parent.width
 
-        color: "lightblue"
+        color: glassItemColor
         opacity : (listView.height >= listView.contentHeight) || listView.atYBeginning ? 0.0 : 1.0
 
         Behavior on opacity { NumberAnimation {duration: 500} }
@@ -38,7 +45,7 @@ Item{
 
         snapMode: ListView.NoSnap
 
-        //VerticalScrollDecorator {}
+        ScrollIndicator.vertical: ScrollIndicator { }
 
         property Item contextMenu
 
@@ -56,12 +63,15 @@ Item{
 
                 width: view.width
 
-                fontSize: fontSizeExtraLarge
-                //fontFamily: Theme.fontFamily
+                fontColor: calcScreen.fontColor
+                fontSize: calcScreen.fontSize
+                fontFamily: calcScreen.fontFamily
 
-                dropIcon: "image://Theme/icon-l-backspace"
+                dropIcon: calcScreen.dropIconPath
 
-                elementScrollDecorator: Item{} /*HorizontalScrollDecorator{
+                elementScrollDecorator: ScrollIndicator {
+                  orientation: Qt.Horizontal
+                } /*HorizontalScrollDecorator{
                     height: Math.round(Theme.paddingSmall/4)
 
                     opacity: 0.5    // always visible
@@ -162,10 +172,10 @@ Item{
 
         objectName: "menuitem"
 
-        height: 3
+        height: 2
         width: parent.width
 
-        color: "lightblue"
+        color: calcScreen.glassItemColor
         opacity: listView.atYEnd ? 0.0 : 1.0
 
         Behavior on opacity { NumberAnimation {duration: 500} }

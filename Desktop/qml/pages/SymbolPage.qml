@@ -1,10 +1,22 @@
 import QtQuick 2.0
-import Sailfish.Silica 1.0
+import QtQuick.Controls 1.4
+import "../elements"
 
-Page {
+Item {
     id: symbolPage
 
-    allowedOrientations: Screen.sizeCategory > Screen.Medium ? Orientation.All : Orientation.Portrait
+    property color primaryColor: "white"
+    property color secondaryHighlightColor: "white"
+    property color secondaryColor: "lightblue"
+    property int paddingSmall: 5
+    property int paddingMedium: 8
+    property int paddingLarge: 10
+    property int marginSmall: 5
+    property int fontSizeExtraSmall: 10
+    property int fontSizeExtraLarge: 14
+    property int fontSizeMedium: 12
+    property int fontSizeSmall: 11
+    property int fontSizeTiny: 8
 
     property var mainPage: parent
     property string pageName: "Symbols"
@@ -20,28 +32,23 @@ Page {
         id: symbolModel
     }
 
-    SilicaListView {
+    ListView {
         id: view
-
-        header: PageHeader {
-            id: header
-            title: pageName
-        }
 
         model: symbolModel
 
         anchors.fill: parent
 
-        delegate: BackgroundItem {
+        delegate: CustomBackgroundItem {
             width: ListView.view.width
 
             Label {
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.left: parent.left
-                anchors.margins: Theme.paddingLarge
+                anchors.margins: paddingLarge
 
                 text: displayName
-                color: highlighted ? Theme.highlightColor : Theme.primaryColor
+                color: highlighted ? highlightColor : primaryColor
             }
 
             onClicked: {

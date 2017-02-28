@@ -1,6 +1,7 @@
 <RCC>
     <qresource prefix="/">
         <file>elements/KeyboardButton.qml</file>
+		<file>elements/CalcScreen.qml</file>
         <file>elements/Memory.qml</file>
         <file>elements/OperandEditor.qml</file>
         <file>elements/Popup.qml</file>

@@ -1,6 +1,7 @@
 import QtQuick 2.0
 import io.thp.pyotherside 1.3
 import QtQuick.Controls 1.4
+import Qt.labs.controls 1.0
 import "../elements"
 //import QtFeedback 5.0
 
@@ -17,8 +18,10 @@ Item {
     property alias screen: calcScreen
     property alias notification: popup
 
+    property color primaryColor: "white"
     property color secondaryHighlightColor: "white"
     property color secondaryColor: "lightblue"
+
     property int paddingSmall: 5
     property int paddingMedium: 8
     property int paddingLarge: 10
@@ -26,6 +29,7 @@ Item {
     property int fontSizeExtraSmall: 10
     property int fontSizeExtraLarge: 14
     property int fontSizeMedium: 12
+    property int fontSizeSmall: 11
     property int fontSizeTiny: 8
 
     function formulaPush(visual, engine, type) {
@@ -119,11 +123,18 @@ Item {
         anchors.right: parent.right
 
         // Don't why I need 10 here... without it GlassItem is displayed too low
-        height: heightMeasurement.height + 10 > contentHeight ? contentHeight : heightMeasurement.height + 10
+        height: heightMeasurement.height + 10 > contentHeight ? contentHeight : heightMeasurement.height
 
         clip: true
 
         model: memory
+
+        fontColor: primaryColor
+        fontSize: fontSizeExtraLarge
+        fontFamily: "helvetica"
+        dropIconPath: "image://Theme/icon-l-backspace"
+
+        glassItemColor: "lightblue"
     }
 
     OperandEditor {
@@ -143,8 +154,12 @@ Item {
         fontSize: fontSizeExtraLarge
         fontFamily: fontFamily
         horizontalScrollPadding: paddingSmall
+        fontColor: primaryColor
+        invalidFontColor: "red"
 
-        elementScrollDecorator: Item{} /*HorizontalScrollDecorator{
+        elementScrollDecorator: ScrollIndicator {
+            orientation: Qt.Horizontal
+          } /*HorizontalScrollDecorator{
             height: Math.round(Theme.paddingSmall/4)
 
             opacity: 0.5    // always visible
@@ -219,7 +234,12 @@ Item {
 
         keyboardButtonBorderColor: secondaryColor
         keyboardButtonFontSize: fontSizeMedium
-        keyboardButtonSecondaryFontSize: fontSizeTiny
+        keyboardButtonSecondaryFontSize: fontSizeExtraSmall
+
+        keyboardButtonFontColor: primaryColor
+        keyboardButtonLeftFontColor: "orange"
+        keyboardButtonRightFontColor: "lightblue"
+
     }
 }
 
