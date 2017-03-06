@@ -11,6 +11,7 @@ Python {
     property var notificationObj
     property var stackObj
     property var memoryObj
+    property var settingsObj
 
     Component.onCompleted: {
         addImportPath(Qt.resolvedUrl('../python'));
@@ -29,8 +30,8 @@ Python {
 
         importModule('rpncalc_engine', function () {
             console.log("Module successfully imported. Loading engine.");
-            changeTrigonometricUnit(settings.angleUnit);
-            changeReprFloatPrecision(settings.reprFloatPrecision);
+            changeTrigonometricUnit(settingsObj.angleUnit);
+            changeReprFloatPrecision(settingsObj.reprFloatPrecision);
             newStackHandler([]);
 
            //stackView.pushAttached(Qt.resolvedUrl("pages/Settings.qml"));
@@ -41,10 +42,10 @@ Python {
         notificationObj.notify("Symbolic engine loaded");
         root.engineLoaded = true;
 
-        changeTrigonometricUnit(settings.angleUnit);
-        changeReprFloatPrecision(settings.reprFloatPrecision);
-        enableSymbolicMode(settings.symbolicMode);
-        enableAutoSimplify(settings.autoSimplify);
+        changeTrigonometricUnit(settingsObj.angleUnit);
+        changeReprFloatPrecision(settingsObj.reprFloatPrecision);
+        enableSymbolicMode(settingsObj.symbolicMode);
+        enableAutoSimplify(settingsObj.autoSimplify);
     }
 
     function expressionNotValidExceptionHandler(){

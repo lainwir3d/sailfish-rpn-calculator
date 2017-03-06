@@ -1,4 +1,4 @@
-import QtQuick 2.0
+import QtQuick 2.2
 import io.thp.pyotherside 1.3
 import QtQuick.Controls 1.4
 import Qt.labs.controls 1.0

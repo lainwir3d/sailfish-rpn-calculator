@@ -210,6 +210,7 @@ Item
         notificationObj: stackView.currentItem.notification
         stackObj: stackView
         memoryObj: memory
+        settingsObj: settings
     }
 }
 
