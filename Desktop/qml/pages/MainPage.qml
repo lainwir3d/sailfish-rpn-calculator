@@ -140,6 +140,12 @@ Item {
     OperandEditor {
         id: currentOperandEditor
 
+        focus: true
+
+        Component.onCompleted: {
+            forceActiveFocus();
+        }
+
         anchors.bottom: infosRow.top
         anchors.left: parent.left
         anchors.right: parent.right
@@ -172,6 +178,58 @@ Item {
         backButton.onPressAndHold: {
             formulaReset();
         }
+
+        Keys.onEnterPressed: python.processInput("enter", "stack")
+        Keys.onReturnPressed: python.processInput("enter", "stack")
+
+        Keys.onDigit0Pressed: python.processInput("0", "number")
+        Keys.onDigit1Pressed: python.processInput("1", "number")
+        Keys.onDigit2Pressed: python.processInput("2", "number")
+        Keys.onDigit3Pressed: python.processInput("3", "number")
+        Keys.onDigit4Pressed: python.processInput("4", "number")
+        Keys.onDigit5Pressed: python.processInput("5", "number")
+        Keys.onDigit6Pressed: python.processInput("6", "number")
+        Keys.onDigit7Pressed: python.processInput("7", "number")
+        Keys.onDigit8Pressed: python.processInput("8", "number")
+        Keys.onDigit9Pressed: python.processInput("9", "number")
+
+        Keys.onPressed: {
+            if(event.key == Qt.Key_E){
+                python.processInput("e", "exp")
+            }else if(event.key == Qt.Key_Backspace){
+                formulaPop();
+            }else if(event.key == Qt.Key_BraceLeft){
+
+            }else if(event.key == Qt.Key_BraceRight){
+
+            }else if(event.key == Qt.Key_Comma){
+                python.processInput(".", "real")
+            }else if(event.key == Qt.Key_Copy){
+
+            }else if(event.key == Qt.Key_Delete){
+                python.dropFirstStackOperand();
+            }else if(event.key == Qt.Key_Minus){
+                python.processInput("-", "operation")
+            }else if(event.key == Qt.Key_Percent){
+
+            }else if(event.key == Qt.Key_Period){
+                python.processInput(".", "real")
+            }else if(event.key == Qt.Key_Plus){
+                python.processInput("+", "operation")
+            }else if(event.key == Qt.Key_division){
+                python.processInput("div", "operation")
+            }else if(event.key == Qt.Key_Slash){
+                python.processInput("div", "operation")
+            }else if(event.key == Qt.Key_multiply){
+                python.processInput("mul", "operation")
+            }else if(event.key == Qt.Key_Asterisk){
+                python.processInput("mul", "operation")
+            }
+
+
+        }
+
+
     }
 
     Row {
