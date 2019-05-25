@@ -50,7 +50,8 @@ Full symbolic RPN calculator. Read http://en.wikipedia.org/wiki/Reverse_Polish_n
 %qtc_make %{?_smp_mflags}
 
 # >> build post
-cp -r /home/mersdk/share/projects/sailfish-rpn-calc/common/python_modules_src %qtc_builddir/
+echo %_builddir
+cp -r /home/mersdk/share/projects/Qt/sailfish-rpn-calculator/common/python_modules_src %_builddir/
 cd python_modules_src/
 
 tar xvf fastcache-1.0.2.tar.gz
@@ -124,7 +125,7 @@ rm -rf %{buildroot}/%{_datadir}/%{name}/bin
 
 cd ..
 
-cp /usr/lib/libpython3.4m.so.1.0 %{buildroot}/%{_datadir}/%{name}/lib/
+cp /usr/lib/libpython3.7m.so.1.0 %{buildroot}/%{_datadir}/%{name}/lib/
 cp /lib/libutil.so.1 %{buildroot}/%{_datadir}/%{name}/lib/libutil.so.1
 # << install post
 
