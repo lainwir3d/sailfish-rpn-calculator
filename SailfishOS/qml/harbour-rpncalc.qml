@@ -91,7 +91,7 @@ ApplicationWindow
     }
 
     onDeviceOrientationChanged: {
-/*
+
         if(deviceOrientation & Orientation.LandscapeMask){
             if((orientation & Orientation.PortraitMask) && (Screen.sizeCategory > Screen.Medium)){
                 pageStack.replaceAbove(0, wideLandscapeView);
@@ -101,7 +101,6 @@ ApplicationWindow
                 pageStack.replaceAbove(0, portraitView);
             }
         }
-*/
     }
 
     Memory {

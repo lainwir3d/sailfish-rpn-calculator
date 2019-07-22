@@ -43,7 +43,6 @@ Item{
         //cache: false
     }
 
-
     ListView {
         id: listView
 

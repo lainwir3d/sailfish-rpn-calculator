@@ -33,7 +33,7 @@ Python {
             changeReprFloatPrecision(settingsObj.reprFloatPrecision);
             newStackHandler([]);
 
-           //stackView.pushAttached(Qt.resolvedUrl("pages/Settings.qml"));
+           stackObj.pushAttached(Qt.resolvedUrl("../pages/Settings.qml"));
         });
     }
 
