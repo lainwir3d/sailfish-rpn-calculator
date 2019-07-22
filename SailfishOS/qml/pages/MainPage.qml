@@ -17,6 +17,24 @@ Page {
     property alias screen: calcScreen
     property alias notification: popup
 
+    property string fontFamily: Theme.fontFamily
+    property int fontSizeTiny: Theme.fontSizeTiny
+    property int fontSizeExtraSmall: Theme.fontSizeExtraSmall
+    property int fontSizeSmall: Theme.fontSizeSmall
+    property int fontSizeMedium: Theme.fontSizeMedium
+    property int fontSizeLarge: Theme.fontSizeLarge
+    property int fontSizeExtraLarge: Theme.fontSizeExtraLarge
+    property int fontSizeHuge: Theme.fontSizeHuge
+
+    property int paddingSmall: Theme.paddingSmall
+    property int paddingMedium: Theme.paddingMedium
+    property int paddingLarge: Theme.paddingLarge
+
+    property color primaryColor: Theme.primaryColor
+    property color highlightColor: Theme.highlightColor
+    property color secondaryColor: Theme.secondaryColor
+    property color secondaryHighlightColor: Theme.secondaryHighlightColor
+
     /*
     HapticsEffect {
         id: vibration
@@ -105,10 +123,10 @@ Page {
 
         timeout: 3000
 
-        padding: Theme.paddingSmall
+        padding: page.paddingSmall
 
-        defaultColor: Theme.secondaryHighlightColor
-        labelMargin: Theme.paddingSmall
+        defaultColor: page.secondaryHighlightColor
+        labelMargin: page.paddingSmall
     }
 
     CalcScreen {
@@ -117,6 +135,11 @@ Page {
         anchors.bottom: currentOperandEditor.top
         anchors.left: parent.left
         anchors.right: parent.right
+
+        fontColor: primaryColor
+        glassItemColor: "lightblue"
+        fontSize: page.fontSizeExtraLarge
+        fontFamily: page.fontFamily
 
         // Don't why I need 10 here... without it GlassItem is displayed too low
         height: heightMeasurement.height + 10 > contentHeight ? contentHeight : heightMeasurement.height + 10
@@ -140,9 +163,9 @@ Page {
 
         backIcon: "image://Theme/icon-l-backspace"
 
-        fontSize: Theme.fontSizeExtraLarge
-        fontFamily: Theme.fontFamily
-        horizontalScrollPadding: Theme.paddingSmall
+        fontSize: page.fontSizeExtraLarge
+        fontFamily: page.fontFamily
+        horizontalScrollPadding: page.paddingSmall
 
         elementScrollDecorator: HorizontalScrollDecorator{
             height: Math.round(Theme.paddingSmall/4)
@@ -181,22 +204,22 @@ Page {
 
         Label {
             text: !page.engineLoaded ? "IEEE754" : settings.rationalMode ? "Rational" : "IEEE754"
-            font.family: Theme.fontFamily
-            font.pixelSize: Theme.fontSizeExtraSmall
+            font.family: page.fontFamily
+            font.pixelSize: page.fontSizeExtraSmall
             //font.bold: !engineLoaded
 
-            color: !page.engineLoaded ? "red" : Theme.secondaryColor
+            color: !page.engineLoaded ? "red" : page.secondaryColor
         }
 
         Label {
             id: mode
 
             text: !page.engineLoaded ? "Degraded" : settings.symbolicMode ? "Symbolic" : "Numeric"
-            font.family: Theme.fontFamily
-            font.pixelSize: Theme.fontSizeExtraSmall
+            font.family: page.fontFamily
+            font.pixelSize: page.fontSizeExtraSmall
             //font.bold: !engineLoaded
 
-            color: !page.engineLoaded ? "red" : Theme.secondaryColor
+            color: !page.engineLoaded ? "red" : page.secondaryColor
         }
 
 
@@ -204,10 +227,10 @@ Page {
             id: unit
 
             text: settings.angleUnit
-            font.family: Theme.fontFamily
-            font.pixelSize: Theme.fontSizeExtraSmall
+            font.family: page.fontFamily
+            font.pixelSize: page.fontSizeExtraSmall
 
-            color: Theme.secondaryColor
+            color: page.secondaryColor
         }
 
     }
@@ -218,18 +241,18 @@ Page {
         anchors.left: parent.left
         anchors.right: parent.right
         anchors.bottom: parent.bottom
-        anchors.margins: Theme.paddingMedium
-        anchors.bottomMargin: Theme.paddingLarge
+        anchors.margins: page.paddingMedium
+        anchors.bottomMargin: page.paddingLarge
 
-        columnSpacing: Theme.paddingSmall
-        rowSpacing: Theme.paddingLarge
+        columnSpacing: page.paddingSmall
+        rowSpacing: page.paddingLarge
 
         buttonWidth: (width - (rowSpacing * 4)) / 5
         buttonHeigth: buttonWidth * 16/17
 
-        keyboardButtonBorderColor: Theme.secondaryColor
-        keyboardButtonFontSize: Theme.fontSizeMedium
-        keyboardButtonSecondaryFontSize: Theme.fontSizeTiny
+        keyboardButtonBorderColor: page.secondaryColor
+        keyboardButtonFontSize: page.fontSizeMedium
+        keyboardButtonSecondaryFontSize: page.fontSizeTiny
     }
 }
 
