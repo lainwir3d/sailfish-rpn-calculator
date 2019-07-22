@@ -1,5 +1,5 @@
-import QtQuick 2.0
-import Qt.labs.controls 1.0
+import QtQuick 2.5
+import Sailfish.Silica 1.0
 import "../elements"
 
 Item{
@@ -16,6 +16,12 @@ Item{
     property string fontFamily: "helvetica"
 
     property string dropIconPath: ""
+
+    property Component horizontalScrollDecorator: Item{}
+    property int horizontalScrollPadding: 10
+
+    property Component verticalScrollDecorator: Item{}
+    property int verticalScrollPadding: 10
 
 
     CustomGlassItem {
@@ -45,7 +51,10 @@ Item{
 
         snapMode: ListView.NoSnap
 
-        ScrollIndicator.vertical: ScrollIndicator { }
+        //ScrollIndicator.vertical: ScrollIndicator { }
+        Loader{
+            sourceComponent: verticalScrollDecorator
+        }
 
         property Item contextMenu
 
@@ -69,13 +78,7 @@ Item{
 
                 dropIcon: calcScreen.dropIconPath
 
-                elementScrollDecorator: ScrollIndicator {
-                  orientation: Qt.Horizontal
-                } /*HorizontalScrollDecorator{
-                    height: Math.round(Theme.paddingSmall/4)
-
-                    opacity: 0.5    // always visible
-                }*/
+                elementScrollDecorator: horizontalScrollDecorator
 
                 onPressAndHold: {
                     if (!view.contextMenu)

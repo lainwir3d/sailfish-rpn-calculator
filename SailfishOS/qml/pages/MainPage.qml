@@ -147,6 +147,21 @@ Page {
         clip: true
 
         model: memory
+
+
+        horizontalScrollPadding: page.paddingSmall
+        horizontalScrollDecorator: HorizontalScrollDecorator{
+            height: Math.round(page.paddingSmall/4)
+
+            opacity: 0.5    // always visible
+        }
+
+        verticalScrollPadding: page.paddingSmall
+        verticalScrollDecorator: VerticalScrollDecorator{
+            width: Math.round(page.paddingSmall/2)
+
+            opacity: 0.5    // always visible
+        }
     }
 
     OperandEditor {
@@ -167,8 +182,8 @@ Page {
         fontFamily: page.fontFamily
         horizontalScrollPadding: page.paddingSmall
 
-        elementScrollDecorator: HorizontalScrollDecorator{
-            height: Math.round(Theme.paddingSmall/4)
+        horizontalScrollDecorator: HorizontalScrollDecorator{
+            height: Math.round(page.paddingSmall/4)
 
             opacity: 0.5    // always visible
         }

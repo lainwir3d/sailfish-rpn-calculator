@@ -20,7 +20,7 @@ Item{
     property color fontColor: "black"
     property color invalidFontColor: "red"
 
-    property Component elementScrollDecorator: Item{}
+    property Component horizontalScrollDecorator: Item{}
     property int horizontalScrollPadding: 10
 
 /*
@@ -87,7 +87,7 @@ Item{
         }
 
         Loader{
-            sourceComponent: elementScrollDecorator
+            sourceComponent: horizontalScrollDecorator
         }
 
         Item {
