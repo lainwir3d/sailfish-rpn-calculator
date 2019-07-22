@@ -1,6 +1,5 @@
 import QtQuick 2.2
 import io.thp.pyotherside 1.3
-import QtQuick.Controls 1.2
 import QtGraphicalEffects 1.0
 import QtQuick.Window 2.2
 
@@ -14,7 +13,7 @@ Python {
     property var settingsObj
 
     Component.onCompleted: {
-        addImportPath(Qt.resolvedUrl('../python'));
+        addImportPath(Qt.resolvedUrl('../../python'));
 
         setHandler('currentOperand', currentOperandHandler);
         setHandler('newStack', newStackHandler);
