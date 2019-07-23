@@ -265,7 +265,11 @@ Page {
         buttonWidth: (width - (rowSpacing * 4)) / 5
         buttonHeigth: buttonWidth * 16/17
 
+        keyboardButtonFontColor: page.primaryColor
         keyboardButtonBorderColor: page.secondaryColor
+        keyboardButtonLeftFontColor: "orange"
+        keyboardButtonRightFontColor: page.secondaryHighlightColor
+
         keyboardButtonFontSize: page.fontSizeMedium
         keyboardButtonSecondaryFontSize: page.fontSizeTiny
     }

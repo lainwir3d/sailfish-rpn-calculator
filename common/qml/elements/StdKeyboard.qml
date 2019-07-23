@@ -479,7 +479,7 @@ Item {
             anchors.horizontalCenter: parent.horizontalCenter
 
             KeyboardButton {
-                rectColor: "orange"
+                rectColor: kbdItem.keyboardButtonLeftFontColor
                 rectOpacity: keyboard.action == 1 ? 0.7 : 0.3
 
                 mode: keyboard.action
@@ -600,7 +600,7 @@ Item {
             anchors.horizontalCenter: parent.horizontalCenter
 
             KeyboardButton {
-                rectColor: "lightblue"
+                rectColor: kbdItem.keyboardButtonRightFontColor
                 rectOpacity: keyboard.action == 2 ? 0.7 : 0.3
 
                 actions: [{text: '', visual:'', engine:'', type:'', enabled: true},
