@@ -17,6 +17,7 @@ OTHER_FILES += \
     ../common/icons/86x86/apps/harbour-rpncalc.png \
     ../common/icons/108x108/apps/harbour-rpncalc.png \
     ../common/icons/128x128/apps/harbour-rpncalc.png \
+    ../common/icons/172x172/apps/harbour-rpncalc.png \
     ../common/icons/256x256/apps/harbour-rpncalc.png \
     ../common/python/rpncalc_sympy_functions.py \
     ../common/python/rpncalc_constants.py \
