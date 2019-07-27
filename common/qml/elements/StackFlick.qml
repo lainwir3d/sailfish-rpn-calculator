@@ -1,6 +1,8 @@
 import QtQuick 2.0
 import Sailfish.Silica 1.0
 
+import QtGraphicalEffects 1.0
+
 Item{
     id: root
     height: columnA.height
@@ -20,6 +22,7 @@ Item{
     property Component elementScrollDecorator: Item{}
 
     property string dropIcon: ""
+    property color dropIconColor: "white"
 
     signal pressAndHold()
     signal clicked()
@@ -136,20 +139,35 @@ Item{
                 }
             }
 
-            Image{
-                id: dropBtn
 
+            Item{
+                id: dropBtn
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.right: parent.right
                 anchors.rightMargin: 10
-
 
                 width: height
                 height: root.fontSize + 10
 
                 visible: invertedIndex === 1
 
-                source: dropIcon
+                Image{
+                    id: dropImg
+
+
+                    source: dropIcon
+
+                    sourceSize: Qt.size(parent.width, parent.height)
+                    smooth: true
+                    visible: false
+
+                }
+
+                ColorOverlay {
+                    anchors.fill: dropImg
+                    source: dropImg
+                    color: dropIconColor
+                }
 
                 MouseArea{
                     anchors.fill: parent

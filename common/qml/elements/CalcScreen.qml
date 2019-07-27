@@ -16,6 +16,7 @@ Item{
     property string fontFamily: "helvetica"
 
     property string dropIconPath: ""
+    property color dropIconColor: "white"
 
     property Component horizontalScrollDecorator: Item{}
     property int horizontalScrollPadding: 10
@@ -77,6 +78,7 @@ Item{
                 fontFamily: calcScreen.fontFamily
 
                 dropIcon: calcScreen.dropIconPath
+                dropIconColor: calcScreen.dropIconColor
 
                 elementScrollDecorator: horizontalScrollDecorator
 

@@ -1,5 +1,6 @@
 import QtQuick 2.0
 import Sailfish.Silica 1.0
+import QtGraphicalEffects 1.0
 
 Item{
     id: operandEditor
@@ -14,6 +15,7 @@ Item{
     property int flickableSize: width - flickable.anchors.rightMargin - backBtn.width - 10
 
     property string backIcon: ""
+    property color backIconColor: "white"
 
     property int fontSize: 10
     property string fontFamily: "helvetica"
@@ -132,10 +134,22 @@ Item{
         width: height
         height: fontSize + 10
 
-        Image {
+        Item {
             anchors.fill: parent
 
-            source: backIcon
+            Image {
+                id: icon
+                source: backIcon
+                sourceSize: Qt.size(parent.width, parent.height)
+                smooth: true
+                visible: false
+            }
+
+            ColorOverlay {
+                anchors.fill: icon
+                source: icon
+                color: backIconColor
+            }
         }
     }
 }
