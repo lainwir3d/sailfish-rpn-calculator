@@ -94,8 +94,7 @@ Item{
 
         Component {
             id: contextMenuComponent
-            Item {}
-/*
+
             ContextMenu {
                 id: menu
 
@@ -163,7 +162,7 @@ Item{
                         }
                     }
                 }
-            }*/
+            }
         }
     }
 
