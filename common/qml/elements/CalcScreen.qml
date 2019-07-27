@@ -169,8 +169,7 @@ Item{
     CustomGlassItem {
         id: divider2
 
-        anchors.top: listView.bottom
-        anchors.topMargin: (height/2)*-1
+        anchors.bottom: listView.bottom
         anchors.horizontalCenter: parent.horizontalCenter
 
         objectName: "menuitem"
