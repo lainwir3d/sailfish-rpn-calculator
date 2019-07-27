@@ -149,7 +149,7 @@ Item{
 
                 visible: invertedIndex === 1
 
-                //source: dropIcon
+                source: dropIcon
 
                 MouseArea{
                     anchors.fill: parent

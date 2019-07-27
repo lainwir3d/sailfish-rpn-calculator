@@ -141,6 +141,8 @@ Page {
         fontSize: page.fontSizeExtraLarge
         fontFamily: page.fontFamily
 
+        dropIconPath: "image://Theme/icon-l-backspace"
+
         // Don't why I need 10 here... without it GlassItem is displayed too low
         height: heightMeasurement.height + 10 > contentHeight ? contentHeight : heightMeasurement.height + 10
 
