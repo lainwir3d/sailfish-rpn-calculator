@@ -181,6 +181,8 @@ Page {
         fontSize: page.fontSizeExtraLarge
         fontFamily: page.fontFamily
         horizontalScrollPadding: page.paddingSmall
+        fontColor: page.primaryColor
+        invalidFontColor: "red"
 
         horizontalScrollDecorator: HorizontalScrollDecorator{
             height: Math.round(page.paddingSmall/4)
