@@ -137,7 +137,7 @@ Page {
         anchors.right: parent.right
 
         fontColor: primaryColor
-        glassItemColor: "lightblue"
+        glassItemColor: page.highlightColor
         fontSize: page.fontSizeExtraLarge
         fontFamily: page.fontFamily
 
