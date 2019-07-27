@@ -150,6 +150,7 @@ Page {
 
         model: memory
 
+        scrollIndicatorHeight: page.paddingSmall
 
         horizontalScrollPadding: page.paddingSmall
         horizontalScrollDecorator: HorizontalScrollDecorator{

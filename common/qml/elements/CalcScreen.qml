@@ -23,6 +23,7 @@ Item{
     property Component verticalScrollDecorator: Item{}
     property int verticalScrollPadding: 10
 
+    property int scrollIndicatorHeight: 3
 
     CustomGlassItem {
         id: divider
@@ -32,7 +33,7 @@ Item{
 
         objectName: "menuitem"
 
-        height: 3
+        height: scrollIndicatorHeight
         width: parent.width
 
         color: glassItemColor
@@ -174,7 +175,7 @@ Item{
 
         objectName: "menuitem"
 
-        height: 2
+        height: scrollIndicatorHeight
         width: parent.width
 
         color: calcScreen.glassItemColor
