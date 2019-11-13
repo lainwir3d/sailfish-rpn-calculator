@@ -1,7 +1,6 @@
 import QtQuick 2.2
 import io.thp.pyotherside 1.3
-import QtQuick.Controls 1.4
-import Qt.labs.controls 1.0
+import QtQuick.Controls 2.13
 import "../elements"
 //import QtFeedback 5.0
 
@@ -163,7 +162,7 @@ Item {
         fontColor: primaryColor
         invalidFontColor: "red"
 
-        elementScrollDecorator: ScrollIndicator {
+        horizontalScrollDecorator: ScrollIndicator {
             orientation: Qt.Horizontal
           } /*HorizontalScrollDecorator{
             height: Math.round(Theme.paddingSmall/4)

@@ -33,7 +33,8 @@ Python {
             changeReprFloatPrecision(settingsObj.reprFloatPrecision);
             newStackHandler([]);
 
-           stackObj.pushAttached(Qt.resolvedUrl("../pages/Settings.qml"));
+           // this was sailfish only
+           //stackObj.pushAttached(Qt.resolvedUrl("../pages/Settings.qml"));
         });
     }
 
