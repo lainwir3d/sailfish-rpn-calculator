@@ -132,7 +132,7 @@ Item {
         fontColor: primaryColor
         fontSize: fontSizeExtraLarge
         fontFamily: "helvetica"
-        dropIconPath: "image://Theme/icon-l-backspace"
+        dropIconPath: Qt.resolvedUrl("qrc:///images/backspace.png")
 
         glassItemColor: "lightblue"
     }
@@ -155,7 +155,7 @@ Item {
         operand: page.currentOperand
         operandInvalid: page.currentOperandValid ? false : true  // <= lol
 
-        backIcon: "image://Theme/icon-l-backspace"
+        backIcon: Qt.resolvedUrl("qrc:///images/backspace.png")
 
         fontSize: fontSizeExtraLarge
         fontFamily: fontFamily

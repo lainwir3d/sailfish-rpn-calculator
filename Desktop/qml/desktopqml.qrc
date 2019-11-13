@@ -6,5 +6,6 @@
         <file>pages/SymbolPage.qml</file>
         <file>pages/WideLandscape.qml</file>
         <file alias="bg.jpg">../bg.jpg</file>
+        <file>images/backspace.png</file>
     </qresource>
 </RCC>
