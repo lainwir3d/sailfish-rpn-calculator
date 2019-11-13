@@ -34,3 +34,6 @@ include("../linux.pri")
 
 RESOURCES += \
     qml/desktopqml.qrc
+
+DISTFILES += \
+    ../common/qml/elements/Style.qml
