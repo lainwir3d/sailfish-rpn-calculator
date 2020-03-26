@@ -24,7 +24,7 @@ int main(int argc, char *argv[])
     QApplication app(argc, argv);
 
     QQuickView view;
-    view.setTitle("Zik Manager");
+    view.setTitle("RPNCalc");
 
     //QPixmap pixmap = QPixmap(":/icon.png");
     //view.setIcon(QIcon(pixmap));
