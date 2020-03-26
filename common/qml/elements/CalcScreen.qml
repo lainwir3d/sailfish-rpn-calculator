@@ -120,7 +120,7 @@ Item{
 
                 Row {
                     width: parent ? parent.width : Screen.width
-                    height: Theme.itemSizeSmall
+                    height: calcScreen.fontSize
                     CustomBackgroundItem {
                         width: parent.width / 3
                         Label{
