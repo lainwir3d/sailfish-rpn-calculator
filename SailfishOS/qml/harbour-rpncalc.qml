@@ -37,8 +37,18 @@ import "elements"
 ApplicationWindow
 {
     id: root
+      ListModel {
+        id: memory
 
-    initialPage: (Screen.sizeCategory > Screen.Medium) ? wideLandscapeView : portraitView
+        property var stack
+      }
+    initialPage: MainPage{
+        currentStack: root.currentStack
+        currentOperand: root.currentOperand
+        currentOperandValid: root.currentOperandValid
+        engineLoaded: root.engineLoaded
+    }
+    //(Screen.sizeCategory > Screen.Medium) ? wideLandscapeView : portraitView
     cover: Qt.resolvedUrl("cover/CoverPage.qml")
 
     property string currentOperand: ''
@@ -79,7 +89,7 @@ ApplicationWindow
         }
     }
 
-    Component {
+    /*Component {
         id: wideLandscapeView
 
         WideLandscape {
@@ -88,8 +98,8 @@ ApplicationWindow
             currentOperandValid: root.currentOperandValid
             engineLoaded: root.engineLoaded
         }
-    }
-
+    }*/
+/*
     onDeviceOrientationChanged: {
 
         if(deviceOrientation & Orientation.LandscapeMask){
@@ -102,11 +112,8 @@ ApplicationWindow
             }
         }
     }
+    */
 
-    Memory {
-        id: memory
-        stack: currentStack
-    }
 
     PythonGlue {
         id: python

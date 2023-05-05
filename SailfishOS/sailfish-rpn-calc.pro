@@ -17,7 +17,6 @@ include(../rpn-calc.pri)
 
 OTHER_FILES += \
     rpm/sailfish-rpn-calc.spec \
-    rpm/RPNCalc.yaml \
     rpm/harbour-rpncalc.spec \
     harbour-rpncalc.desktop \
     qml/cover/CoverPage.qml \
@@ -26,6 +25,16 @@ OTHER_FILES += \
     qml/harbour-rpncalc.qml \
     qml/pages/Settings.qml \
     qml/pages/SymbolPage.qml \
-    qml/pages/WideLandscape.qml
+    qml/pages/WideLandscape.qml \
+    qml/elements/KeyboardButton.qml \
+    qml/elements/CalcScreen.qml \
+    qml/elements/Memory.qml \
+    qml/elements/StdKeyboard.qml \
+    qml/elements/Popup.qml \
+    qml/elements/StackFlick.qml \
+    qml/elements/PythonGlue.qml \
+    qml/elements/CustomBackgroundItem.qml \
+    qml/elements/CustomGlassItem.qml \
+    qml/elements/OperandEditor.qml \
 
 include("../linux.pri")

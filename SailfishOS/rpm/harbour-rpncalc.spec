@@ -21,7 +21,11 @@ Group:      Qt/Qt
 License:    GPL
 URL:        https://github.com/lainwir3d/sailfish-rpn-calculator
 Source0:    %{name}-%{version}.tar.bz2
-Source100:  harbour-rpncalc.yaml
+Source1:    https://files.pythonhosted.org/packages/s/fastcache/fastcache-1.0.2.tar.gz
+Source2:    https://files.pythonhosted.org/packages/s/mpmath/mpmath-0.19.tar.gz
+Source3:    https://files.pythonhosted.org/packages/s/sympy/sympy-0.7.6.1.tar.gz
+Source4:    https://files.pythonhosted.org/packages/s/dice/dice-1.0.2.tar.gz
+
 Requires:   sailfishsilica-qt5 >= 0.10.9
 Requires:   pyotherside-qml-plugin-python3-qt5 >= 1.3.0
 BuildRequires:  pkgconfig(sailfishapp) >= 1.0.2
@@ -51,18 +55,14 @@ Full symbolic RPN calculator. Read http://en.wikipedia.org/wiki/Reverse_Polish_n
 
 # >> build post
 echo %_builddir
-cp -r /home/mersdk/share/projects/Qt/sailfish-rpn-calculator/common/python_modules_src %_builddir/
+cp -r ../common/python_modules_src %_builddir/
+
 cd python_modules_src/
 
 tar xvf fastcache-1.0.2.tar.gz
 cd fastcache-1.0.2
 python3 setup.py build
 cd ..
-
-#tar xvf numpy-1.9.2.tar.gz
-#cd numpy-1.9.2
-#python3 setup.py build
-#cd ..
 
 tar xvf sympy-0.7.6.1.tar.gz
 cd sympy-0.7.6.1
@@ -82,7 +82,6 @@ cd ..
 tar xvf dice-1.0.2.tar.gz
 cd dice-1.0.2
 python3 setup.py build
-cd ..
 
 cd ..
 # << build post
@@ -94,6 +93,7 @@ rm -rf %{buildroot}
 %qmake5_install
 
 # >> install post
+
 cd python_modules_src/
 
 cd fastcache-1.0.2
@@ -125,8 +125,8 @@ rm -rf %{buildroot}/%{_datadir}/%{name}/bin
 
 cd ..
 
-cp /usr/lib/libpython3.7m.so.1.0 %{buildroot}/%{_datadir}/%{name}/lib/
-cp /lib/libutil.so.1 %{buildroot}/%{_datadir}/%{name}/lib/libutil.so.1
+#cp /usr/lib/libpython3.7m.so.1.0 %{buildroot}/%{_datadir}/%{name}/lib/
+#cp /lib/libutil.so.1 %{buildroot}/%{_datadir}/%{name}/lib/libutil.so.1
 # << install post
 
 desktop-file-install --delete-original       \

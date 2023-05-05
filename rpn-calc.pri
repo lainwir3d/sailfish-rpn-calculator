@@ -22,13 +22,6 @@ OTHER_FILES += \
     ../common/python/rpncalc_sympy_functions.py \
     ../common/python/rpncalc_constants.py \
     ../common/python/rpncalc_engine.py \
-    ../common/qml/elements/KeyboardButton.qml \
-    ../common/qml/elements/CalcScreen.qml \
-    ../common/qml/elements/Memory.qml \
-    ../common/qml/elements/StdKeyboard.qml \
-    ../common/qml/elements/Popup.qml \
-    ../common/qml/elements/StackFlick.qml \
-    ../common/qml/elements/OperandEditor.qml \
     ../TODO.txt \
     ../LICENSE \
     ../README
@@ -36,5 +29,3 @@ OTHER_FILES += \
 RESOURCES += \
     $$PWD/common/qml/commonqml.qrc
 
-DISTFILES += \
-    $$PWD/common/qml/elements/CustomGlassItem.qml

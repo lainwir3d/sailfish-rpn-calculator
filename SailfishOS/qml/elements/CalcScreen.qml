@@ -1,4 +1,5 @@
 import QtQuick 2.5
+import Sailfish.Silica 1.0
 //import QtQuick.Controls 2.13
 import "../elements"
 
@@ -95,7 +96,7 @@ Item{
         Component {
             id: contextMenuComponent
 
-            Menu {
+            ContextMenu {
                 id: menu
 
                 property Item currentItem
@@ -123,6 +124,7 @@ Item{
                     height: calcScreen.fontSize
                     CustomBackgroundItem {
                         width: parent.width / 3
+                        height: Theme.itemSizeSmall
                         Label{
                             text: "Pick"
                             anchors.centerIn: parent
@@ -137,6 +139,7 @@ Item{
                     }
                     CustomBackgroundItem {
                         width: parent.width / 3
+                        height: Theme.itemSizeSmall
                         Label{
                             text: "Drop"
                             anchors.centerIn: parent
@@ -151,6 +154,7 @@ Item{
                     }
                     CustomBackgroundItem {
                         width: parent.width / 3
+                        height: Theme.itemSizeSmall
                         Label{
                             text: "Copy"
                             anchors.centerIn: parent
