@@ -1,6 +1,7 @@
 import QtQuick 2.0
 import Sailfish.Silica 1.0
 import io.thp.pyotherside 1.3
+
 import "../elements"
 //import QtFeedback 5.0
 
@@ -128,7 +129,6 @@ Page {
         defaultColor: page.secondaryHighlightColor
         labelMargin: page.paddingSmall
     }
-
     CalcScreen {
         id: calcScreen
 

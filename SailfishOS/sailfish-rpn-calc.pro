@@ -17,7 +17,6 @@ include(../rpn-calc.pri)
 
 OTHER_FILES += \
     rpm/sailfish-rpn-calc.spec \
-    rpm/RPNCalc.yaml \
     rpm/harbour-rpncalc.spec \
     harbour-rpncalc.desktop \
     qml/cover/CoverPage.qml \

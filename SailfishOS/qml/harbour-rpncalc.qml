@@ -42,12 +42,12 @@ ApplicationWindow
 
         property var stack
       }
-    initialPage: MainPage{
+    /*initialPage: MainPage{
         currentStack: root.currentStack
         currentOperand: root.currentOperand
         currentOperandValid: root.currentOperandValid
         engineLoaded: root.engineLoaded
-    }
+    }*/
     //(Screen.sizeCategory > Screen.Medium) ? wideLandscapeView : portraitView
     cover: Qt.resolvedUrl("cover/CoverPage.qml")
 
@@ -100,7 +100,7 @@ ApplicationWindow
         }
     }
 
- /*   onDeviceOrientationChanged: {
+    onDeviceOrientationChanged: {
 
         if(deviceOrientation & Orientation.LandscapeMask){
             if((orientation & Orientation.PortraitMask) && (Screen.sizeCategory > Screen.Medium)){
@@ -111,7 +111,7 @@ ApplicationWindow
                 pageStack.replaceAbove(0, portraitView);
             }
         }
-    }*/
+    }
 
 
     PythonGlue {

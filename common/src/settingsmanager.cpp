@@ -5,8 +5,8 @@ SettingsManager::SettingsManager(QObject *parent) :
 {
     settings = new QSettings("harbour-rpncalc", "harbour-rpncalc");
 
-    if(settings->value("vibration") == QVariant()) settings->setValue("vibration", 1);
-    if(settings->value("angle_unit") == QVariant()) settings->setValue("angle_unit", QString("DEG"));
+    if(settings->value("vibration") == QVariant()) settings->setValue("vibration", 0);
+    if(settings->value("angle_unit") == QVariant()) settings->setValue("angle_unit", QString("Degree"));
     if(settings->value("reprFloatPrecision") == QVariant()) settings->setValue("reprFloatPrecision", 9);
 
     if(settings->value("symbolicMode") == QVariant()) settings->setValue("symbolicMode", true);
