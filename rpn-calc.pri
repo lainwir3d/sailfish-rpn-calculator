@@ -29,5 +29,3 @@ OTHER_FILES += \
 RESOURCES += \
     $$PWD/common/qml/commonqml.qrc
 
-DISTFILES += \
-    $$PWD/common/qml/elements/CustomGlassItem.qml
